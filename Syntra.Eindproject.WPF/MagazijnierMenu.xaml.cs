@@ -16,11 +16,11 @@ using System.Windows.Shapes;
 namespace Syntra.Eindproject.WPF
 {
     /// <summary>
-    /// Interaction logic for Artikels.xaml
+    /// Interaction logic for MagazijnierMenu.xaml
     /// </summary>
-    public partial class Artikels : Page
+    public partial class MagazijnierMenu : Page
     {
-        public Artikels()
+        public MagazijnierMenu()
         {
             InitializeComponent();
         }
