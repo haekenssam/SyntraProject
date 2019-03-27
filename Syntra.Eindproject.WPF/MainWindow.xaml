@@ -7,6 +7,13 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
-        
+        <Frame Name="Frame" NavigationUIVisibility="Hidden"/>
+        <StackPanel >
+            <DockPanel>
+                <Menu DockPanel.Dock="Top">
+                    <MenuItem Name="btnArtikels" Header="Artikels" Click="BtnArtikels_Click"/>
+                </Menu>
+            </DockPanel>
+        </StackPanel>
     </Grid>
 </Window>

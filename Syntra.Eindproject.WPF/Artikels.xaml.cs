@@ -16,18 +16,13 @@ using System.Windows.Shapes;
 namespace Syntra.Eindproject.WPF
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for Artikels.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class Artikels : Page
     {
-        public MainWindow()
+        public Artikels()
         {
             InitializeComponent();
-        }
-
-        private void BtnArtikels_Click(object sender, RoutedEventArgs e)
-        {
-            Frame.Navigate(new Artikels());
         }
     }
 }

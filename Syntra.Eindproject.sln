@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Syntra.Eindproject.BL", "Sy
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Syntra.Eindproject.WPF", "Syntra.Eindproject.WPF\Syntra.Eindproject.WPF.csproj", "{249B584F-C727-463B-927C-2615651905A9}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Syntra.Eindproject.Dapper", "Syntra.Eindproject.Dapper\Syntra.Eindproject.Dapper.csproj", "{1235EFDD-66CF-4160-80F4-A580B7EE4CDD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{249B584F-C727-463B-927C-2615651905A9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{249B584F-C727-463B-927C-2615651905A9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{249B584F-C727-463B-927C-2615651905A9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1235EFDD-66CF-4160-80F4-A580B7EE4CDD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1235EFDD-66CF-4160-80F4-A580B7EE4CDD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1235EFDD-66CF-4160-80F4-A580B7EE4CDD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1235EFDD-66CF-4160-80F4-A580B7EE4CDD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
