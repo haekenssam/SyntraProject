@@ -1,4 +1,4 @@
-﻿<Page x:Class="Syntra.Eindproject.WPF.Artikels"
+﻿<Page x:Class="Syntra.Eindproject.WPF.MainMenu"
       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -7,8 +7,13 @@
       mc:Ignorable="d" 
       Background="White"
       d:DesignHeight="450" d:DesignWidth="800"
-      Title="Artikels">
-    <Label Content="Test" HorizontalAlignment="Left" Margin="427,183,0,0" VerticalAlignment="Top"/>
+      Title="MainMenu">
 
-
+    <Grid>
+        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center"  >
+            <Button Content="MagazijnierMenu"/>
+            <Button Content="KassiersterMenu"/>
+            <Button Content="KoperMenu"/>
+        </StackPanel>
+    </Grid>
 </Page>
