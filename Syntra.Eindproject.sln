@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.421
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Syntra.Eindproject.BL", "Syntra.Eindproject.BL\Syntra.Eindproject.BL.csproj", "{968382B7-A36E-4E8A-8607-EA9BF8F2893D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Syntra.Eindproject.WPF", "Syntra.Eindproject.WPF\Syntra.Eindproject.WPF.csproj", "{249B584F-C727-463B-927C-2615651905A9}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{968382B7-A36E-4E8A-8607-EA9BF8F2893D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{968382B7-A36E-4E8A-8607-EA9BF8F2893D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{968382B7-A36E-4E8A-8607-EA9BF8F2893D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{968382B7-A36E-4E8A-8607-EA9BF8F2893D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{249B584F-C727-463B-927C-2615651905A9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{249B584F-C727-463B-927C-2615651905A9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{249B584F-C727-463B-927C-2615651905A9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{249B584F-C727-463B-927C-2615651905A9}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {E51852DF-A56F-49DD-8252-ED37EED9F539}
+	EndGlobalSection
+EndGlobal
