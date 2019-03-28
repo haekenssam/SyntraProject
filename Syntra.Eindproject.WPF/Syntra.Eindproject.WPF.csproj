@@ -71,6 +71,7 @@
     <Compile Include="Artikels.xaml.cs">
       <DependentUpon>Artikels.xaml</DependentUpon>
     </Compile>
+    <Compile Include="DatabaseManager.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
@@ -106,6 +107,10 @@
     <ProjectReference Include="..\Syntra.Eindproject.BL\Syntra.Eindproject.BL.csproj">
       <Project>{968382b7-a36e-4e8a-8607-ea9bf8f2893d}</Project>
       <Name>Syntra.Eindproject.BL</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Syntra.Eindproject.Dapper\Syntra.Eindproject.Dapper.csproj">
+      <Project>{1235efdd-66cf-4160-80f4-a580b7ee4cdd}</Project>
+      <Name>Syntra.Eindproject.Dapper</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
