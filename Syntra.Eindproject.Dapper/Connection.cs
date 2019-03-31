@@ -18,7 +18,7 @@ namespace Syntra.Eindproject.Dapper
         {
             get
             {
-                if (string.IsNullOrWhiteSpace(_connectionString)
+                if (string.IsNullOrWhiteSpace(_connectionString))
                 {
                     throw new Exception("Set connectionString first");
                 }
