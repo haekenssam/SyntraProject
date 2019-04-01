@@ -17,6 +17,14 @@ namespace Syntra.Eindproject.BL
         public DateTime AanmaakDatum { get; set; }
         public DateTime VervalDatum { get; set; }
 
+        public Product( string naam, string soort, string oorsprong)
+        {
+            Naam = naam;
+            Soort = soort;
+            Oorsprong = oorsprong;
+
+        }
+
         //constructor
         public Product()
         { }

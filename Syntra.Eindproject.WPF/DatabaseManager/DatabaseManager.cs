@@ -13,6 +13,8 @@ namespace Syntra.Eindproject.WPF
 
         public static DatabaseManager Instance => _manager;
 
+        public ProductRepository ProductRepository => new ProductRepository();
+
         private DatabaseManager()
         {
             Connection.Instance.SetConnection("server=Eindproject; database=Syntra; User id= Syntra; password=Syntra123!");

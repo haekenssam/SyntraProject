@@ -6,6 +6,7 @@
       xmlns:local="clr-namespace:Syntra.Eindproject.WPF"
       mc:Ignorable="d"
       Background="AliceBlue"
+      Loaded="Page_Loaded"
       d:DesignHeight="450" d:DesignWidth="800"
       Title="MagazijnierPage">
 
@@ -60,8 +61,8 @@
 
             <Button Name="BtnWisProduct" Grid.Column="1" Grid.Row="0" Content="Wis product"></Button>
             <Button Name="BtnUpdateProduct" Grid.Column="1" Grid.Row="1" Content="Update product"></Button>
-            <Button Name="BtnVoegProductToe" Grid.Column="1" Grid.Row="2" Content="Voeg toe"></Button>
+            <Button Name="BtnVoegProductToe" Grid.Column="1" Grid.Row="2" Content="Voeg toe" Click="BtnVoegProductToe_Click"></Button>
         </Grid>
-        <ListView Name="LbProducts" Grid.Row="1" Grid.Column="0" ></ListView> 
+        <ListView Name="LbProducts" Grid.Row="1" Grid.Column="0" SelectionChanged="LbProducts_SelectionChanged" ></ListView> 
     </Grid>
 </Page>
