@@ -16,7 +16,7 @@ namespace Syntra.Eindproject.Dapper
             using (var connection = new SqlConnection(Connection.Instance.ConnectionString))
             {
                 return connection.Query<Product>(@"
-                        SELECT Id, Soort, Naam, Oorsprong, Prijs, Eenheid FROM PRODUCT ");
+                        SELECT Id, Naam, Soort, Oorsprong, Prijs, Eenheid, AanmaakDatum, VervalDatum FROM PRODUCT ");
             }
         }
 
@@ -24,15 +24,20 @@ namespace Syntra.Eindproject.Dapper
         {
             using(SqlConnection connection = new SqlConnection(Connection.Instance.ConnectionString))
             {
-                connection.Execute(@"insert into product (Naam, Soort, Oorsprong)
-                                    values ( @Naam, @Soort, @Oorsprong) ",
+                connection.Execute(@"insert into product (Id, Naam, Soort, Oorsprong, Prijs, Eenheid, AanmaakDatum, VervalDatum)
+                                    values (@Id, @Naam, @Soort, @Oorsprong, @Prijs, @Eenheid, @AanmaakDatum, @VervalDatum) ",
                                     new
                                     {
+                                        Id = product.Id,
                                         Naam = product.Naam,
                                         Soort = product.Soort,
-                                        Oorsprong = product.Oorsprong
+                                        Oorsprong = product.Oorsprong,
+                                        Prijs = product.Prijs,
+                                        Eenheid = product.Eenheid,
+                                        AanmaakDatum = product.AanmaakDatum,
+                                        VervalDatum = product.VervalDatum
                                     });
-                    
+    
             }
         }
     }

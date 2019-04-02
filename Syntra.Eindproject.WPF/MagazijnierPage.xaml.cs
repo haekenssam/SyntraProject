@@ -34,20 +34,27 @@ namespace Syntra.Eindproject.WPF
 
             List<Product> products = DatabaseManager.Instance.ProductRepository.GetProducts().ToList();
 
-            foreach (Product product in products)
-            {
-                ListViewItem item = new ListViewItem
-                {
-                    Tag = product,
-                    Content = product.Naam
-                };
-                LbProducts.Items.Add(item);
-            };
+            LbProducts.ItemsSource = products;
+
+            //foreach (Product product in products)
+            //{
+            //    ListViewItem item = new ListViewItem
+            //    {
+            //        Tag = product,
+            //        Content = product.Naam
+            //    };
+            //    LbProducts.Items.Add(item);
+            //};
         }
 
         private void BtnVoegProductToe_Click(object sender, RoutedEventArgs e)
         {
-            Product product = new Product(TxtNaam.Text, TxtSoort.Text, TxtOorsprong.Text);
+            double.TryParse(TxtPrijs.Text, out double prijs);
+            int.TryParse(TxtId.Text, out int id);
+            var dateAndTime = DateTime.Now;
+            var date = dateAndTime.Date;
+
+            Product product = new Product(id, TxtNaam.Text, TxtSoort.Text, TxtOorsprong.Text, prijs, TxtEenheid.Text, date, date);
             DatabaseManager.Instance.ProductRepository.InsertProduct(product);
 
             Initialize();

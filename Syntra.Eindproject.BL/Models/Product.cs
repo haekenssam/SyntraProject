@@ -8,7 +8,7 @@ namespace Syntra.Eindproject.BL
 {
     public class Product
     {
-        public double Id { get; set; }
+        public int Id { get; set; }
         public string Soort { get; set; }
         public string Naam { get; set; }
         public string Oorsprong { get; set; }
@@ -17,11 +17,16 @@ namespace Syntra.Eindproject.BL
         public DateTime AanmaakDatum { get; set; }
         public DateTime VervalDatum { get; set; }
 
-        public Product( string naam, string soort, string oorsprong)
+        public Product(int id, string naam, string soort, string oorsprong, double prijs, string eenheid, DateTime aanmaakdatum, DateTime vervaldatum)
         {
+            Id = id;
             Naam = naam;
             Soort = soort;
             Oorsprong = oorsprong;
+            Prijs = prijs;
+            Eenheid = eenheid;
+            AanmaakDatum = aanmaakdatum;
+            VervalDatum = vervaldatum;
 
         }
 
