@@ -54,8 +54,8 @@
         </Grid>
         <Grid Grid.Row="1" Grid.Column="1">
             <StackPanel Grid.Row="1" Grid.Column="1">
-                <Button Name="BtnWisProduct"  Content="Wis product" Height="60"></Button>
-                <Button Name="BtnUpdateProduct"  Content="Update product" Height="60"></Button>
+                <Button Name="BtnWisProduct"  Content="Wis product" Height="60" Click="BtnWisProduct_Click"></Button>
+                <Button Name="BtnUpdateProduct"  Content="Update product" Height="60" Click="BtnUpdateProduct_Click"></Button>
                 <Button Name="BtnVoegProductToe"  Content="Voeg toe" Height="60" Click="BtnVoegProductToe_Click"></Button>
                 <Button Name="BtnBekijkFichde" Content="Fiche" Height="60"></Button>
             </StackPanel>
@@ -71,7 +71,7 @@
                     <GridViewColumn Header="Prijs" DisplayMemberBinding="{Binding Prijs}" Width="Auto"/>
                     <GridViewColumn Header="Eenheid" DisplayMemberBinding="{Binding Eenheid}" Width="Auto"/>
                     <GridViewColumn Header="Aanmaakdatum" DisplayMemberBinding="{Binding AanmaakDatum}" Width="Auto"/>
-                    <GridViewColumn Header="Vervaldatum" DisplayMemberBinding="{Binding Vervaldatum}" Width="Auto"/>
+                    <GridViewColumn Header="Vervaldatum" DisplayMemberBinding="{Binding VervalDatum}" Width="Auto"/>
                 </GridView>
             </ListView.View>
         </ListView> 

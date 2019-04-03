@@ -26,6 +26,7 @@ namespace Syntra.Eindproject.WPF
             InitializeComponent();
         }
 
+        #region Initialize
         private void Initialize()
         {
             TxtNaam.Text = string.Empty;
@@ -38,7 +39,7 @@ namespace Syntra.Eindproject.WPF
 
             List<Product> products = DatabaseManager.Instance.ProductRepository.GetProducts().ToList();
 
-            LbProducts.ItemsSource = products; //Listview DisplayMemberBinding
+            LbProducts.ItemsSource = products;                           //Listview DisplayMemberBinding
 
             //foreach (Product product in products)
             //{
@@ -50,20 +51,23 @@ namespace Syntra.Eindproject.WPF
             //    LbProducts.Items.Add(item);
             //};
         }
-
+        #endregion
+        #region AddProduct
         private void BtnVoegProductToe_Click(object sender, RoutedEventArgs e)
         {
             double.TryParse(TxtPrijs.Text, out double prijs);
             int.TryParse(TxtId.Text, out int id);
             var dateAndTime = DateTime.Now;
-            var date = dateAndTime.Date;                              //.ToShortDateString();
+            var date = dateAndTime.Date;                              //.ToShortDateString --> maar AanmaakDatum is DateTime?
+            DateTime test = Convert.ToDateTime(TxtVervalDatum.Text);
 
-            Product product = new Product(id, TxtNaam.Text, TxtSoort.Text, TxtOorsprong.Text, prijs, TxtEenheid.Text, date, date);
+            Product product = new Product(id, TxtNaam.Text, TxtSoort.Text, TxtOorsprong.Text, prijs, TxtEenheid.Text, date, test);
             DatabaseManager.Instance.ProductRepository.InsertProduct(product);
 
             Initialize();
         }
-
+        #endregion
+        #region GetCurrentProduct
         private void LbProducts_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             Product product = GetSelectedProduct();
@@ -76,9 +80,11 @@ namespace Syntra.Eindproject.WPF
                 TxtOorsprong.Text = product.Oorsprong;
                 TxtPrijs.Text = product.Prijs.ToString();
                 TxtEenheid.Text = product.Eenheid;
+                TxtVervalDatum.Text = product.VervalDatum.ToShortDateString();
             }
         }
-
+        #endregion
+        #region GetSelectedProduct
         private Product GetSelectedProduct()
         {
             //if (LbProducts.SelectedItem != null)
@@ -94,10 +100,45 @@ namespace Syntra.Eindproject.WPF
 
             return current;
         }
+        #endregion
+        #region DeleteProduct
+        private void BtnWisProduct_Click(object sender, RoutedEventArgs e)
+        {
+            Product product = GetSelectedProduct();
 
+            if (product != null)
+            {
+                DatabaseManager.Instance.ProductRepository.DeleteProduct(product.Id, product.Naam);
+
+                Initialize();
+            }
+
+        }
+        #endregion
+        #region PageLoadedInitialize
         private void Page_Loaded(object sender, RoutedEventArgs e)
         {
             Initialize();
+        }
+        #endregion
+
+        private void BtnUpdateProduct_Click(object sender, RoutedEventArgs e)
+        {
+            Product product = GetSelectedProduct();
+
+            if (product != null && int.TryParse(TxtId.Text, out int id) && int.TryParse(TxtPrijs.Text, out int prijs))
+            {
+                product.Id = id;
+                product.Naam = TxtNaam.Text;
+                product.Soort = TxtSoort.Text;
+                product.Oorsprong = TxtOorsprong.Text;
+                product.Prijs = prijs;
+                product.VervalDatum = Convert.ToDateTime(TxtVervalDatum.Text);
+
+                DatabaseManager.Instance.ProductRepository.UpdateProduct(product);
+
+                Initialize();
+            }
         }
     }
 }

@@ -10,8 +10,11 @@
       Title="MainMenu">
 
     <Grid>
+        <Border BorderBrush="White" BorderThickness="10" Padding="5">
+            <Label Background="Gray" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center" FontSize="42">Fruitmarkt</Label>
+        </Border>
         <DockPanel>
-            <StackPanel DockPanel.Dock="Right" Orientation="Horizontal" VerticalAlignment="Center" HorizontalAlignment="Center">
+            <StackPanel DockPanel.Dock="Right" Orientation="Vertical" VerticalAlignment="Center" HorizontalAlignment="Center">
                 <Button Name="btnMagazijnier" Content="Magazijnier" Click="BtnMagazijnier_Click"/>
                 <Button Name="btnVerkoopster" Content="Kassierster"/>
                 <Button Name="btnKlant" Content="Klant"/>
