@@ -36,6 +36,7 @@ namespace Syntra.Eindproject.WPF
             TxtPrijs.Text = string.Empty;
             TxtEenheid.Text = string.Empty;
             TxtVervalDatum.Text = string.Empty;
+            TxtStock.Text = string.Empty;
 
             List<Product> products = DatabaseManager.Instance.ProductRepository.GetProducts().ToList();
 
@@ -57,11 +58,12 @@ namespace Syntra.Eindproject.WPF
         {
             double.TryParse(TxtPrijs.Text, out double prijs);
             int.TryParse(TxtId.Text, out int id);
+            double.TryParse(TxtStock.Text, out double stock);
             var dateAndTime = DateTime.Now;
             var date = dateAndTime.Date;                              //.ToShortDateString --> maar AanmaakDatum is DateTime?
             DateTime test = Convert.ToDateTime(TxtVervalDatum.Text);
 
-            Product product = new Product(id, TxtNaam.Text, TxtSoort.Text, TxtOorsprong.Text, prijs, TxtEenheid.Text, date, test);
+            Product product = new Product(id, TxtNaam.Text, TxtSoort.Text, TxtOorsprong.Text, prijs, TxtEenheid.Text, date, test, stock);
             DatabaseManager.Instance.ProductRepository.InsertProduct(product);
 
             Initialize();
@@ -81,6 +83,7 @@ namespace Syntra.Eindproject.WPF
                 TxtPrijs.Text = product.Prijs.ToString();
                 TxtEenheid.Text = product.Eenheid;
                 TxtVervalDatum.Text = product.VervalDatum.ToShortDateString();
+                TxtStock.Text = product.Stock.ToString();
             }
         }
         #endregion
@@ -126,7 +129,7 @@ namespace Syntra.Eindproject.WPF
         {
             Product product = GetSelectedProduct();
 
-            if (product != null && int.TryParse(TxtId.Text, out int id) && int.TryParse(TxtPrijs.Text, out int prijs))
+            if (product != null && int.TryParse(TxtId.Text, out int id) && int.TryParse(TxtPrijs.Text, out int prijs) && double.TryParse(TxtStock.Text, out double stock))
             {
                 product.Id = id;
                 product.Naam = TxtNaam.Text;
@@ -134,6 +137,7 @@ namespace Syntra.Eindproject.WPF
                 product.Oorsprong = TxtOorsprong.Text;
                 product.Prijs = prijs;
                 product.VervalDatum = Convert.ToDateTime(TxtVervalDatum.Text);
+                product.Stock += stock;
 
                 DatabaseManager.Instance.ProductRepository.UpdateProduct(product);
 

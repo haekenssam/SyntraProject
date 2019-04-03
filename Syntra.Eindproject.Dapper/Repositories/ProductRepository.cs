@@ -16,7 +16,7 @@ namespace Syntra.Eindproject.Dapper
             using (var connection = new SqlConnection(Connection.Instance.ConnectionString))
             {
                 return connection.Query<Product>(@"
-                        SELECT Id, Naam, Soort, Oorsprong, Prijs, Eenheid, AanmaakDatum, VervalDatum FROM PRODUCT ");
+                        SELECT Id, Naam, Soort, Oorsprong, Prijs, Eenheid, AanmaakDatum, VervalDatum, Stock FROM PRODUCT ");
             }
         }
 
@@ -24,8 +24,8 @@ namespace Syntra.Eindproject.Dapper
         {
             using(SqlConnection connection = new SqlConnection(Connection.Instance.ConnectionString))
             {
-                connection.Execute(@"insert into product (Id, Naam, Soort, Oorsprong, Prijs, Eenheid, AanmaakDatum, VervalDatum)
-                                    values (@Id, @Naam, @Soort, @Oorsprong, @Prijs, @Eenheid, @AanmaakDatum, @VervalDatum) ",
+                connection.Execute(@"insert into product (Id, Naam, Soort, Oorsprong, Prijs, Eenheid, AanmaakDatum, VervalDatum, Stock)
+                                    values (@Id, @Naam, @Soort, @Oorsprong, @Prijs, @Eenheid, @AanmaakDatum, @VervalDatum, @Stock) ",
                                     new
                                     {
                                         Id = product.Id,
@@ -35,7 +35,8 @@ namespace Syntra.Eindproject.Dapper
                                         Prijs = product.Prijs,
                                         Eenheid = product.Eenheid,
                                         AanmaakDatum = product.AanmaakDatum,
-                                        VervalDatum = product.VervalDatum
+                                        VervalDatum = product.VervalDatum,
+                                        Stock = product.Stock
                                     });
     
             }
@@ -59,7 +60,7 @@ namespace Syntra.Eindproject.Dapper
             using(SqlConnection connection = new SqlConnection(Connection.Instance.ConnectionString))
             {
                 connection.Execute(@"update product set Id = @id, Naam = @naam, Soort = @soort, Oorsprong = @oorsprong, Prijs = @prijs, 
-                                     Eenheid = @Eenheid, AanmaakDatum = @AanmaakDatum, VervalDatum = @vervaldatum where Id = @id ",
+                                     Eenheid = @Eenheid, AanmaakDatum = @AanmaakDatum, VervalDatum = @vervaldatum, Stock = @stock where Id = @id ",
                                      new
                                      {
                                          Id = product.Id,
@@ -69,7 +70,8 @@ namespace Syntra.Eindproject.Dapper
                                          Prijs = product.Prijs,
                                          Eenheid = product.Eenheid,
                                          AanmaakDatum = product.AanmaakDatum,
-                                         VervalDatum = product.VervalDatum
+                                         VervalDatum = product.VervalDatum,
+                                         Stock = product.Stock
                                      });
             }
         }
