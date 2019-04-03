@@ -121,7 +121,7 @@ namespace Syntra.Eindproject.WPF
             Initialize();
         }
         #endregion
-
+        #region UpdateProduct
         private void BtnUpdateProduct_Click(object sender, RoutedEventArgs e)
         {
             Product product = GetSelectedProduct();
@@ -140,5 +140,6 @@ namespace Syntra.Eindproject.WPF
                 Initialize();
             }
         }
+        #endregion
     }
 }
