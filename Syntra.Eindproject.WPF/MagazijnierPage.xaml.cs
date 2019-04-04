@@ -145,5 +145,12 @@ namespace Syntra.Eindproject.WPF
             }
         }
         #endregion
+
+        private void CbVervallen_Checked(object sender, RoutedEventArgs e)
+        {
+            CbAlles.IsChecked = false;
+            List<Product> products = DatabaseManager.Instance.ProductRepository.GetBadProduct().ToList();
+            LbProducts.ItemsSource = products;
+        }
     }
 }

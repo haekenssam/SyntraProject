@@ -18,6 +18,7 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="150"/>
+            
         </Grid.ColumnDefinitions>
         
         <Grid Grid.Row="0" Grid.Column="0">
@@ -33,35 +34,41 @@
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="50"/>
                 <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
             <Label Grid.Row="0" Grid.Column="0">Id:</Label>
-            <TextBox Name="TxtId" Grid.Row="0" Grid.Column="1"></TextBox>
+            <TextBox Name="TxtId" Grid.Row="0" Grid.Column="1" TextAlignment="Center"></TextBox>
             
             <Label Grid.Row="0" Grid.Column="2">Oorsprong:</Label>
-            <TextBox Name="TxtOorsprong" Grid.Row="0" Grid.Column="3"></TextBox>
+            <TextBox Name="TxtOorsprong" Grid.Row="0" Grid.Column="3" TextAlignment="Center"></TextBox>
 
             <Label Grid.Row="1" Grid.Column="0">Naam:</Label>
-            <TextBox Name="TxtNaam" Grid.Row="1" Grid.Column="1"></TextBox>
+            <TextBox Name="TxtNaam" Grid.Row="1" Grid.Column="1" TextAlignment="Center"></TextBox>
 
             <Label Grid.Row="2" Grid.Column="0">Vervaldatum:</Label>
-            <TextBox Name="TxtVervalDatum" Grid.Row="2" Grid.Column="1"></TextBox>
+            <TextBox Name="TxtVervalDatum" Grid.Row="2" Grid.Column="1" TextAlignment="Center"></TextBox>
 
             <Label Grid.Row="1" Grid.Column="2">Soort:</Label>
-            <TextBox Name="TxtSoort" Grid.Row="1" Grid.Column="3"></TextBox>
+            <TextBox Name="TxtSoort" Grid.Row="1" Grid.Column="3" TextAlignment="Center"></TextBox>
 
             <Label Grid.Row="2" Grid.Column="2">Prijs/eenheid:</Label>
-            <TextBox Name="TxtPrijs" Grid.Row="2" Grid.Column="3"></TextBox>
-            <TextBox Name="TxtEenheid" Grid.Row="2" Grid.Column="4"></TextBox>
+            <TextBox Name="TxtPrijs" Grid.Row="2" Grid.Column="3" TextAlignment="Center"></TextBox>
+            <TextBox Name="TxtEenheid" Grid.Row="2" Grid.Column="4" TextAlignment="Center"></TextBox>
 
-            <Label Grid.Column="4" Grid.ColumnSpan="2">Stock:</Label>
-            <TextBox Name="TxtStock" Grid.Column="5"></TextBox>
+            <Label Grid.Column="4" Grid.ColumnSpan="1">Stock:</Label>
+            <TextBox Name="TxtStock" Grid.Column="5" TextAlignment="Center"></TextBox>
             
+            <StackPanel  Grid.Column="6" Grid.RowSpan="3">
+                <CheckBox Name="CbAlles"  FontSize="14" IsChecked="True" >Alles</CheckBox>
+                <CheckBox Name="CbVervallen" FontSize="14" Checked="CbVervallen_Checked" >Vervallen</CheckBox>
+            </StackPanel>
         </Grid>
+        
         <Grid Grid.Row="1" Grid.Column="1">
             <StackPanel Grid.Row="1" Grid.Column="1">
                 <Button Name="BtnWisProduct"  Content="Wis product" Height="60" Click="BtnWisProduct_Click"></Button>
                 <Button Name="BtnUpdateProduct"  Content="Update product" Height="60" Click="BtnUpdateProduct_Click"></Button>
-                <Button Name="BtnVoegProductToe"  Content="Voeg toe" Height="60" Click="BtnVoegProductToe_Click"></Button>
+                <Button Name="BtnVoegProductToe"  Content="Voeg product toe" Height="60" Click="BtnVoegProductToe_Click"></Button>
                 <Button Name="BtnBekijkFichde" Content="Fiche" Height="60"></Button>
             </StackPanel>
 
@@ -80,6 +87,6 @@
                     <GridViewColumn Header="Vervaldatum" DisplayMemberBinding="{Binding VervalDatum}" Width="Auto"/>
                 </GridView>
             </ListView.View>
-        </ListView> 
+        </ListView>
     </Grid>
 </Page>

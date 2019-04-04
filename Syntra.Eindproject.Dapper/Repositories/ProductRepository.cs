@@ -20,6 +20,14 @@ namespace Syntra.Eindproject.Dapper
             }
         }
 
+        public IEnumerable<Product> GetBadProduct()
+        {
+            using (var connection = new SqlConnection(Connection.Instance.ConnectionString))
+            {
+                return connection.Query<Product>(@"select Id, Naam, Soort, Oorsprong, Prijs, Eenheid, AanmaakDatum, VervalDatum, Stock FROM PRODUCT where VervalDatum < Getdate() ");
+            }
+        }
+
         public void InsertProduct(Product product)
         {
             using(SqlConnection connection = new SqlConnection(Connection.Instance.ConnectionString))
