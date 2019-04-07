@@ -59,11 +59,9 @@ namespace Syntra.Eindproject.WPF
             double.TryParse(TxtPrijs.Text, out double prijs);
             int.TryParse(TxtId.Text, out int id);
             double.TryParse(TxtStock.Text, out double stock);
-            var dateAndTime = DateTime.Now;
-            var date = dateAndTime.Date;                              //.ToShortDateString --> maar AanmaakDatum is DateTime?
             DateTime test = Convert.ToDateTime(TxtVervalDatum.Text);
 
-            Product product = new Product(id, TxtNaam.Text, TxtSoort.Text, TxtOorsprong.Text, prijs, TxtEenheid.Text, date, test, stock);
+            Product product = new Product(id, TxtNaam.Text, TxtSoort.Text, TxtOorsprong.Text, prijs, TxtEenheid.Text, test, stock);
             DatabaseManager.Instance.ProductRepository.InsertProduct(product);
 
             Initialize();
@@ -151,6 +149,12 @@ namespace Syntra.Eindproject.WPF
             CbAlles.IsChecked = false;
             List<Product> products = DatabaseManager.Instance.ProductRepository.GetBadProduct().ToList();
             LbProducts.ItemsSource = products;
+        }
+
+        private void CbAlles_Checked(object sender, RoutedEventArgs e)
+        {
+            CbVervallen.IsChecked = false;
+            Initialize();
         }
     }
 }

@@ -56,10 +56,10 @@
             <TextBox Name="TxtEenheid" Grid.Row="2" Grid.Column="4" TextAlignment="Center"></TextBox>
 
             <Label Grid.Column="4" Grid.ColumnSpan="1">Stock:</Label>
-            <TextBox Name="TxtStock" Grid.Column="5" TextAlignment="Center"></TextBox>
+            <TextBox Name="TxtStock" Grid.Column="5" TextAlignment="Center" ></TextBox>
             
             <StackPanel  Grid.Column="6" Grid.RowSpan="3">
-                <CheckBox Name="CbAlles"  FontSize="14" IsChecked="True" >Alles</CheckBox>
+                <CheckBox Name="CbAlles"  FontSize="14" Checked="CbAlles_Checked" >Alles</CheckBox>
                 <CheckBox Name="CbVervallen" FontSize="14" Checked="CbVervallen_Checked" >Vervallen</CheckBox>
             </StackPanel>
         </Grid>
@@ -69,22 +69,21 @@
                 <Button Name="BtnWisProduct"  Content="Wis product" Height="60" Click="BtnWisProduct_Click"></Button>
                 <Button Name="BtnUpdateProduct"  Content="Update product" Height="60" Click="BtnUpdateProduct_Click"></Button>
                 <Button Name="BtnVoegProductToe"  Content="Voeg product toe" Height="60" Click="BtnVoegProductToe_Click"></Button>
-                <Button Name="BtnBekijkFichde" Content="Fiche" Height="60"></Button>
             </StackPanel>
 
         </Grid>
         <ListView Name="LbProducts" Grid.Row="1" Grid.Column="0" SelectionChanged="LbProducts_SelectionChanged" >
             <ListView.View>
                 <GridView>
-                    <GridViewColumn Header="Id" DisplayMemberBinding="{Binding Id}" Width="30"/>
-                    <GridViewColumn Header="Naam" DisplayMemberBinding="{Binding Naam}" Width="Auto"/>
-                    <GridViewColumn Header="Soort" DisplayMemberBinding="{Binding Soort}" Width="Auto"/>
-                    <GridViewColumn Header="Oorsprong" DisplayMemberBinding="{Binding Oorsprong}" Width="Auto"/>
-                    <GridViewColumn Header="Prijs" DisplayMemberBinding="{Binding Prijs}" Width="Auto"/>
-                    <GridViewColumn Header="Eenheid" DisplayMemberBinding="{Binding Eenheid}" Width="Auto"/>
-                    <GridViewColumn Header="Stock" DisplayMemberBinding="{Binding Stock}" Width="Auto"/>
+                    <GridViewColumn Header="Id" DisplayMemberBinding="{Binding Id}"  Width="50"/>
+                    <GridViewColumn Header="Naam" DisplayMemberBinding="{Binding Naam}" Width="100"/>
+                    <GridViewColumn Header="Soort" DisplayMemberBinding="{Binding Soort}" Width="100"/>
+                    <GridViewColumn Header="Oorsprong" DisplayMemberBinding="{Binding Oorsprong}" Width="100"/>
+                    <GridViewColumn Header="Prijs" DisplayMemberBinding="{Binding Prijs}" Width="100"/>
+                    <GridViewColumn Header="Eenheid" DisplayMemberBinding="{Binding Eenheid}" Width="50"/>
+                    <GridViewColumn Header="Stock" DisplayMemberBinding="{Binding Stock}" Width="50"/>
                     <!--<GridViewColumn Header="Aanmaakdatum" DisplayMemberBinding="{Binding AanmaakDatum}" Width="Auto"/>-->
-                    <GridViewColumn Header="Vervaldatum" DisplayMemberBinding="{Binding VervalDatum}" Width="Auto"/>
+                    <GridViewColumn Header="Vervaldatum" DisplayMemberBinding="{Binding VervalDatum}" Width="100"/>
                 </GridView>
             </ListView.View>
         </ListView>

@@ -19,7 +19,7 @@ namespace Syntra.Eindproject.BL
 
         public double Stock { get; set; }
 
-        public Product(int id, string naam, string soort, string oorsprong, double prijs, string eenheid, DateTime aanmaakdatum, DateTime vervaldatum, double stock)
+        public Product(int id, string naam, string soort, string oorsprong, double prijs, string eenheid, DateTime vervaldatum, double stock)
         {
             Id = id;
             Naam = naam;
