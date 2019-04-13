@@ -10,6 +10,14 @@
       Title="KassiersterPage">
 
     <Grid>
-        <Label FontSize="48">Kassierster</Label>
+        <StackPanel VerticalAlignment="Top">
+            <Menu Height="20">
+                <MenuItem Header="Bestellingen">
+                    <MenuItem Header="_Nieuwe" Click="MenuItem_Click" ></MenuItem>
+                    <MenuItem Header="_Opgeslagen"></MenuItem>
+                </MenuItem>
+
+            </Menu>
+        </StackPanel>
     </Grid>
 </Page>

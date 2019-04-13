@@ -24,5 +24,11 @@ namespace Syntra.Eindproject.WPF
         {
             InitializeComponent();
         }
+
+        private void MenuItem_Click(object sender, RoutedEventArgs e)
+        {
+            DatabaseManager.Instance.BestellingRepository.InsertBestelling();
+            NavigationService.Navigate(new BestellingPage());
+        }
     }
 }

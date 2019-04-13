@@ -16,6 +16,7 @@ namespace Syntra.Eindproject.WPF
 
         public ProductRepository ProductRepository => new ProductRepository();
         public GebruikerRepository GebruikerRepository => new GebruikerRepository();
+        public BestellingRepository BestellingRepository => new BestellingRepository();
 
         private DatabaseManager()
         {
