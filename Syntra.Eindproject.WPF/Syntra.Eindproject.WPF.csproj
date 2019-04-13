@@ -56,6 +56,14 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="KassiersterPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="KlantPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="MagazijnierPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -73,6 +81,12 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="DatabaseManager\DatabaseManager.cs" />
+    <Compile Include="KassiersterPage.xaml.cs">
+      <DependentUpon>KassiersterPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="KlantPage.xaml.cs">
+      <DependentUpon>KlantPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="MagazijnierPage.xaml.cs">
       <DependentUpon>MagazijnierPage.xaml</DependentUpon>
     </Compile>

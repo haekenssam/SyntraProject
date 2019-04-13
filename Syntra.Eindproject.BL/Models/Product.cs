@@ -27,7 +27,6 @@ namespace Syntra.Eindproject.BL
             Oorsprong = oorsprong;
             Prijs = prijs;
             Eenheid = eenheid;
-            AanmaakDatum = aanmaakdatum;
             VervalDatum = vervaldatum;
             Stock = stock;
 

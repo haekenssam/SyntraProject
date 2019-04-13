@@ -6,19 +6,41 @@
       xmlns:local="clr-namespace:Syntra.Eindproject.WPF"
       mc:Ignorable="d"
       Background="AliceBlue"
-      d:DesignHeight="200" d:DesignWidth="400"
+      Loaded="MainMenu_OnLoaded"
+      d:DesignHeight="400" d:DesignWidth="400"
       Title="MainMenu">
 
     <Grid>
-        <Border BorderBrush="White" BorderThickness="10" Padding="5">
-            <Label Background="Gray" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center" FontSize="42">Fruitmarkt</Label>
+        <Border BorderBrush="#FF0CA3CF" BorderThickness="10">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="150"/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+                <Label Grid.ColumnSpan="2" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="48">Fruitmarkt</Label>
+                <Grid Grid.Row="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="40"/>
+                        <RowDefinition Height="40"/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                    <Label FontSize="16" HorizontalAlignment="Center" VerticalAlignment="Center">Login:</Label>
+                    <ComboBox Name="LbUsers" Grid.Column="1" Height="30" ItemsSource="{Binding}"/>
+
+                    <Label Grid.Row="1" FontSize="16" HorizontalAlignment="Center" VerticalAlignment="Center">Password:</Label>
+                    <PasswordBox Name="TxtPaswoord" Grid.Row="1" Grid.Column="1" Height="30" ></PasswordBox>
+
+                    <Button Grid.Row="2" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="18" Click="Button_Click" >Login</Button>
+                    <Button Grid.Row="2" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="18">Cancel</Button>
+                </Grid>
+            </Grid>
         </Border>
-        <DockPanel>
-            <StackPanel DockPanel.Dock="Right" Orientation="Vertical" VerticalAlignment="Center" HorizontalAlignment="Center">
-                <Button Name="btnMagazijnier" Content="Magazijnier" Click="BtnMagazijnier_Click"/>
-                <Button Name="btnVerkoopster" Content="Kassierster"/>
-                <Button Name="btnKlant" Content="Klant"/>
-            </StackPanel>
-        </DockPanel>
     </Grid>
 </Page>

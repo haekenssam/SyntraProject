@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Syntra.Eindproject.Dapper.Repositories;
 
 namespace Syntra.Eindproject.WPF
 {
@@ -14,6 +15,7 @@ namespace Syntra.Eindproject.WPF
         public static DatabaseManager Instance => _manager;
 
         public ProductRepository ProductRepository => new ProductRepository();
+        public GebruikerRepository GebruikerRepository => new GebruikerRepository();
 
         private DatabaseManager()
         {
