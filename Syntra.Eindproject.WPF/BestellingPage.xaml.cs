@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Syntra.Eindproject.BL;
+using static Syntra.Eindproject.WPF.MoveablePopup;
 
 namespace Syntra.Eindproject.WPF
 {
@@ -28,16 +29,45 @@ namespace Syntra.Eindproject.WPF
 
         private void BtnVoegToe_Click(object sender, RoutedEventArgs e)
         {
-            int.TryParse(TbZoekArtikel.Text, out int id);
-            DatabaseManager.Instance.BestellingRepository.InsertBestellingLijn(id);
+            Popup.IsOpen = true;
 
-            Initialize();
         }
 
         public void Initialize()
         {
             List<Bestelling> bestellingen = DatabaseManager.Instance.BestellingRepository.GetBestelling().ToList();
             DgBestellingen.ItemsSource = bestellingen;
+        }
+
+
+
+        private void Popup_OnMouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+        {
+            MoveablePopup.POINT curPos;
+            IntPtr hWndPopUp;
+
+            GetCursorPos(out curPos);
+            hWndPopUp = WindowFromPoint((curPos));
+
+            ReleaseCapture();
+            SendMessage(hWndPopUp, WM_NCLBUTTONDOWN, new IntPtr(HT_CAPTION), IntPtr.Zero);
+        }
+
+        private void BtnOkAantal_Click(object sender, RoutedEventArgs e)
+        {
+            int.TryParse(TbZoekArtikel.Text, out int id);
+            int.TryParse(TbAantal.Text, out int aantal);
+            DatabaseManager.Instance.BestellingRepository.InsertBestellingLijn(id, aantal);
+
+            Popup.IsOpen = false;
+
+            Initialize();
+        }
+
+        private void BtnAnnuleerAantal_Click(object sender, RoutedEventArgs e)
+        {
+            Popup.IsOpen = false;
+            Initialize();
         }
     }
 }

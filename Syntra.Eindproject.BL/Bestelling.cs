@@ -15,11 +15,8 @@ namespace Syntra.Eindproject.BL
         public int ProductId { get; set; }
         public float Aantal { get; set; }
         public float Prijs { get; set; }
-
-        public Product product
-        {
-            get { return product.Naam}; set; }
-
+        public string Naam { get; set; }
+        public string Eenheid { get; set; }
 
     }
 }
