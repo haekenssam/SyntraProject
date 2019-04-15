@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Syntra.Eindproject.BL
 {
-    public class Bestelling
+    public class Bestelling : Product
     {
         public int ID { get; set; }
         public float Totaal { get; set; }
@@ -14,9 +14,7 @@ namespace Syntra.Eindproject.BL
         public int BestellingId { get; set; }
         public int ProductId { get; set; }
         public float Aantal { get; set; }
-        public float Prijs { get; set; }
-        public string Naam { get; set; }
-        public string Eenheid { get; set; }
+
 
     }
 }

@@ -24,8 +24,9 @@ namespace Syntra.Eindproject.Dapper.Repositories
         {
             using (var connection = new SqlConnection(Connection.Instance.ConnectionString))
             {
-                connection.Execute(@"insert into BestellingLijnen(BestellingId, ProductId, Aantal, Prijs)
-                                        values((select top 1 Id from Bestelling order by id desc), @productid, @aantal,(select Prijs  from Product where id = @productid))",
+                connection.Execute(@"insert into BestellingLijnen(BestellingId, ProductId, Aantal, Eenheid, Prijs)
+                                        values((select top 1 Id from Bestelling order by id desc), @productid, @aantal,(select Eenheid from Product where id = @productid),
+                                        (select Prijs  from Product where id = @productid))",
                     new
                     {
                         ProductId = productid,
