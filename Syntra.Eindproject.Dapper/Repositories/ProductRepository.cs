@@ -83,5 +83,27 @@ namespace Syntra.Eindproject.Dapper
                                      });
             }
         }
+
+        public bool IsValidProduct(int id)
+        {
+           bool IsValidProduct = true;
+
+           using (SqlConnection connection = new SqlConnection(Connection.Instance.ConnectionString))
+           {
+               int count = connection.QuerySingle<int>(
+                   @"select count(id) from product where stock > 0 and vervaldatum > GETDATE() and id = @id",
+                   new
+                   {
+                       id = id
+                   });
+
+               if (count < 1)
+               {
+                   IsValidProduct = false;
+               }
+
+               return IsValidProduct;
+           }
+        }
     }
 }

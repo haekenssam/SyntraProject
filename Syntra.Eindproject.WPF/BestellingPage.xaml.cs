@@ -55,12 +55,21 @@ namespace Syntra.Eindproject.WPF
 
         private void BtnOkAantal_Click(object sender, RoutedEventArgs e)
         {
-            int.TryParse(TbZoekArtikel.Text, out int id);
             int.TryParse(TbAantal.Text, out int aantal);
-            DatabaseManager.Instance.BestellingRepository.InsertBestellingLijn(id, aantal);
+            int.TryParse(TbZoekArtikel.Text, out int id);
+            if (!DatabaseManager.Instance.ProductRepository.IsValidProduct(id) || string.IsNullOrEmpty(TbZoekArtikel.Text))
+            {
+                MessageBox.Show("Dit product is niet geldig");
+                
+            }
+            else
+            {
+                DatabaseManager.Instance.BestellingRepository.InsertBestellingLijn(id, aantal);
+            }
+            TbAantal.Text = string.Empty;
+            TbZoekArtikel.Text = string.Empty;
 
             Popup.IsOpen = false;
-
             Initialize();
         }
 

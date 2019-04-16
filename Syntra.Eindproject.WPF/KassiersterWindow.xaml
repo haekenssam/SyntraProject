@@ -1,0 +1,20 @@
+﻿<Window x:Class="Syntra.Eindproject.WPF.KassiersterWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Syntra.Eindproject.WPF"
+        mc:Ignorable="d"
+        Title="KassiersterWindow" Height="450" Width="800">
+    <Grid>
+        <StackPanel VerticalAlignment="Top">
+            <Menu Height="20">
+                <MenuItem Header="Bestellingen">
+                    <MenuItem Header="_Nieuwe" ></MenuItem>
+                    <MenuItem Header="_Opgeslagen"></MenuItem>
+                </MenuItem>
+
+            </Menu>
+        </StackPanel>
+    </Grid>
+</Window>
