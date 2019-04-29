@@ -42,6 +42,7 @@ namespace Syntra.Eindproject.WPF
             List<Product> products = DatabaseManager.Instance.ProductRepository.GetProducts().ToList();
 
             LbProducts.ItemsSource = products;                           //Listview DisplayMemberBinding
+            
 
             //foreach (Product product in products)
             //{
@@ -57,21 +58,28 @@ namespace Syntra.Eindproject.WPF
         #region AddProduct
         private void BtnVoegProductToe_Click(object sender, RoutedEventArgs e)
         {
-            double.TryParse(TxtPrijs.Text, out double prijs);
-            int.TryParse(TxtId.Text, out int id);
-            double.TryParse(TxtStock.Text, out double stock);
-            
-            try
-            {
-                DatabaseManager.Instance.ProductRepository.InsertProduct(id, TxtNaam.Text, TxtSoort.Text, TxtOorsprong.Text, prijs, TxtEenheid.Text, TxtVervalDatum.Text, stock);
-            }
-            catch (BusinessException ex)
-            {
-                MessageBox.Show(ex.ToString());
-            }
-            
 
-            Initialize();
+            if (GetSelectedProduct() == null)
+            {
+                double.TryParse(TxtPrijs.Text, out double prijs);
+                int.TryParse(TxtId.Text, out int id);
+                double.TryParse(TxtStock.Text, out double stock);
+
+                try
+                {
+                    DatabaseManager.Instance.ProductRepository.InsertProduct(id, TxtNaam.Text, TxtSoort.Text, TxtOorsprong.Text, prijs, TxtEenheid.Text, TxtVervalDatum.Text, stock);
+                    Initialize();
+                }
+                catch (BusinessException ex)
+                {
+                    MessageBox.Show(ex.ToString());
+                }
+            }
+            else
+            {
+                Initialize();
+            }
+            
         }
         #endregion
         #region GetCurrentProduct

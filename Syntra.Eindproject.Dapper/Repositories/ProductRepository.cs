@@ -8,14 +8,14 @@ using Syntra.Eindproject.BL;
 using Dapper;
 
 namespace Syntra.Eindproject.Dapper
-{
-    
+{    
     public class ProductRepository
     {
         public IEnumerable<Product> GetProducts()
         {
             using (var connection = new SqlConnection(Connection.Instance.ConnectionString))
             {
+
                 return connection.Query<Product>(@"
                         SELECT Id, Naam, Soort, Oorsprong, Prijs, Eenheid, AanmaakDatum, VervalDatum, Stock FROM PRODUCT ");
             }
