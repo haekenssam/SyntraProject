@@ -11,13 +11,24 @@ namespace Syntra.Eindproject.Dapper
 {    
     public class ProductRepository
     {
-        public IEnumerable<Product> GetProducts()
+        public IEnumerable<Product> GetProducts(bool test)
         {
+            string query =
+                "SELECT Id, Naam, Soort, Oorsprong, Prijs, Eenheid, AanmaakDatum, VervalDatum, Stock FROM PRODUCT ";
+            if (test)
+            {
+                query += "where VervalDatum > GetDate()";
+            }
+            else
+            {
+                query += "where VervalDatum < GetDate()";
+            }
             using (var connection = new SqlConnection(Connection.Instance.ConnectionString))
             {
 
-                return connection.Query<Product>(@"
-                        SELECT Id, Naam, Soort, Oorsprong, Prijs, Eenheid, AanmaakDatum, VervalDatum, Stock FROM PRODUCT ");
+                return connection.Query<Product>(query);
+                //return connection.Query<Product>(@"
+                //        SELECT Id, Naam, Soort, Oorsprong, Prijs, Eenheid, AanmaakDatum, VervalDatum, Stock FROM PRODUCT ");
             }
         }
 

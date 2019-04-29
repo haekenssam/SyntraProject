@@ -38,8 +38,10 @@ namespace Syntra.Eindproject.WPF
             TxtEenheid.Text = string.Empty;
             TxtVervalDatum.Text = string.Empty;
             TxtStock.Text = string.Empty;
+            CbAlles.IsChecked = true;
+            bool test = CbAlles.IsChecked == true;
 
-            List<Product> products = DatabaseManager.Instance.ProductRepository.GetProducts().ToList();
+            List<Product> products = DatabaseManager.Instance.ProductRepository.GetProducts(test).ToList();
 
             LbProducts.ItemsSource = products;                           //Listview DisplayMemberBinding
             
@@ -156,7 +158,10 @@ namespace Syntra.Eindproject.WPF
         private void CbVervallen_Checked(object sender, RoutedEventArgs e)
         {
             CbAlles.IsChecked = false;
-            List<Product> products = DatabaseManager.Instance.ProductRepository.GetBadProduct().ToList();
+            bool test = CbVervallen.IsChecked == false;
+
+            List<Product> products = DatabaseManager.Instance.ProductRepository.GetProducts(test).ToList();
+            //List<Product> products = DatabaseManager.Instance.ProductRepository.GetBadProduct().ToList();
             LbProducts.ItemsSource = products;
         }
 
