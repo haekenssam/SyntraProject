@@ -13,6 +13,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using Syntra.Eindproject.Dapper;
 
 namespace Syntra.Eindproject.WPF
 {
@@ -59,10 +60,16 @@ namespace Syntra.Eindproject.WPF
             double.TryParse(TxtPrijs.Text, out double prijs);
             int.TryParse(TxtId.Text, out int id);
             double.TryParse(TxtStock.Text, out double stock);
-            DateTime test = Convert.ToDateTime(TxtVervalDatum.Text);
-
-            Product product = new Product(id, TxtNaam.Text, TxtSoort.Text, TxtOorsprong.Text, prijs, TxtEenheid.Text, test, stock);
-            DatabaseManager.Instance.ProductRepository.InsertProduct(product);
+            
+            try
+            {
+                DatabaseManager.Instance.ProductRepository.InsertProduct(id, TxtNaam.Text, TxtSoort.Text, TxtOorsprong.Text, prijs, TxtEenheid.Text, TxtVervalDatum.Text, stock);
+            }
+            catch (BusinessException ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
+            
 
             Initialize();
         }
@@ -80,7 +87,7 @@ namespace Syntra.Eindproject.WPF
                 TxtOorsprong.Text = product.Oorsprong;
                 TxtPrijs.Text = product.Prijs.ToString();
                 TxtEenheid.Text = product.Eenheid;
-                TxtVervalDatum.Text = product.VervalDatum.ToShortDateString();
+                TxtVervalDatum.Text = product.VervalDatum;
                 TxtStock.Text = product.Stock.ToString();
             }
         }
@@ -116,31 +123,25 @@ namespace Syntra.Eindproject.WPF
 
         }
         #endregion
-        #region PageLoadedInitialize
-        private void Page_Loaded(object sender, RoutedEventArgs e)
-        {
-            Initialize();
-        }
-        #endregion
+
         #region UpdateProduct
         private void BtnUpdateProduct_Click(object sender, RoutedEventArgs e)
         {
             Product product = GetSelectedProduct();
 
-            if (product != null && int.TryParse(TxtId.Text, out int id) && int.TryParse(TxtPrijs.Text, out int prijs) && double.TryParse(TxtStock.Text, out double stock))
+            double.TryParse(TxtPrijs.Text, out double prijs);
+            int.TryParse(TxtId.Text, out int id);
+            double.TryParse(TxtStock.Text, out double stock);
+
+            try
             {
-                product.Id = id;
-                product.Naam = TxtNaam.Text;
-                product.Soort = TxtSoort.Text;
-                product.Oorsprong = TxtOorsprong.Text;
-                product.Prijs = prijs;
-                product.VervalDatum = Convert.ToDateTime(TxtVervalDatum.Text);
-                product.Stock += stock;
-
-                DatabaseManager.Instance.ProductRepository.UpdateProduct(product);
-
-                Initialize();
+                DatabaseManager.Instance.ProductRepository.UpdateProduct(id, TxtNaam.Text, TxtSoort.Text,TxtOorsprong.Text, prijs, TxtEenheid.Text, TxtVervalDatum.Text, stock );
             }
+            catch (BusinessException ex)
+            {
+                MessageBox.Show(ex.ToString());
+            }
+            Initialize();
         }
         #endregion
 
@@ -154,6 +155,16 @@ namespace Syntra.Eindproject.WPF
         private void CbAlles_Checked(object sender, RoutedEventArgs e)
         {
             CbVervallen.IsChecked = false;
+            Initialize();
+        }
+
+        private void BtnGoBack_OnClick(object sender, RoutedEventArgs e)
+        {
+            NavigationService.GoBack();
+        }
+
+        private void MagazijnierPage_OnLoaded(object sender, RoutedEventArgs e)
+        {
             Initialize();
         }
     }

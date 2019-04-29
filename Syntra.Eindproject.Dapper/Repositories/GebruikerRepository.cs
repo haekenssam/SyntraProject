@@ -19,6 +19,11 @@ namespace Syntra.Eindproject.Dapper.Repositories
             }
         }
 
+        //public bool IsUserValid(string gebruiker)
+        //{
+            
+
+        //}
         public bool IsValid(string gebruiker, string paswoord)
         {
             using (var connection = new SqlConnection(Connection.Instance.ConnectionString))

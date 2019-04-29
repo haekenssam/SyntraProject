@@ -5,8 +5,9 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:Syntra.Eindproject.WPF"
       mc:Ignorable="d"
+      Loaded="MagazijnierPage_OnLoaded"
       Background="AliceBlue"
-      Loaded="Page_Loaded"
+      ShowsNavigationUI="True"
       d:DesignHeight="450" d:DesignWidth="800"
       Title="MagazijnierPage">
 
@@ -18,7 +19,6 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="150"/>
-            
         </Grid.ColumnDefinitions>
         
         <Grid Grid.Row="0" Grid.Column="0">
@@ -69,13 +69,14 @@
                 <Button Name="BtnWisProduct"  Content="Wis product" Height="60" Click="BtnWisProduct_Click"></Button>
                 <Button Name="BtnUpdateProduct"  Content="Update product" Height="60" Click="BtnUpdateProduct_Click"></Button>
                 <Button Name="BtnVoegProductToe"  Content="Voeg product toe" Height="60" Click="BtnVoegProductToe_Click"></Button>
+                <Button Name="BtnGoBack" Height="60" Click="BtnGoBack_OnClick">Terug</Button>
             </StackPanel>
 
         </Grid>
-        <ListView Name="LbProducts" Grid.Row="1" Grid.Column="0" SelectionChanged="LbProducts_SelectionChanged" >
+        <ListView Name="LbProducts"  Grid.Row="1" Grid.Column="0" SelectionChanged="LbProducts_SelectionChanged">
             <ListView.View>
                 <GridView>
-                    <GridViewColumn Header="Id" DisplayMemberBinding="{Binding Id}"  Width="50"/>
+                    <GridViewColumn Header="Id" DisplayMemberBinding="{Binding Id}"  Width="50" />
                     <GridViewColumn Header="Naam" DisplayMemberBinding="{Binding Naam}" Width="100"/>
                     <GridViewColumn Header="Soort" DisplayMemberBinding="{Binding Soort}" Width="100"/>
                     <GridViewColumn Header="Oorsprong" DisplayMemberBinding="{Binding Oorsprong}" Width="100"/>

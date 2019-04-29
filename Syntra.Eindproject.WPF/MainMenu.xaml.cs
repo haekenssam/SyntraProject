@@ -51,6 +51,7 @@ namespace Syntra.Eindproject.WPF
             string gebruiker = ((ListBoxItem) LbUsers.SelectedItem).Content.ToString();
             string paswoord = TxtPaswoord.Password.ToString();
 
+
             switch (gebruiker)
             {
                 case "Magazijnier":
@@ -89,7 +90,7 @@ namespace Syntra.Eindproject.WPF
 
                     break;
             }
-            
+
         }
 
 

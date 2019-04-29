@@ -141,6 +141,10 @@
       <Project>{1235efdd-66cf-4160-80f4-a580b7ee4cdd}</Project>
       <Name>Syntra.Eindproject.Dapper</Name>
     </ProjectReference>
+    <ProjectReference Include="..\Syntra.Eindproject.Service\Syntra.Eindproject.Service.csproj">
+      <Project>{4e5d9e79-7c0c-4616-a5de-8a466a90ee21}</Project>
+      <Name>Syntra.Eindproject.Service</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
