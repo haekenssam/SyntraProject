@@ -73,7 +73,7 @@
                 <!--*******************************************************************************************************************-->
                 <!--Te Betalen, betaald, terug betalen -->
                 <Label Name="TotaalTeBetalen" Content="Te Betalen" Grid.Row="9" Grid.Column="8" FontWeight="Bold" Margin="0,0.6,1.2,0.8" HorizontalAlignment="Right" Width="75" />
-                <TextBox Name="TxtTotaalTeBetalen" Grid.Row="9" Grid.Column="9" Margin="1.972,0.6,0.662,0.8" Grid.ColumnSpan="2" TextChanged="TxtTotaalTeBetalen_TextChanged"/>
+                <TextBox Name="TxtTotaalTeBetalen" Grid.Row="9" Grid.Column="9" Margin="1.972,0.6,0.662,0.8" Grid.ColumnSpan="2" />
                 <Label Name="CashGeld" Content="Betaald" Grid.Row="11" Grid.Column="8" FontWeight="Bold" Margin="0,1.6,1.028,1.4" Grid.RowSpan="2" HorizontalAlignment="Right" Width="58" />
                 <TextBox Name="TxtBetaald" Grid.Row="10" Grid.Column="10" Margin="0.2,1.2,0.2,1.8" Grid.RowSpan="2"/>
                 <Label Name="TerugBetalen" Content="Terug" Grid.Row="12" Grid.Column="8" FontWeight="Bold" Margin="0,1.2,0.2,0.8" Grid.RowSpan="2" HorizontalAlignment="Right" Width="50" />

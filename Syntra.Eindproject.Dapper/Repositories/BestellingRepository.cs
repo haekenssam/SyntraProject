@@ -58,25 +58,26 @@ namespace Syntra.Eindproject.Dapper.Repositories
             }
         }
 
-        public void CalculateTotaalBestelling(Bestelling bestelling)
-        {
-            using (var connection = new SqlConnection(Connection.Instance.ConnectionString))
-            {
-                connection.Execute(@" Update Bestelling 
-                                      Set 
-                                      Totaal = (select SUM(Bedrag) From BestellingLijnen Where BestellingId = @BestellingId)
-                                      Where BestellingId = @BestellingId",
-                                      new
-                                      {
-                                          Id = bestelling.Id,
-                                          Totaal = bestelling.Totaal,
 
-                                      }
-                    );
+        //public void CalculateTotaalBestelling(Bestelling bestelling)
+        //{
+        //    using (var connection = new SqlConnection(Connection.Instance.ConnectionString))
+        //    {
+        //        connection.Execute(@" Update Bestelling 
+        //                              Set 
+        //                              Totaal = (select SUM(Bedrag) From BestellingLijnen Where BestellingId = @BestellingId)
+        //                              Where BestellingId = @BestellingId",
+        //                              new
+        //                              {
+        //                                  Id = bestelling.Id,
+        //                                  Totaal = bestelling.Totaal,
 
-            }
+        //                              }
+        //            );
 
-        }
+        //    }
+
+        //}
 
 
 
