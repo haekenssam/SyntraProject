@@ -9,6 +9,7 @@ using Dapper;
 
 namespace Syntra.Eindproject.Dapper
 {
+    
     public class ProductRepository
     {
         public IEnumerable<Product> GetProducts()
@@ -28,23 +29,34 @@ namespace Syntra.Eindproject.Dapper
             }
         }
 
-        public void InsertProduct(Product product)
+        public void InsertProduct(int id, string naam, string soort, string oorsprong, double prijs, string eenheid, string vervaldatum, double stock)
         {
-            using(SqlConnection connection = new SqlConnection(Connection.Instance.ConnectionString))
+            if (naam == string.Empty || soort == string.Empty || prijs.ToString() == string.Empty || eenheid == string.Empty)
+            {
+                throw new BusinessException("Niet alle velden zijn ingevuld!");
+            }
+
+            DateTime vervalDatum;
+
+            if (!DateTime.TryParse(vervaldatum, out vervalDatum))
+            {
+                throw new BusinessException("Geen geldige datum");
+            }
+
+            using (SqlConnection connection = new SqlConnection(Connection.Instance.ConnectionString))
             {
                 connection.Execute(@"insert into product (Id, Naam, Soort, Oorsprong, Prijs, Eenheid, AanmaakDatum, VervalDatum, Stock)
-                                    values (@Id, @Naam, @Soort, @Oorsprong, @Prijs, @Eenheid, @AanmaakDatum, @VervalDatum, @Stock) ",
+                                    values (@Id, @Naam, @Soort, @Oorsprong, @Prijs, @Eenheid, GetDate(), @vervalDatum, @Stock) ",
                                     new
                                     {
-                                        Id = product.Id,
-                                        Naam = product.Naam,
-                                        Soort = product.Soort,
-                                        Oorsprong = product.Oorsprong,
-                                        Prijs = product.Prijs,
-                                        Eenheid = product.Eenheid,
-                                        AanmaakDatum = product.AanmaakDatum,
-                                        VervalDatum = product.VervalDatum,
-                                        Stock = product.Stock
+                                        Id = id,
+                                        Naam = naam,
+                                        Soort = soort,
+                                        Oorsprong = oorsprong,
+                                        Prijs = prijs,
+                                        Eenheid = eenheid,
+                                        VervalDatum = vervalDatum,
+                                        Stock = stock
                                     });
     
             }
@@ -63,24 +75,36 @@ namespace Syntra.Eindproject.Dapper
             }
         }
 
-        public void UpdateProduct(Product product)
+        public void UpdateProduct(int id, string naam, string soort, string oorsprong, double prijs, string eenheid, string vervaldatum, double stock)
         {
-            using(SqlConnection connection = new SqlConnection(Connection.Instance.ConnectionString))
+            if (naam == string.Empty || soort == string.Empty || prijs.ToString() == string.Empty || eenheid == string.Empty)
+            {
+                throw new BusinessException("Niet alle velden zijn ingevuld!");
+            }
+
+            DateTime vervalDatum;
+
+            if (!DateTime.TryParse(vervaldatum, out vervalDatum))
+            {
+                throw new BusinessException("Geen geldige datum");
+            }
+
+            using (SqlConnection connection = new SqlConnection(Connection.Instance.ConnectionString))
             {
                 connection.Execute(@"update product set Id = @id, Naam = @naam, Soort = @soort, Oorsprong = @oorsprong, Prijs = @prijs, 
-                                     Eenheid = @Eenheid, AanmaakDatum = @AanmaakDatum, VervalDatum = @vervaldatum, Stock = @stock where Id = @id ",
+                                     Eenheid = @Eenheid, VervalDatum = @vervalDatum, Stock = @stock where Id = @id ",
                                      new
                                      {
-                                         Id = product.Id,
-                                         Naam = product.Naam,
-                                         Soort = product.Soort,
-                                         Oorsprong = product.Oorsprong,
-                                         Prijs = product.Prijs,
-                                         Eenheid = product.Eenheid,
-                                         AanmaakDatum = product.AanmaakDatum,
-                                         VervalDatum = product.VervalDatum,
-                                         Stock = product.Stock
+                                         Id = id,
+                                         Naam = naam,
+                                         Soort = soort,
+                                         Oorsprong = oorsprong,
+                                         Prijs = prijs,
+                                         Eenheid = eenheid,
+                                         VervalDatum = vervalDatum,
+                                         Stock = stock
                                      });
+                
             }
         }
 

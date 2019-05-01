@@ -15,11 +15,10 @@ namespace Syntra.Eindproject.BL
         public string Eenheid { get; set; }
         public double Prijs { get; set; }
         public DateTime AanmaakDatum { get; set; }
-        public DateTime VervalDatum { get; set; }
-
+        public string VervalDatum { get; set; }
         public double Stock { get; set; }
 
-        public Product(int id, string naam, string soort, string oorsprong, double prijs, string eenheid, DateTime vervaldatum, double stock)
+        public Product(int id, string naam, string soort, string oorsprong, double prijs, string eenheid, string vervaldatum, double stock)
         {
             Id = id;
             Naam = naam;
