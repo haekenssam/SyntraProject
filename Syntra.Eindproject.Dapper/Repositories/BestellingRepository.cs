@@ -54,7 +54,7 @@ namespace Syntra.Eindproject.Dapper.Repositories
             {
                 return connection.Query<Bestelling>(@"SELECT BestellingId, ProductId, Aantal, Prijs, Eenheid, Bedrag 
                                                       FROM BestellingLijnen");
-
+                //test
             }
         }    
 
