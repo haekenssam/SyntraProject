@@ -29,8 +29,8 @@ namespace Syntra.Eindproject.WPF
         //BestellingLijnen importeren van SQL en tonen
         public void Initialize()
         {
-            List<Bestelling> bestellingLijnen = DatabaseManager.Instance.BestellingRepository.GetBestellingLijnen().ToList();
-            LstBestellingLijnen.ItemsSource = bestellingLijnen;
+            List<Bestelling> bestelling = DatabaseManager.Instance.BestellingRepository.GetBestelling().ToList();
+            LstBestellingLijnen.ItemsSource = bestelling;
         }
 
         //Product + Aantal toevoegen = BestellingLijn toevoegen
@@ -39,18 +39,23 @@ namespace Syntra.Eindproject.WPF
             int.TryParse(TxtArtikelId.Text, out int productid);
             float.TryParse(TxtHoeveelheid.Text, out float aantal);
 
-            if (!DatabaseManager.Instance.ProductRepository.IsValidProduct(productid) || string.IsNullOrEmpty(TxtArtikelId.Text))
-            {
-                MessageBox.Show("Artikel Nr. is niet geldig");
-            }
+            DatabaseManager.Instance.BestellingRepository.InsertBestellingLijn(productid, aantal);
 
-            else
-            {
-                DatabaseManager.Instance.BestellingRepository.InsertBestellingLijn(productid, aantal);
-            }
+            
+            //if (!DatabaseManager.Instance.ProductRepository.IsValidProduct(productid) || string.IsNullOrEmpty(TxtArtikelId.Text))
+            //{
+            //    MessageBox.Show("Artikel Nr. is niet geldig");
+            //}
+
+            //else
+            //{
+
+            //}
 
             TxtArtikelId.Text = string.Empty;
             TxtHoeveelheid.Text = string.Empty;
+
+            Initialize();
         }
 
         //Te betalen bedrag
@@ -61,6 +66,10 @@ namespace Syntra.Eindproject.WPF
         }
 
 
-
+        private void KassiersterPage_OnLoaded(object sender, RoutedEventArgs e)
+        {
+            LstBestellingLijnen.Items.Clear();
+            DatabaseManager.Instance.BestellingRepository.InsertBestelling();
+        }
     }
 }

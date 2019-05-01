@@ -4,7 +4,8 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:Syntra.Eindproject.WPF"
-      mc:Ignorable="d" 
+      mc:Ignorable="d"
+      Loaded="KassiersterPage_OnLoaded"
       Background="DarkGray"
       d:DesignHeight="600" d:DesignWidth="1000"
       Title="KassiersterPage">
@@ -48,15 +49,15 @@
                 </Grid.ColumnDefinitions>
                 <!--********************************************************************************************************
                 DataGrid-->
-                <DataGrid Name="LstBestellingLijnen" ItemsSource="{Binding bestellingLijnen}" RowHeight="20" 
+                <DataGrid Name="LstBestellingLijnen" AutoGenerateColumns="False" ItemsSource="{Binding bestelling}" RowHeight="20" 
                           ColumnWidth="*" Grid.Row="6"  Margin="2,2,2,2" Grid.ColumnSpan="13" Grid.RowSpan="3" >/>
                     <DataGrid.Columns>
-                        <DataGridTextColumn Header="BestellingId" Binding="{Binding BestellingId}"></DataGridTextColumn>
-                        <DataGridTextColumn Header="Art.Nr" Binding="{Binding ProductId}"></DataGridTextColumn>
-                        <DataGridTextColumn Header="Hoev." Binding="{Binding Aantal}"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Artikel" Binding="{Binding Naam}"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Aantal" Binding="{Binding Aantal}"></DataGridTextColumn>
                         <DataGridTextColumn Header="Eenheid" Binding="{Binding Eenheid}"></DataGridTextColumn>
-                        <DataGridTextColumn Header="Eenh.Prijs" Binding="{Binding Prijs}"></DataGridTextColumn>
-                        <DataGridTextColumn Header="Bedrag" Binding="{Binding Bedrag}"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Prijs" Binding="{Binding Prijs}"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Totaal" Binding="{Binding Totaal}"></DataGridTextColumn>
+                        <!--<DataGridTextColumn Header="Bedrag" Binding="{Binding Bedrag}"></DataGridTextColumn>-->
                     </DataGrid.Columns>
                 </DataGrid>
                 <!--*******************************************************************************************************************-->
