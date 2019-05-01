@@ -54,11 +54,12 @@ namespace Syntra.Eindproject.Dapper.Repositories
             {
                 return connection.Query<Bestelling>(@"SELECT BestellingId, ProductId, Aantal, Prijs, Eenheid, Bedrag 
                                                       FROM BestellingLijnen");
-                //test
-            }
-        }    
 
-        //public void CalculateTotaalBestelling()
+            }
+        }
+
+
+        //public void CalculateTotaalBestelling(Bestelling bestelling)
         //{
         //    using (var connection = new SqlConnection(Connection.Instance.ConnectionString))
         //    {
@@ -70,7 +71,7 @@ namespace Syntra.Eindproject.Dapper.Repositories
         //                              {
         //                                  Id = bestelling.Id,
         //                                  Totaal = bestelling.Totaal,
-                                          
+
         //                              }
         //            );
 
