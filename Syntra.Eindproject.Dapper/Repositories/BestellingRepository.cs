@@ -20,17 +20,17 @@ namespace Syntra.Eindproject.Dapper.Repositories
             }
         }
 
-        public void InsertBestellingLijn(int productid, float aantal)
+        public void InsertBestellingLijn(int productid, int aantal)
         {
             using (var connection = new SqlConnection(Connection.Instance.ConnectionString))
             {
-                connection.Execute(@"insert into BestellingLijnen(BestellingId, ProductId, Aantal, Eenheid, Prijs, Bedrag)
+                connection.Execute(@"insert into BestellingLijnen(BestellingId, ProductId, Aantal, Eenheid, Prijs)
                                         values((select top 1 Id from Bestelling order by id desc), @productid, @aantal,(select Eenheid from Product where id = @productid),
-                                        (select Prijs  from Product where id = @productid),(@aantal)*(select Prijs  from Product where id = @productid))",
+                                        (select Prijs  from Product where id = @productid))",
                     new
                     {
                         ProductId = productid,
-                        Aantal = aantal,
+                        Aantal = aantal
 
                     });
             }
@@ -47,38 +47,5 @@ namespace Syntra.Eindproject.Dapper.Repositories
                                         where best.Id = (select top 1 Id from Bestelling order by id desc)");
             }
         }
-
-        public IEnumerable<Bestelling> GetBestellingLijnen()
-        {
-            using (var connection = new SqlConnection(Connection.Instance.ConnectionString))
-            {
-                return connection.Query<Bestelling>(@"SELECT BestellingId, ProductId, Aantal, Prijs, Eenheid, Bedrag 
-                                                      FROM BestellingLijnen");
-
-            }
-        }    
-
-        public void CalculateTotaalBestelling()
-        {
-            using (var connection = new SqlConnection(Connection.Instance.ConnectionString))
-            {
-                connection.Execute(@" Update Bestelling 
-                                      Set 
-                                      Totaal = (select SUM(Bedrag) From BestellingLijnen Where BestellingId = @BestellingId)
-                                      Where BestellingId = @BestellingId",
-                                      new
-                                      {
-                                          Id = bestelling.Id,
-                                          Totaal = bestelling.Totaal,
-                                          
-                                      }
-                    );
-
-            }
-
-        }
-
-
-
     }
 }
