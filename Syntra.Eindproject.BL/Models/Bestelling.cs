@@ -14,6 +14,7 @@ namespace Syntra.Eindproject.BL
         public int BestellingId { get; set; }
         public int ProductId { get; set; }
         public float Aantal { get; set; }
+        public float Bedrag { get; set} }
        
     }
 }

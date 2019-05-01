@@ -4,20 +4,94 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:Syntra.Eindproject.WPF"
-      mc:Ignorable="d"
-      Background="White"
-      d:DesignHeight="450" d:DesignWidth="800"
+      mc:Ignorable="d" 
+      Background="DarkGray"
+      d:DesignHeight="600" d:DesignWidth="1000"
       Title="KassiersterPage">
 
     <Grid>
-        <StackPanel VerticalAlignment="Top">
-            <Menu Height="20">
-                <MenuItem Header="Bestellingen">
-                    <MenuItem Header="_Nieuwe" Click="MenuItem_Click" ></MenuItem>
-                    <MenuItem Header="_Opgeslagen"></MenuItem>
-                </MenuItem>
+        <Border BorderThickness="5" BorderBrush="Orange">
+            <Grid Margin="2,2.2,2,2">
+                <!--Rijen-->
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="0"></RowDefinition>
+                    <RowDefinition Height="2"/>
+                    <RowDefinition Height="50"/>
+                    <RowDefinition Height="2"/>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="2*"/>
+                    <RowDefinition/>
+                    <RowDefinition Height="405*"/>
+                    <RowDefinition Height="2"/>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="2"/>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="2"/>
+                    <RowDefinition Height="30"/>
+                    <RowDefinition Height="2"/>
+                </Grid.RowDefinitions>
+                <!--Kolommen-->
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="102"></ColumnDefinition>
+                    <ColumnDefinition Width="2"/>
+                    <ColumnDefinition Width="102"/>
+                    <ColumnDefinition Width="2*"/>
+                    <ColumnDefinition Width="204*"/>
+                    <ColumnDefinition Width="2*"/>
+                    <ColumnDefinition Width="204*"/>
+                    <ColumnDefinition Width="2*"/>
+                    <ColumnDefinition Width="174*"/>
+                    <ColumnDefinition Width="2*"/>
+                    <ColumnDefinition Width="204*"/>
+                    <ColumnDefinition Width="33*"/>
+                    <ColumnDefinition Width="27*"/>
+                </Grid.ColumnDefinitions>
+                <!--********************************************************************************************************
+                DataGrid-->
+                <DataGrid Name="LstBestellingLijnen" ItemsSource="{Binding bestellingLijnen}" RowHeight="20" 
+                          ColumnWidth="*" Grid.Row="6"  Margin="2,2,2,2" Grid.ColumnSpan="13" Grid.RowSpan="3" >/>
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="BestellingId" Binding="{Binding BestellingId}"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Art.Nr" Binding="{Binding ProductId}"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Hoev." Binding="{Binding Aantal}"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Eenheid" Binding="{Binding Eenheid}"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Eenh.Prijs" Binding="{Binding Prijs}"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Bedrag" Binding="{Binding Bedrag}"></DataGridTextColumn>
+                    </DataGrid.Columns>
+                </DataGrid>
+                <!--*******************************************************************************************************************-->
+                <!--Artikel ID, Hoeveelheid, Voeg Artikel Toe, Verwijder Artikel-->
+                <Label Name="ProductHoeveelheid" Content="Hoeveelheid" Grid.Row="10"  HorizontalAlignment="Left" 
+                       VerticalAlignment="Top" Margin="11,1.2,0,0"  FontWeight="Bold" Height="29" Width="80" Grid.RowSpan="2" />
+                <Label Name="ArtikelId" Content="Artikel ID" Grid.Row="9" Grid.Column="0"  HorizontalAlignment="Left" 
+                       VerticalAlignment="Center"   FontWeight="Bold" Margin="11,0.6,0,0.8" Height="29" Width="80" />
+                <TextBox Name="TxtArtikelId" Grid.Column="2" Grid.Row="9" Margin="0,0.6,0.4,0.8"/>
+                <TextBox Name="TxtHoeveelheid"  Grid.Row="10" Grid.Column="2" Margin="0,1.2,0,1.8" Grid.RowSpan="2"/>
+                <Button Name="BtnBestellingLijnToevoegen" Content="Voeg Artikel Toe" Grid.Row="12" Grid.Column="0" FontWeight="Bold" Grid.ColumnSpan="3" Margin="1,1.2,0.2,0.8" Grid.RowSpan="2" Click="BtnBestellingLijnToevoegen_Click" />
+                <Button Name="BestellingLijnVerwijderen" Content="Verwijder Artikel" Grid.Row="12" Grid.Column="4" FontWeight="Bold" Margin="0,1.2,0.4,0.8" Grid.RowSpan="2" />
 
-            </Menu>
-        </StackPanel>
+                <!--*******************************************************************************************************************-->
+                <!--Te Betalen, betaald, terug betalen -->
+                <Label Name="TotaalTeBetalen" Content="Te Betalen" Grid.Row="9" Grid.Column="8" FontWeight="Bold" Margin="0,0.6,1.2,0.8" HorizontalAlignment="Right" Width="75" />
+                <TextBox Name="TxtTotaalTeBetalen" Grid.Row="9" Grid.Column="9" Margin="1.972,0.6,0.662,0.8" Grid.ColumnSpan="2" TextChanged="TxtTotaalTeBetalen_TextChanged"/>
+                <Label Name="CashGeld" Content="Betaald" Grid.Row="11" Grid.Column="8" FontWeight="Bold" Margin="0,1.6,1.028,1.4" Grid.RowSpan="2" HorizontalAlignment="Right" Width="58" />
+                <TextBox Name="TxtBetaald" Grid.Row="10" Grid.Column="10" Margin="0.2,1.2,0.2,1.8" Grid.RowSpan="2"/>
+                <Label Name="TerugBetalen" Content="Terug" Grid.Row="12" Grid.Column="8" FontWeight="Bold" Margin="0,1.2,0.2,0.8" Grid.RowSpan="2" HorizontalAlignment="Right" Width="50" />
+                <TextBox Name="TxtTerugBetalen" Grid.Row="12" Grid.Column="10" Margin="0.2,1.2,0.2,0.8" Grid.RowSpan="2"/>
+                <Label Name="EuroSymbol" Content="€" Grid.Row="9" Grid.Column="11" FontWeight="Bold" Margin="0.338,0.6,0,1.8" HorizontalAlignment="Left" VerticalAlignment="Center" Height="28" Width="20" />
+                <Label Name="EuroSymbol2" Content="€" Grid.Row="10" Grid.Column="11" FontWeight="Bold" Margin="0.338,1.2,0,1.8" HorizontalAlignment="Left" VerticalAlignment="Center" Height="29" Width="20" Grid.RowSpan="2" />
+                <Label Name="EuroSymbol3" Content="€" Grid.Row="12" Grid.Column="11" FontWeight="Bold" Margin="0.338,1.2,0,0.8" HorizontalAlignment="Left" VerticalAlignment="Center" Grid.RowSpan="2" Height="30" Width="20" />
+
+                <!--*******************************************************************************************************************-->
+                <!--Betalen, Kassa Ticket, Volgende Klant-->
+                <Button Name="BtnBetalen" Content="Betalen" Grid.Row="9" Grid.Column="6" FontWeight="Bold" Margin="1,0.6,1.4,0.8"/>
+                <Button Name="BtnKassaTicket" Content="Kassa Ticket" Grid.Row="10" Grid.Column="6" FontWeight="Bold" Margin="1,1.2,1.4,1.8" Grid.RowSpan="2"/>
+                <Button Name="BtnVolgendeKlant" Content="Volgende Klant" Grid.Row="12" Grid.Column="6" FontWeight="Bold" Margin="1,1.2,1.4,0.8" Grid.RowSpan="2"/>
+                <!--*******************************************************************************************************************-->
+                <!--Factuur Nr = Bestelling ID-->
+                <Label Name="FactuurNummer" Content="Factuur Nr." Grid.Row="4" Grid.Column="0" Margin="0,0,0.4,0.2" FontWeight="Bold" Height="30" HorizontalAlignment="Right"/>
+                <TextBox Name="TxtFactuurNummer" Grid.Row="4" Grid.Column="2"></TextBox>
+            </Grid>
+        </Border>
     </Grid>
 </Page>
