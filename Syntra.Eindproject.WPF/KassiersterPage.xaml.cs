@@ -23,14 +23,14 @@ namespace Syntra.Eindproject.WPF
     {
         public KassiersterPage()
         {
-            InitializeComponent();
+            InitializeComponent();   
         }
 
         //BestellingLijnen importeren van SQL en tonen
         public void Initialize()
         {
-            List<Bestelling> bestelling = DatabaseManager.Instance.BestellingRepository.GetBestelling().ToList();
-            LstBestellingLijnen.ItemsSource = bestelling;
+            List<Bestelling> bestellingLijnen = DatabaseManager.Instance.BestellingRepository.GetBestellingLijnen().ToList();
+            LstBestellingLijnen.ItemsSource = bestellingLijnen;
         }
 
         //Product + Aantal toevoegen = BestellingLijn toevoegen
@@ -56,20 +56,57 @@ namespace Syntra.Eindproject.WPF
             TxtHoeveelheid.Text = string.Empty;
 
             Initialize();
+
+            //Toon de "Te Betalen totaal"
+            List<double> tebetalen = DatabaseManager.Instance.BestellingRepository.GetTeBetalenBedrag().ToList();
+            foreach (var item in tebetalen)
+            {
+                TxtTotaalTeBetalen.Text = tebetalen.First().ToString();
+            }
         }
+
 
         //Te betalen bedrag
         private void TxtTotaalTeBetalen_TextChanged(object sender, TextChangedEventArgs e)
         {
-            //string totaal = DatabaseManager.Instance.BestellingRepository.CalculateTotaalBestelling().ToString();
-            //TxtTotaalTeBetalen.Text = totaal;
+
         }
 
 
+        //BestellingId aanmaken en tonen als FactuurNr
         private void KassiersterPage_OnLoaded(object sender, RoutedEventArgs e)
-        {
+        {   
+            //Datagrid resetten + 1 een nieuwe BestellingId aanmaken
             LstBestellingLijnen.Items.Clear();
             DatabaseManager.Instance.BestellingRepository.InsertBestelling();
+
+
+            //FactuurNr = BestellingId opladen           
+            List<string> factuurNr = DatabaseManager.Instance.BestellingRepository.GetBestellingId().ToList();
+
+            foreach (var item in factuurNr)
+            {
+                TxtFactuurNummer.Text = factuurNr.First(); 
+            }
+
+        }
+
+        private void BtnBetalen_Click(object sender, RoutedEventArgs e)
+        {
+            //Betaling uitvoeren
+            double.TryParse(TxtBetaald.Text, out double betaald);
+            double.TryParse(TxtTotaalTeBetalen.Text, out double totaalTeBetalen);
+            double terugBetalen = (betaald - totaalTeBetalen);
+
+            if (terugBetalen<0)
+            {
+                MessageBox.Show("Het betaalde bedrag is kleiner dan het te betalen bedrag!");
+            }
+            else
+            {
+                TxtTerugBetalen.Text = terugBetalen.ToString();
+            }
+           
         }
     }
 }

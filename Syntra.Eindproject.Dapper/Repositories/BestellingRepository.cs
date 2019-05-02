@@ -52,34 +52,38 @@ namespace Syntra.Eindproject.Dapper.Repositories
         {
             using (var connection = new SqlConnection(Connection.Instance.ConnectionString))
             {
-                return connection.Query<Bestelling>(@"SELECT BestellingId, ProductId, Aantal, Prijs, Eenheid, Bedrag 
-                                                      FROM BestellingLijnen");
+                return connection.Query<Bestelling>(@"SELECT BestellingLijnen.BestellingId, Product.Naam, BestellingLijnen.ProductId, 
+	                                                    BestellingLijnen.Aantal, Product.Prijs, Product.Eenheid, BestellingLijnen.Bedrag 
+	                                                    FROM BestellingLijnen 
+	                                                    INNER JOIN Product 
+	                                                    on Product.Id = BestellingLijnen.ProductId
+	                                                    Where BestellingId = (select top 1 Id from Bestelling order by id desc)");
 
             }
         }
 
-
-        //public void CalculateTotaalBestelling(Bestelling bestelling)
-        //{
-        //    using (var connection = new SqlConnection(Connection.Instance.ConnectionString))
-        //    {
-        //        connection.Execute(@" Update Bestelling 
-        //                              Set 
-        //                              Totaal = (select SUM(Bedrag) From BestellingLijnen Where BestellingId = @BestellingId)
-        //                              Where BestellingId = @BestellingId",
-        //                              new
-        //                              {
-        //                                  Id = bestelling.Id,
-        //                                  Totaal = bestelling.Totaal,
-
-        //                              }
-        //            );
-
-        //    }
-
-        //}
+        public IEnumerable<string> GetBestellingId()
+        {
+            using (var connection = new SqlConnection(Connection.Instance.ConnectionString))
+            {
+                return connection.Query<string>(
+                    @"select top 1 Id from Bestelling order by id desc ");
+            }
 
 
+        }
 
+        public IEnumerable<double> GetTeBetalenBedrag()
+        {
+            using (var connection = new SqlConnection(Connection.Instance.ConnectionString))
+            {
+                return connection.Query<double>(
+                    @"select Sum(Bedrag) As Totaal
+                      from BestellingLijnen
+                       Where BestellingId = (select top 1 BestellingId from BestellingLijnen order by ID desc) ");
+            }
+
+
+        }
     }
 }
