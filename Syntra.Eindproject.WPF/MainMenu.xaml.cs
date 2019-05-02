@@ -51,45 +51,53 @@ namespace Syntra.Eindproject.WPF
             string gebruiker = ((ListBoxItem) LbUsers.SelectedItem).Content.ToString();
             string paswoord = TxtPaswoord.Password.ToString();
 
-
-            switch (gebruiker)
+            bool test = DatabaseManager.Instance.GebruikerRepository.ValidUser(gebruiker, paswoord);
+            if (test == true)
             {
-                case "Magazijnier":
-                    if (!DatabaseManager.Instance.GebruikerRepository.IsValid(gebruiker, paswoord))
-                    {
-                        MessageBox.Show("Foute login");
-                        TxtPaswoord.Password = string.Empty;
-                    }
-                    else
-                    {
-                        NavigationService.Navigate(new MagazijnierPage());
-                    }
-                    break;
-                case "Kassierster":
-                    if (!DatabaseManager.Instance.GebruikerRepository.IsValid(gebruiker, paswoord))
-                    {
-                        MessageBox.Show("Foute login");
-                        TxtPaswoord.Password = string.Empty;
-                    }
-                    else
-                    {
-                        NavigationService.Navigate(new KassiersterPage());
-                    }
-
-                    break;
-                case "Klant":
-                    if (!DatabaseManager.Instance.GebruikerRepository.IsValid(gebruiker, paswoord))
-                    {
-                        MessageBox.Show("Foute login");
-                        TxtPaswoord.Password = string.Empty;
-                    }
-                    else
-                    {
-                        NavigationService.Navigate(new KlantPage());
-                    }
-
-                    break;
+                NavigationService.Navigate(new MagazijnierPage());
             }
+            else
+            {
+                MessageBox.Show("verkeerde login");
+            }
+            //switch (gebruiker)
+            //{
+            //    case "Magazijnier":
+            //        if (!DatabaseManager.Instance.GebruikerRepository.IsValid(gebruiker, paswoord))
+            //        {
+            //            MessageBox.Show("Foute login");
+            //            TxtPaswoord.Password = string.Empty;
+            //        }
+            //        else
+            //        {
+            //            NavigationService.Navigate(new MagazijnierPage());
+            //        }
+            //        break;
+            //    case "Kassierster":
+            //        if (!DatabaseManager.Instance.GebruikerRepository.IsValid(gebruiker, paswoord))
+            //        {
+            //            MessageBox.Show("Foute login");
+            //            TxtPaswoord.Password = string.Empty;
+            //        }
+            //        else
+            //        {
+            //            NavigationService.Navigate(new KassiersterPage());
+            //        }
+
+            //        break;
+            //    case "Klant":
+            //        if (!DatabaseManager.Instance.GebruikerRepository.IsValid(gebruiker, paswoord))
+            //        {
+            //            MessageBox.Show("Foute login");
+            //            TxtPaswoord.Password = string.Empty;
+            //        }
+            //        else
+            //        {
+            //            NavigationService.Navigate(new KlantPage());
+            //        }
+
+            //        break;
+            //}
 
         }
 

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
+using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
 using Dapper;
@@ -19,11 +20,27 @@ namespace Syntra.Eindproject.Dapper.Repositories
             }
         }
 
-        //public bool IsUserValid(string gebruiker)
-        //{
-            
+        //Login using LINQ
+        public bool ValidUser(string gebruiker, string paswoord)
+        {
+            List<User> users = GetGebruikers().ToList();
+            bool test = true;
 
-        //}
+            var q = from u in users
+                where u.Gebruiker == gebruiker && u.Paswoord == paswoord
+                select u;
+
+            if (q.Any())
+            {
+                test = true;
+            }
+            else
+            {
+                test = false;
+            }
+
+            return test;
+        }
         public bool IsValid(string gebruiker, string paswoord)
         {
             using (var connection = new SqlConnection(Connection.Instance.ConnectionString))
