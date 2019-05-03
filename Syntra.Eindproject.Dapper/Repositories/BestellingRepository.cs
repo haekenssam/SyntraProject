@@ -9,7 +9,7 @@ using Syntra.Eindproject.BL;
 
 namespace Syntra.Eindproject.Dapper.Repositories
 {
-    public class BestellingRepository
+    public class BestellingRepository : ProductRepository
     {
         public void InsertBestelling()
         {
@@ -22,6 +22,15 @@ namespace Syntra.Eindproject.Dapper.Repositories
 
         public void InsertBestellingLijn(int productid, float aantal)
         {
+            if ( string.IsNullOrEmpty(productid.ToString()))
+            {
+                throw new BusinessException("Ongeldig product");
+            }
+
+            if (!IsValidProduct(productid))
+            {
+                throw new BusinessException("Ongeldig product");
+            }
             using (var connection = new SqlConnection(Connection.Instance.ConnectionString))
             {
                 connection.Execute(@"insert into BestellingLijnen(BestellingId, ProductId, Aantal, Eenheid, Prijs, Bedrag)
@@ -35,7 +44,27 @@ namespace Syntra.Eindproject.Dapper.Repositories
                     });
             }
         }
+        //Controle productid --> wordt bij insertbestellinglijn opgeroepen.
+        public bool IsValidProduct(int productid)
+        {
+            List<Product> products = GetProducts().ToList();
+            bool isValid = true;
 
+            var q = from p in products
+                where p.Id == productid
+                select p;
+
+            if (q.Any())
+            {
+                isValid = true;
+            }
+            else
+            {
+                isValid = false;
+            }
+
+            return isValid;
+        }
         public IEnumerable<Bestelling> GetBestelling()
         {
             using (var connection = new SqlConnection(Connection.Instance.ConnectionString))

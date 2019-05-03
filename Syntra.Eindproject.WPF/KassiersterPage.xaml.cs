@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Syntra.Eindproject.BL;
+using Syntra.Eindproject.Dapper;
 
 namespace Syntra.Eindproject.WPF
 {
@@ -39,9 +40,17 @@ namespace Syntra.Eindproject.WPF
             int.TryParse(TxtArtikelId.Text, out int productid);
             float.TryParse(TxtHoeveelheid.Text, out float aantal);
 
-            DatabaseManager.Instance.BestellingRepository.InsertBestellingLijn(productid, aantal);
-
+                try
+                {
+                    DatabaseManager.Instance.BestellingRepository.InsertBestellingLijn(productid, aantal);
+                }
+                catch (BusinessException excp)
+                {
+                    MessageBox.Show(excp.ToString());
+                }
             
+            
+          
             //if (!DatabaseManager.Instance.ProductRepository.IsValidProduct(productid) || string.IsNullOrEmpty(TxtArtikelId.Text))
             //{
             //    MessageBox.Show("Artikel Nr. is niet geldig");
