@@ -29,6 +29,8 @@ namespace Syntra.Eindproject.WPF
 
         public void Initialize()
         {
+            LbUsers.Items.Clear();
+
             List<User> Gebruikers = DatabaseManager.Instance.GebruikerRepository.GetGebruikers().ToList();
             foreach (User user in Gebruikers)
             {
@@ -51,45 +53,71 @@ namespace Syntra.Eindproject.WPF
             string gebruiker = ((ListBoxItem) LbUsers.SelectedItem).Content.ToString();
             string paswoord = TxtPaswoord.Password.ToString();
 
+            bool test = DatabaseManager.Instance.GebruikerRepository.IsUserValid(gebruiker, paswoord);
 
-            switch (gebruiker)
+            if (test == true)
             {
-                case "Magazijnier":
-                    if (!DatabaseManager.Instance.GebruikerRepository.IsValid(gebruiker, paswoord))
-                    {
-                        MessageBox.Show("Foute login");
-                        TxtPaswoord.Password = string.Empty;
-                    }
-                    else
-                    {
-                        NavigationService.Navigate(new MagazijnierPage());
-                    }
-                    break;
-                case "Kassierster":
-                    if (!DatabaseManager.Instance.GebruikerRepository.IsValid(gebruiker, paswoord))
-                    {
-                        MessageBox.Show("Foute login");
-                        TxtPaswoord.Password = string.Empty;
-                    }
-                    else
-                    {
-                        NavigationService.Navigate(new KassiersterPage());
-                    }
+                if (gebruiker == "Magazijnier")
+                {
+                    NavigationService.Navigate(new MagazijnierPage());
+                }
 
-                    break;
-                case "Klant":
-                    if (!DatabaseManager.Instance.GebruikerRepository.IsValid(gebruiker, paswoord))
-                    {
-                        MessageBox.Show("Foute login");
-                        TxtPaswoord.Password = string.Empty;
-                    }
-                    else
-                    {
-                        NavigationService.Navigate(new KlantPage());
-                    }
+                if (gebruiker == "Kassierster")
+                {
+                    NavigationService.Navigate(new KassiersterPage());
+                }
 
-                    break;
+                if (gebruiker == "Klant")
+                {
+                    NavigationService.Navigate(new KlantPage());
+                }
+            
             }
+            else
+            {
+                MessageBox.Show("verkeerde login");
+            }
+
+            // Oude manier van login --> nu met code behind in Gebruikerrepository
+
+            //switch (gebruiker)
+            //{
+            //    case "Magazijnier":
+            //        if (!DatabaseManager.Instance.GebruikerRepository.IsValid(gebruiker, paswoord))
+            //        {
+            //            MessageBox.Show("Foute login");
+            //            TxtPaswoord.Password = string.Empty;
+            //        }
+            //        else
+            //        {
+            //            NavigationService.Navigate(new MagazijnierPage());
+            //        }
+            //        break;
+            //    case "Kassierster":
+            //        if (!DatabaseManager.Instance.GebruikerRepository.IsValid(gebruiker, paswoord))
+            //        {
+            //            MessageBox.Show("Foute login");
+            //            TxtPaswoord.Password = string.Empty;
+            //        }
+            //        else
+            //        {
+            //            NavigationService.Navigate(new KassiersterPage());
+            //        }
+
+            //        break;
+            //    case "Klant":
+            //        if (!DatabaseManager.Instance.GebruikerRepository.IsValid(gebruiker, paswoord))
+            //        {
+            //            MessageBox.Show("Foute login");
+            //            TxtPaswoord.Password = string.Empty;
+            //        }
+            //        else
+            //        {
+            //            NavigationService.Navigate(new KlantPage());
+            //        }
+
+            //        break;
+            //}
 
         }
 

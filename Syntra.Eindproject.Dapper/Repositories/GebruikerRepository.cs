@@ -19,32 +19,49 @@ namespace Syntra.Eindproject.Dapper.Repositories
             }
         }
 
-        //public bool IsUserValid(string gebruiker)
-        //{
-            
-
-        //}
-        public bool IsValid(string gebruiker, string paswoord)
+        public bool IsUserValid(string gebruiker, string paswoord)
         {
-            using (var connection = new SqlConnection(Connection.Instance.ConnectionString))
+            List<User> users = GetGebruikers().ToList();
+            bool test = true;
+
+            var q = from u in users
+                where u.Gebruiker == gebruiker && u.Paswoord == paswoord
+                select u;
+
+            if (q.Any())
             {
-               bool IsValid = true;
+                test = true;
 
-               int Count = connection.QuerySingle<int>(
-                    @"SELECT COUNT(ID) FROM Gebruikers where Gebruiker = @gebruiker and Paswoord = @paswoord",
-                    new
-                    {
-                        Gebruiker = gebruiker,
-                        Paswoord = paswoord
-                    });
-
-               if (Count != 1)
-               {
-                   IsValid = false;
-               }
-
-               return IsValid;
             }
-        } 
+            else
+            {
+                test = false;
+            }
+
+            return test;
+
+        }
+        //public bool IsValid(string gebruiker, string paswoord)
+        //{
+        //    using (var connection = new SqlConnection(Connection.Instance.ConnectionString))
+        //    {
+        //       bool IsValid = true;
+
+        //       int Count = connection.QuerySingle<int>(
+        //            @"SELECT COUNT(ID) FROM Gebruikers where Gebruiker = @gebruiker and Paswoord = @paswoord",
+        //            new
+        //            {
+        //                Gebruiker = gebruiker,
+        //                Paswoord = paswoord
+        //            });
+
+        //       if (Count != 1)
+        //       {
+        //           IsValid = false;
+        //       }
+
+        //       return IsValid;
+        //    }
+        //} 
     }
 }
