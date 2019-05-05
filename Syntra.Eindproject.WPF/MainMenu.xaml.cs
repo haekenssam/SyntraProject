@@ -78,7 +78,7 @@ namespace Syntra.Eindproject.WPF
                 MessageBox.Show("verkeerde login");
             }
 
-            // Oude manier van login --> nu met code behind in Gebruikerrepository
+            // Oude manier van login --> nu met code behind in Gebruikerrepository 5/05/2019
 
             //switch (gebruiker)
             //{
