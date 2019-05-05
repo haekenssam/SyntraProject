@@ -27,16 +27,18 @@ namespace Syntra.Eindproject.WPF
             InitializeComponent();   
         }
 
-        //BestellingLijnen importeren van SQL en tonen
+        //BestellingLijnen importeren en tonen
         public void Initialize()
         {
+            //BestellingLijnen importeren en tonen
             List<Bestelling> bestellingLijnen = DatabaseManager.Instance.BestellingRepository.GetBestellingLijnen().ToList();
             LstBestellingLijnen.ItemsSource = bestellingLijnen;
         }
 
-        //Product + Aantal toevoegen = BestellingLijn toevoegen
+        //(Product + hoeveelheid) toevoegen = BestellingLijn toevoegen + Toon "Totaal te betalen bedrag"
         private void BtnBestellingLijnToevoegen_Click(object sender, RoutedEventArgs e)
         {
+            //BestellingLijn toevoegen
             int.TryParse(TxtArtikelId.Text, out int productid);
             float.TryParse(TxtHoeveelheid.Text, out float aantal);
 
@@ -49,73 +51,116 @@ namespace Syntra.Eindproject.WPF
                     MessageBox.Show(excp.ToString());
                 }
             
-            
-          
-            //if (!DatabaseManager.Instance.ProductRepository.IsValidProduct(productid) || string.IsNullOrEmpty(TxtArtikelId.Text))
-            //{
-            //    MessageBox.Show("Artikel Nr. is niet geldig");
-            //}
-
-            //else
-            //{
-
-            //}
-
+            //TxtArtikelId + TxtHoeveelheid resetten (leegmaken)
             TxtArtikelId.Text = string.Empty;
             TxtHoeveelheid.Text = string.Empty;
 
             Initialize();
 
+
             //Toon de "Te Betalen totaal"
-            List<double> tebetalen = DatabaseManager.Instance.BestellingRepository.GetTeBetalenBedrag().ToList();
-            foreach (var item in tebetalen)
-            {
-                TxtTotaalTeBetalen.Text = tebetalen.First().ToString();
-            }
-        }
-
-
-        //Te betalen bedrag
-        private void TxtTotaalTeBetalen_TextChanged(object sender, TextChangedEventArgs e)
-        {
+            List<double> tebetalen = DatabaseManager.Instance.BestellingRepository.GetTotaalTeBetalen().ToList();
+            TxtTotaalTeBetalen.Text = tebetalen.First().ToString();
 
         }
 
-
-        //BestellingId aanmaken en tonen als FactuurNr
+        //BestellingId aanmaken en tonen als FactuurNr + Datagrid en textboxes resetten
         private void KassiersterPage_OnLoaded(object sender, RoutedEventArgs e)
-        {   
+        {
+            // TxtTotaalTeBetalen, TxtBetaald en TxtTerugBetalen resetten naar 0
+            TxtTotaalTeBetalen.Text = "0,00";
+            TxtBetaald.Text = "0,00";
+            TxtTerugBetalen.Text = "0,00";
+
             //Datagrid resetten + 1 een nieuwe BestellingId aanmaken
             LstBestellingLijnen.Items.Clear();
             DatabaseManager.Instance.BestellingRepository.InsertBestelling();
 
-
             //FactuurNr = BestellingId opladen           
             List<string> factuurNr = DatabaseManager.Instance.BestellingRepository.GetBestellingId().ToList();
-
-            foreach (var item in factuurNr)
-            {
-                TxtFactuurNummer.Text = factuurNr.First(); 
-            }
-
+            TxtFactuurNummer.Text = factuurNr.First(); 
         }
 
+        //Betaling uitvoeren
         private void BtnBetalen_Click(object sender, RoutedEventArgs e)
         {
             //Betaling uitvoeren
-            double.TryParse(TxtBetaald.Text, out double betaald);
-            double.TryParse(TxtTotaalTeBetalen.Text, out double totaalTeBetalen);
-            double terugBetalen = (betaald - totaalTeBetalen);
+            float.TryParse(TxtBetaald.Text, out float betaald);
+            float.TryParse(TxtTotaalTeBetalen.Text, out float totaalTeBetalen);
+            float terugBetalen = (betaald - totaalTeBetalen);
 
             if (terugBetalen<0)
             {
-                MessageBox.Show("Het betaalde bedrag is kleiner dan het te betalen bedrag!");
+                MessageBox.Show("Het betaalde bedrag is kleiner dan het totaal te betalen. De betaling is niet uitgevoerd!");            
             }
             else
             {
                 TxtTerugBetalen.Text = terugBetalen.ToString();
+
+                //Product Stock aanpassen
+
+
+                //Betaling Database tabel invullen
+                try
+                {
+                    DatabaseManager.Instance.BestellingRepository.InsertBetaling(totaalTeBetalen, betaald, terugBetalen);
+                }
+                catch (BusinessException excp)
+                {
+                    MessageBox.Show(excp.ToString());
+                }
+
             }
            
+        }
+
+        //Volgende klant
+        private void BtnVolgendeKlant_Click(object sender, RoutedEventArgs e)
+        {
+            //FactuurNr Textbox resetten
+            TxtFactuurNummer.Text = string.Empty;
+
+            ////Een nieuwe FactuurNr (BestellingId) aanmaken
+            DatabaseManager.Instance.BestellingRepository.InsertBestelling();
+
+
+            //Datagrid resetten
+            List<Bestelling> bestellingLijnen = DatabaseManager.Instance.BestellingRepository.GetBestellingLijnen().ToList();
+            LstBestellingLijnen.ItemsSource = bestellingLijnen;
+
+            //FactuurNr = BestellingId opladen 
+            List<string> factuurNr = DatabaseManager.Instance.BestellingRepository.GetBestellingId().ToList();
+            TxtFactuurNummer.Text = factuurNr.First();
+
+            //// TxtTotaalTeBetalen, TxtBetaald en TxtTerugBetalen resetten naar 0
+            TxtTotaalTeBetalen.Text = "0,00";
+            TxtBetaald.Text = "0,00";
+            TxtTerugBetalen.Text = "0,00";
+        }
+
+        //BestellingLijn verwijderen
+        private void BestellingLijnVerwijderen_Click(object sender, RoutedEventArgs e)
+        {
+            //De geselecteerde bestellinglijn door de functie GetSelectedBestellingLijn() uit de database verijwerederen
+            Bestelling bestellingLijn = GetSelectedBestellingLijn();
+            DatabaseManager.Instance.BestellingRepository.DeleteBestellingLijn(bestellingLijn.ProductId, bestellingLijn.Aantal);
+
+            //BestellingLijnen importeren en tonen
+            List<Bestelling> bestellingLijnen = DatabaseManager.Instance.BestellingRepository.GetBestellingLijnen().ToList();
+            LstBestellingLijnen.ItemsSource = bestellingLijnen;
+
+            //Toon de "Te Betalen totaal"
+            List<double> tebetalen = DatabaseManager.Instance.BestellingRepository.GetTotaalTeBetalen().ToList();
+            TxtTotaalTeBetalen.Text = tebetalen.First().ToString();
+
+        }
+
+        //BestellingLijn Selecteren
+        private Bestelling GetSelectedBestellingLijn()
+        {
+            Bestelling current = LstBestellingLijnen.SelectedItem as Bestelling;
+
+            return current;
         }
     }
 }

@@ -22,6 +22,7 @@ namespace Syntra.Eindproject.Dapper.Repositories
 
         public void InsertBestellingLijn(int productid, float aantal)
         {
+            //Hier moeten wij nog controle van hoeveelheid plaatsen (mag enkel cijfers zijn en geen letters bv in het geval van een typfout)
             if ( string.IsNullOrEmpty(productid.ToString()))
             {
                 throw new BusinessException("Ongeldig product");
@@ -44,7 +45,8 @@ namespace Syntra.Eindproject.Dapper.Repositories
                     });
             }
         }
-        //Controle productid --> wordt bij insertbestellinglijn opgeroepen.
+
+        //Controle productid --> wordt bij Insertbestellinglijn() opgeroepen.
         public bool IsValidProduct(int productid)
         {
             List<Product> products = GetProducts().ToList();
@@ -65,6 +67,7 @@ namespace Syntra.Eindproject.Dapper.Repositories
 
             return isValid;
         }
+
         public IEnumerable<Bestelling> GetBestelling()
         {
             using (var connection = new SqlConnection(Connection.Instance.ConnectionString))
@@ -99,10 +102,9 @@ namespace Syntra.Eindproject.Dapper.Repositories
                     @"select top 1 Id from Bestelling order by id desc ");
             }
 
-
         }
 
-        public IEnumerable<double> GetTeBetalenBedrag()
+        public IEnumerable<double> GetTotaalTeBetalen()
         {
             using (var connection = new SqlConnection(Connection.Instance.ConnectionString))
             {
@@ -113,6 +115,36 @@ namespace Syntra.Eindproject.Dapper.Repositories
             }
 
 
+        }
+
+        public void DeleteBestellingLijn(int productId, float aantal)
+        {
+            using (SqlConnection connection = new SqlConnection(Connection.Instance.ConnectionString))
+            {
+                connection.Execute(@"delete from BestellingLijnen where (ProductId = @productid AND Aantal = @aantal) ",
+                                    new
+                                    {
+                                        ProductId = productId,
+                                        Aantal = aantal
+                                        
+                                    });
+            }
+        }
+
+        public void InsertBetaling(float totaalTeBetalen, float betaald, float terugBetalen)
+        {
+            using (var connection = new SqlConnection(Connection.Instance.ConnectionString))
+            {
+                connection.Execute(@"insert into Betalingen (BestellingId, Totaal, Betaald, Terug)
+                                        values((select top 1 Id from Bestelling order by id desc), @totaalTeBetalen, @betaald, @terugBetalen)",
+                    new
+                    {
+                        TotaalTeBetalen = totaalTeBetalen,
+                        Betaald = betaald,
+                        TerugBetalen = terugBetalen
+
+                    });
+            }
         }
     }
 }
