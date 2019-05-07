@@ -94,26 +94,43 @@ namespace Syntra.Eindproject.Dapper.Repositories
             }
         }
 
-        public IEnumerable<string> GetBestellingId()
+        public Bestelling GetBestellingId()
         {
             using (var connection = new SqlConnection(Connection.Instance.ConnectionString))
             {
-                return connection.Query<string>(
+                //QueryFirstOrDefault
+                return connection.QueryFirst<Bestelling>(
                     @"select top 1 Id from Bestelling order by id desc ");
             }
 
         }
 
-        public IEnumerable<double> GetTotaalTeBetalen()
+        public Bestelling GetTotaalTeBetalen()
+        {
+            //IEnumerable<Bestelling> getBestellingId = GetBestellingId();
+            //IEnumerable<Bestelling> getBestellingLijnenId = GetBestellingLijnenId();
+
+            //getBestellingId.First().ToString();
+            //getBestellingLijnenId.First().ToString();
+
+            using (var connection = new SqlConnection(Connection.Instance.ConnectionString))
+            {
+                return connection.QueryFirst<Bestelling>(
+                    @"select Sum(Bedrag) As Totaal
+                      from BestellingLijnen
+                       Where BestellingId = (select top 1 Id from Bestelling order by id desc) ");
+            }
+
+         
+        }
+
+        public Bestelling GetBestellingLijnenId()
         {
             using (var connection = new SqlConnection(Connection.Instance.ConnectionString))
             {
-                return connection.Query<double>(
-                    @"select Sum(Bedrag) As Totaal
-                      from BestellingLijnen
-                       Where BestellingId = (select top 1 BestellingId from BestellingLijnen order by ID desc) ");
+                return connection.QueryFirst<Bestelling>(
+                    @"select top 1 BestellingId from BestellingLijnen order by id desc ");
             }
-
 
         }
 
@@ -146,5 +163,19 @@ namespace Syntra.Eindproject.Dapper.Repositories
                     });
             }
         }
+
+        public void UpdateStock()
+        {
+            //using (var connection = new SqlConnection(Connection.Instance.ConnectionString))
+            //{
+            //    connection.Execute(@"UPDATE Product 
+            //                         SET  Stock = (Product.Stock - BestellingLijnen.Aantal)
+            //                         FROM Product LEFT JOIN BestellingLijnen
+            //                         ON BestellingLijnen.ProductId = Product.id
+            //                         WHERE Product.id = BestellingLijnen.ProductId 
+            //                         AND BestellingLijnen.BestellingId = (select top 1 id from Bestelling Order by id desc) )");
+            }
+        }
+
     }
 }

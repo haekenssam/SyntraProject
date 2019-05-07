@@ -59,8 +59,8 @@ namespace Syntra.Eindproject.WPF
 
 
             //Toon de "Te Betalen totaal"
-            List<double> tebetalen = DatabaseManager.Instance.BestellingRepository.GetTotaalTeBetalen().ToList();
-            TxtTotaalTeBetalen.Text = tebetalen.First().ToString();
+            Bestelling tebetalen = DatabaseManager.Instance.BestellingRepository.GetTotaalTeBetalen();
+            TxtTotaalTeBetalen.Text = tebetalen.Totaal.ToString();
 
         }
 
@@ -77,8 +77,9 @@ namespace Syntra.Eindproject.WPF
             DatabaseManager.Instance.BestellingRepository.InsertBestelling();
 
             //FactuurNr = BestellingId opladen           
-            List<string> factuurNr = DatabaseManager.Instance.BestellingRepository.GetBestellingId().ToList();
-            TxtFactuurNummer.Text = factuurNr.First(); 
+            Bestelling factuurNr = DatabaseManager.Instance.BestellingRepository.GetBestellingId();
+
+            TxtFactuurNummer.Text = factuurNr.Id.ToString();
         }
 
         //Betaling uitvoeren
@@ -129,8 +130,8 @@ namespace Syntra.Eindproject.WPF
             LstBestellingLijnen.ItemsSource = bestellingLijnen;
 
             //FactuurNr = BestellingId opladen 
-            List<string> factuurNr = DatabaseManager.Instance.BestellingRepository.GetBestellingId().ToList();
-            TxtFactuurNummer.Text = factuurNr.First();
+            Bestelling factuurNr = DatabaseManager.Instance.BestellingRepository.GetBestellingId();
+            TxtFactuurNummer.Text = factuurNr.ToString();
 
             //// TxtTotaalTeBetalen, TxtBetaald en TxtTerugBetalen resetten naar 0
             TxtTotaalTeBetalen.Text = "0,00";
@@ -141,7 +142,7 @@ namespace Syntra.Eindproject.WPF
         //BestellingLijn verwijderen
         private void BestellingLijnVerwijderen_Click(object sender, RoutedEventArgs e)
         {
-            //De geselecteerde bestellinglijn door de functie GetSelectedBestellingLijn() uit de database verijwerederen
+            //De geselecteerde bestellinglijn door de functie GetSelectedBestellingLijn() uit de database verwijderen
             Bestelling bestellingLijn = GetSelectedBestellingLijn();
             DatabaseManager.Instance.BestellingRepository.DeleteBestellingLijn(bestellingLijn.ProductId, bestellingLijn.Aantal);
 
@@ -150,8 +151,11 @@ namespace Syntra.Eindproject.WPF
             LstBestellingLijnen.ItemsSource = bestellingLijnen;
 
             //Toon de "Te Betalen totaal"
-            List<double> tebetalen = DatabaseManager.Instance.BestellingRepository.GetTotaalTeBetalen().ToList();
-            TxtTotaalTeBetalen.Text = tebetalen.First().ToString();
+            Bestelling tebetalen = DatabaseManager.Instance.BestellingRepository.GetTotaalTeBetalen();
+            TxtTotaalTeBetalen.Text = tebetalen.Totaal.ToString();
+
+
+
 
         }
 
