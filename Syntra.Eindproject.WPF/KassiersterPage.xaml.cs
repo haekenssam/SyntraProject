@@ -27,6 +27,23 @@ namespace Syntra.Eindproject.WPF
             InitializeComponent();   
         }
 
+        //BestellingId aanmaken en tonen als FactuurNr + Datagrid en textboxes resetten
+        private void KassiersterPage_OnLoaded(object sender, RoutedEventArgs e)
+        {
+            // TxtTotaalTeBetalen, TxtBetaald en TxtTerugBetalen resetten naar 0
+            TxtTotaalTeBetalen.Text = "0,00";
+            TxtBetaald.Text = "0,00";
+            TxtTerugBetalen.Text = "0,00";
+
+            //Datagrid resetten + 1 een nieuwe BestellingId aanmaken
+            LstBestellingLijnen.Items.Clear();
+            DatabaseManager.Instance.BestellingRepository.InsertBestelling();
+
+            //FactuurNr = BestellingId opladen           
+            Bestelling factuurNr = DatabaseManager.Instance.BestellingRepository.GetBestellingId();
+            TxtFactuurNummer.Text = factuurNr.Id.ToString();
+        }
+
         //BestellingLijnen importeren en tonen
         public void Initialize()
         {
@@ -62,24 +79,6 @@ namespace Syntra.Eindproject.WPF
             Bestelling tebetalen = DatabaseManager.Instance.BestellingRepository.GetTotaalTeBetalen();
             TxtTotaalTeBetalen.Text = tebetalen.Totaal.ToString();
 
-        }
-
-        //BestellingId aanmaken en tonen als FactuurNr + Datagrid en textboxes resetten
-        private void KassiersterPage_OnLoaded(object sender, RoutedEventArgs e)
-        {
-            // TxtTotaalTeBetalen, TxtBetaald en TxtTerugBetalen resetten naar 0
-            TxtTotaalTeBetalen.Text = "0,00";
-            TxtBetaald.Text = "0,00";
-            TxtTerugBetalen.Text = "0,00";
-
-            //Datagrid resetten + 1 een nieuwe BestellingId aanmaken
-            LstBestellingLijnen.Items.Clear();
-            DatabaseManager.Instance.BestellingRepository.InsertBestelling();
-
-            //FactuurNr = BestellingId opladen           
-            Bestelling factuurNr = DatabaseManager.Instance.BestellingRepository.GetBestellingId();
-
-            TxtFactuurNummer.Text = factuurNr.Id.ToString();
         }
 
         //Betaling uitvoeren
@@ -124,14 +123,13 @@ namespace Syntra.Eindproject.WPF
             ////Een nieuwe FactuurNr (BestellingId) aanmaken
             DatabaseManager.Instance.BestellingRepository.InsertBestelling();
 
-
             //Datagrid resetten
             List<Bestelling> bestellingLijnen = DatabaseManager.Instance.BestellingRepository.GetBestellingLijnen().ToList();
             LstBestellingLijnen.ItemsSource = bestellingLijnen;
 
-            //FactuurNr = BestellingId opladen 
+            //FactuurNr = BestellingId opladen           
             Bestelling factuurNr = DatabaseManager.Instance.BestellingRepository.GetBestellingId();
-            TxtFactuurNummer.Text = factuurNr.ToString();
+            TxtFactuurNummer.Text = factuurNr.Id.ToString();
 
             //// TxtTotaalTeBetalen, TxtBetaald en TxtTerugBetalen resetten naar 0
             TxtTotaalTeBetalen.Text = "0,00";
