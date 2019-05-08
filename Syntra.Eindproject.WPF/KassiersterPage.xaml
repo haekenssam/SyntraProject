@@ -52,6 +52,7 @@
                 <DataGrid Name="LstBestellingLijnen" AutoGenerateColumns="False" ItemsSource="{Binding bestellingLijnen}" RowHeight="20" 
                           ColumnWidth="*" Grid.Row="6"  Margin="2,2,2,2" Grid.ColumnSpan="13" Grid.RowSpan="3" >/>
                     <DataGrid.Columns>
+                        <DataGridTextColumn Header="Id" Binding="{Binding BestellingLijnenId}"></DataGridTextColumn>
                         <DataGridTextColumn Header="BestellingId" Binding="{Binding BestellingId}"></DataGridTextColumn>
                         <DataGridTextColumn Header="Art.Nr" Binding="{Binding ProductId}"></DataGridTextColumn>
                         <DataGridTextColumn Header="Artikel" Binding="{Binding Naam}"></DataGridTextColumn>

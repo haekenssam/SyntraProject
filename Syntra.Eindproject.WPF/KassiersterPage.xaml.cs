@@ -144,7 +144,7 @@ namespace Syntra.Eindproject.WPF
         {
             //De geselecteerde bestellinglijn door de functie GetSelectedBestellingLijn() uit de database verwijderen
             Bestelling bestellingLijn = GetSelectedBestellingLijn();
-            DatabaseManager.Instance.BestellingRepository.DeleteBestellingLijn(bestellingLijn.ProductId, bestellingLijn.Aantal);
+            DatabaseManager.Instance.BestellingRepository.DeleteBestellingLijn(bestellingLijn.BestellingLijnenId, bestellingLijn.ProductId, bestellingLijn.Aantal);
 
             //BestellingLijnen importeren en tonen
             List<Bestelling> bestellingLijnen = DatabaseManager.Instance.BestellingRepository.GetBestellingLijnen().ToList();
@@ -162,9 +162,9 @@ namespace Syntra.Eindproject.WPF
         //BestellingLijn Selecteren
         private Bestelling GetSelectedBestellingLijn()
         {
-            Bestelling current = LstBestellingLijnen.SelectedItem as Bestelling;
+            Bestelling selectedBestellingLijn = LstBestellingLijnen.SelectedItem as Bestelling;
 
-            return current;
+            return selectedBestellingLijn;
         }
     }
 }

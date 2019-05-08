@@ -18,5 +18,6 @@ namespace Syntra.Eindproject.BL
         public float TotaalTeBetalen { get; set; }
         public float Betaald { get; set; }
         public float TerugBetalen { get; set; }
+        public int BestellingLijnenId { get; set; }
     }
 }

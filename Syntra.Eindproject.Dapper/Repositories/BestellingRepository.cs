@@ -23,7 +23,7 @@ namespace Syntra.Eindproject.Dapper.Repositories
         public void InsertBestellingLijn(int productid, float aantal)
         {
             //Hier moeten wij nog controle van hoeveelheid plaatsen (mag enkel cijfers zijn en geen letters bv in het geval van een typfout)
-            if ( string.IsNullOrEmpty(productid.ToString()))
+            if (string.IsNullOrEmpty(productid.ToString()))
             {
                 throw new BusinessException("Ongeldig product");
             }
@@ -53,8 +53,8 @@ namespace Syntra.Eindproject.Dapper.Repositories
             bool isValid = true;
 
             var q = from p in products
-                where p.Id == productid
-                select p;
+                    where p.Id == productid
+                    select p;
 
             if (q.Any())
             {
@@ -84,7 +84,7 @@ namespace Syntra.Eindproject.Dapper.Repositories
         {
             using (var connection = new SqlConnection(Connection.Instance.ConnectionString))
             {
-                return connection.Query<Bestelling>(@"SELECT BestellingLijnen.BestellingId, Product.Naam, BestellingLijnen.ProductId, 
+                return connection.Query<Bestelling>(@"SELECT BestellingLijnen.ID AS BestellingLijnenId, BestellingLijnen.BestellingId, Product.Naam, BestellingLijnen.ProductId, 
 	                                                    BestellingLijnen.Aantal, Product.Prijs, Product.Eenheid, BestellingLijnen.Bedrag 
 	                                                    FROM BestellingLijnen 
 	                                                    INNER JOIN Product 
@@ -121,7 +121,7 @@ namespace Syntra.Eindproject.Dapper.Repositories
                        Where BestellingId = (select top 1 Id from Bestelling order by id desc) ");
             }
 
-         
+
         }
 
         public Bestelling GetBestellingLijnenId()
@@ -134,16 +134,17 @@ namespace Syntra.Eindproject.Dapper.Repositories
 
         }
 
-        public void DeleteBestellingLijn(int productId, float aantal)
+        public void DeleteBestellingLijn(int bestellingLijnenId, int productId, float aantal)
         {
             using (SqlConnection connection = new SqlConnection(Connection.Instance.ConnectionString))
             {
-                connection.Execute(@"delete from BestellingLijnen where (ProductId = @productid AND Aantal = @aantal) ",
+                connection.Execute(@"delete from BestellingLijnen where (ID = @bestellingLijnenId AND @ProductId = @productid AND Aantal = @aantal) ",
                                     new
                                     {
+                                        BestellingLijnenId = bestellingLijnenId,
                                         ProductId = productId,
                                         Aantal = aantal
-                                        
+
                                     });
             }
         }
@@ -164,7 +165,7 @@ namespace Syntra.Eindproject.Dapper.Repositories
             }
         }
 
-        public void UpdateStock()
+        public void UpdateStockProduct()
         {
             //using (var connection = new SqlConnection(Connection.Instance.ConnectionString))
             //{
@@ -174,8 +175,8 @@ namespace Syntra.Eindproject.Dapper.Repositories
             //                         ON BestellingLijnen.ProductId = Product.id
             //                         WHERE Product.id = BestellingLijnen.ProductId 
             //                         AND BestellingLijnen.BestellingId = (select top 1 id from Bestelling Order by id desc) )");
-            }
         }
+
 
     }
 }
