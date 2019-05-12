@@ -47,6 +47,7 @@ namespace Syntra.Eindproject.Dapper.Repositories
         }
 
         //Controle productid --> wordt bij Insertbestellinglijn() opgeroepen.
+        //Deze moet naar ProductRepository!!!!
         public bool IsValidProduct(int productid)
         {
             List<Product> products = GetProducts().ToList();
@@ -116,9 +117,9 @@ namespace Syntra.Eindproject.Dapper.Repositories
             using (var connection = new SqlConnection(Connection.Instance.ConnectionString))
             {
                 return connection.QueryFirst<Bestelling>(
-                    @"select Sum(Bedrag) As Totaal
-                      from BestellingLijnen
-                       Where BestellingId = (select top 1 Id from Bestelling order by id desc) ");
+                    @"select Round(Sum(Bedrag),2)  As Totaal
+                        from BestellingLijnen
+                        Where BestellingId = (select top 1 Id from Bestelling order by id desc) ");
             }
 
 
@@ -177,6 +178,53 @@ namespace Syntra.Eindproject.Dapper.Repositories
             //                         AND BestellingLijnen.BestellingId = (select top 1 id from Bestelling Order by id desc) )");
         }
 
+        //Deze moet ik nog grondig bekijken
+        public IEnumerable<Bestelling> GetBestellingLijnenKassaTicket()
+        {
+            using (var connection = new SqlConnection(Connection.Instance.ConnectionString))
+            {
+                return connection.Query<Bestelling>(@"SELECT  BestellingLijnen.ProductId, Product.Naam,
+	                                                    BestellingLijnen.Aantal, Product.Prijs, Product.Eenheid, BestellingLijnen.Bedrag 
+	                                                    FROM BestellingLijnen 
+	                                                    INNER JOIN Product 
+	                                                    on Product.Id = BestellingLijnen.ProductId
+	                                                    Where BestellingLijnen.BestellingId = (select top 1 Id from Bestelling order by id desc)");
+
+            }
+        }
+
+        public Bestelling GetBetalingenTotaalTeBetalen()
+        {
+            using (var connection = new SqlConnection(Connection.Instance.ConnectionString))
+            {
+                return connection.QueryFirst<Bestelling>(
+                    @"select Totaal  From Betalingen
+                    Where BestellingId = (select top 1 BestellingId from Betalingen order by BestellingId desc) ");
+            }
+
+        }
+
+        public Bestelling GetBetalingenBetaald()
+        {
+            using (var connection = new SqlConnection(Connection.Instance.ConnectionString))
+            {
+                return connection.QueryFirst<Bestelling>(
+                    @"select Betaald From Betalingen 
+                    Where BestellingId = (select top 1 BestellingId from Betalingen order by BestellingId desc) ");
+            }
+
+        }
+
+        public Bestelling GetBetalingenTerug()
+        {
+            using (var connection = new SqlConnection(Connection.Instance.ConnectionString))
+            {
+                return connection.QueryFirst<Bestelling>(
+                    @"select Terug  From Betalingen
+                    Where BestellingId = (select top 1 BestellingId from Betalingen order by BestellingId desc) ");
+            }
+
+        }
 
     }
 }

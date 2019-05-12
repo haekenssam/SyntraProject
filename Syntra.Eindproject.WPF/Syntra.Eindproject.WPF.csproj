@@ -60,6 +60,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="KassaTicketPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="KassiersterPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -88,6 +92,9 @@
       <DependentUpon>BestellingPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="DatabaseManager\DatabaseManager.cs" />
+    <Compile Include="KassaTicketPage.xaml.cs">
+      <DependentUpon>KassaTicketPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="KassiersterPage.xaml.cs">
       <DependentUpon>KassiersterPage.xaml</DependentUpon>
     </Compile>
@@ -146,6 +153,8 @@
       <Name>Syntra.Eindproject.Service</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Resource Include="Documents\SyntraLogo.gif" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -76,8 +76,9 @@ namespace Syntra.Eindproject.WPF
 
 
             //Toon de "Te Betalen totaal"
-            Bestelling tebetalen = DatabaseManager.Instance.BestellingRepository.GetTotaalTeBetalen();
-            TxtTotaalTeBetalen.Text = tebetalen.Totaal.ToString();
+            Bestelling totaaltebetalen = DatabaseManager.Instance.BestellingRepository.GetTotaalTeBetalen();
+            Math.Round(totaaltebetalen.Totaal, 2);           
+            TxtTotaalTeBetalen.Text = totaaltebetalen.Totaal.ToString();
 
         }
 
@@ -88,6 +89,7 @@ namespace Syntra.Eindproject.WPF
             float.TryParse(TxtBetaald.Text, out float betaald);
             float.TryParse(TxtTotaalTeBetalen.Text, out float totaalTeBetalen);
             float terugBetalen = (betaald - totaalTeBetalen);
+            Math.Round(terugBetalen, 2);
 
             if (terugBetalen<0)
             {
@@ -163,6 +165,12 @@ namespace Syntra.Eindproject.WPF
             Bestelling selectedBestellingLijn = LstBestellingLijnen.SelectedItem as Bestelling;
 
             return selectedBestellingLijn;
+        }
+
+        //KassaTicket aanmaken+printen
+        private void BtnKassaTicket_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService.Navigate(new KassaTicketPage());
         }
     }
 }
