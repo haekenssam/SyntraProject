@@ -31,6 +31,12 @@ namespace Syntra.Eindproject.WPF
 
         private void KassaTicketPage_OnLoaded(object sender, RoutedEventArgs e)
         {
+            //3. Datagrid invullen
+            //LstKassaTicket.ItemsSource = new List<Bestelling>();
+            LstKassaTicket.Items.Clear();
+            List<Bestelling> lijst = DatabaseManager.Instance.BestellingRepository.GetBestellingLijnenKassaTicket().ToList();
+            LstKassaTicket.ItemsSource = lijst;
+
             //1. FactuurNr 
             Bestelling factuurNr = DatabaseManager.Instance.BestellingRepository.GetBestellingId();
             TxtFactuurNummer.Text = factuurNr.Id.ToString();
@@ -41,12 +47,6 @@ namespace Syntra.Eindproject.WPF
 
                     //2.2 Tijd
                     TxtTijd.Text = DateTime.Now.ToString("HH:mm");
-
-
-            //3. Datagrid invullen
-
-
-
 
             //4. Textbox ticket
             TxtBetaling.Text = string.Empty;
@@ -66,14 +66,14 @@ namespace Syntra.Eindproject.WPF
 
 
             //5. Print ("PrintGrid" is de naam van de Grid van de KassaTicketPage in XAML)
-            PrintDialog printDialog = new PrintDialog();
-            if (printDialog.ShowDialog() == true)
-            {
-                printDialog.PrintVisual(this, TxtFactuurNummer.Text);
-            }
+            //PrintDialog printDialog = new PrintDialog();
+            //if (printDialog.ShowDialog() == true)
+            //{
+            //    printDialog.PrintVisual(this, TxtFactuurNummer.Text);
+            //}
 
             //6. Terug naar de KassiersterPage
-            NavigationService.Navigate(new KassiersterPage());
+            //NavigationService.Navigate(new KassiersterPage());
 
         }
     }

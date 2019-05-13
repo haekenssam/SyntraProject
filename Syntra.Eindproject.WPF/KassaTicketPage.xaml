@@ -43,7 +43,18 @@
                 <ColumnDefinition Width="2"/>
                 <ColumnDefinition Width="70"/>
             </Grid.ColumnDefinitions>
-
+            
+            <!--********************************************************************************************************
+             DataGrid-->
+            <DataGrid Name="LstKassaTicket" AutoGenerateColumns="False"  RowHeight="20" 
+                          ColumnWidth="*" Grid.Row="12" Margin="0,0.2,0.2,1.4" Grid.ColumnSpan="7" Grid.RowSpan="2" >/>
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Artikel.Nr" Binding="{Binding ProductId}"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Artikel" Binding="{Binding Naam}"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Aantal" Binding="{Binding Som}"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Bedrag" Binding="{Binding Bedrag}"></DataGridTextColumn>
+                </DataGrid.Columns>
+            </DataGrid>
             <!--************************************************************************************************************-->
             <TextBox Name="TxtBetaling" Height="184" Margin="0,1.6,0.2,1.6" Grid.Row="14" TextWrapping="Wrap" Text="TextBox" Grid.ColumnSpan="7"/>
             <Label Name="NaamKlant" Content="SYNTRA GROENTEN EN FRUIT" Grid.RowSpan="2" Margin="0,0,0,0" FontWeight="Bold"/>
@@ -57,17 +68,7 @@
             <TextBox Name="TxtTijd" Grid.Row="8" Grid.Column="6" Margin="0.2,0.4"/>
             <Label Content="Factuur.Nr" Grid.Column="4" Margin="0.2,0,0.2,0.8" Grid.Row="10" Width="70" FontWeight="Bold"/>
             <TextBox Name="TxtFactuurNummer" Grid.Row="10" Grid.Column="6" Margin="0.2,0,0.2,3.8" Grid.RowSpan="2"/>
-            <!--********************************************************************************************************
-             DataGrid-->
-            <DataGrid Name="LstBestellingLijnen"  AutoGenerateColumns="False" ItemsSource="{Binding ****LIJST****}" RowHeight="20" 
-                          ColumnWidth="*" Grid.Row="12" ItemStringFormat="" Margin="0,0.2,0.2,1.4" Grid.ColumnSpan="7" Grid.RowSpan="2" >/>
-                <DataGrid.Columns>
-                    <DataGridTextColumn Header="Artikel.Nr" Binding="{Binding BestellingLijnenId}"></DataGridTextColumn>
-                    <DataGridTextColumn Header="Artikel" Binding="{Binding BestellingLijnenId}"></DataGridTextColumn>
-                    <DataGridTextColumn Header="Aantal" Binding="{Binding BestellingLijnenId}"></DataGridTextColumn>
-                    <DataGridTextColumn Header="Bedrag" Binding="{Binding BestellingLijnenId}"></DataGridTextColumn>
-                </DataGrid.Columns>
-            </DataGrid>
+
             <!--********************************************************************************************************-->
             <Image x:Name="KlantLogo" Grid.ColumnSpan="3" Grid.Column="4" Height="77" Margin="0,0,0,0" Grid.RowSpan="5" Width="142" Source="Documents/SyntraLogo.gif"/>
 

@@ -183,12 +183,12 @@ namespace Syntra.Eindproject.Dapper.Repositories
         {
             using (var connection = new SqlConnection(Connection.Instance.ConnectionString))
             {
-                return connection.Query<Bestelling>(@"SELECT  BestellingLijnen.ProductId, Product.Naam,
-	                                                    BestellingLijnen.Aantal, Product.Prijs, Product.Eenheid, BestellingLijnen.Bedrag 
-	                                                    FROM BestellingLijnen 
-	                                                    INNER JOIN Product 
-	                                                    on Product.Id = BestellingLijnen.ProductId
-	                                                    Where BestellingLijnen.BestellingId = (select top 1 Id from Bestelling order by id desc)");
+                return connection.Query<Bestelling>(@"select BestellingLijnen.ProductId, Sum(BestellingLijnen.Aantal) AS Som, 
+                                                      BestellingLijnen.Prijs, Product.Naam, Sum(BestellingLijnen.Bedrag) AS Bedrag
+                                                      From BestellingLijnen 
+	                                                  Inner Join Product On Product.id = BestellingLijnen.ProductId
+                                                      Where BestellingLijnen.BestellingId = (select top 1 Id from Bestelling order by id desc)
+	                                                  Group by BestellingLijnen.ProductId, BestellingLijnen.Prijs, Product.Naam");
 
             }
         }
