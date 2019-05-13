@@ -11,7 +11,7 @@
       Title="MainMenu">
 
     <Grid>
-        <Border BorderBrush="#FF0CA3CF" BorderThickness="10">
+        <Border BorderThickness="5" BorderBrush="Orange">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition/>
