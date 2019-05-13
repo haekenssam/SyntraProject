@@ -20,7 +20,8 @@ namespace Syntra.Eindproject.WPF
 
         private DatabaseManager()
         {
-            Connection.Instance.SetConnection("server=Eindproject; database=Syntra; User id= Syntra; password=Syntra123!");
+            //Connection.Instance.SetConnection("server=FILIP\\FILIPDECKERS; database=Syntra; User id= Syntra; password=Syntra123!");
+            Connection.Instance.SetConnection("server=FILIP\\FILIPDECKERS; database=Syntra; User id= sa; password=Desultan0");
         }
     }
 }

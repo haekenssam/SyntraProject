@@ -108,26 +108,64 @@ namespace Syntra.Eindproject.Dapper
             }
         }
 
-        public bool IsValidProduct(int id)
-        {
-           bool IsValidProduct = true;
 
-           using (SqlConnection connection = new SqlConnection(Connection.Instance.ConnectionString))
-           {
-               int count = connection.QuerySingle<int>(
-                   @"select count(id) from product where stock > 0 and vervaldatum > GETDATE() and id = @id",
-                   new
-                   {
-                       id = id
-                   });
 
-               if (count < 1)
-               {
-                   IsValidProduct = false;
-               }
+        //public void GetProductBestelling(int id)
+        //{
+        //    DateTime vervalDatum;
 
-               return IsValidProduct;
-           }
-        }
+        //    if (!DateTime.TryParse(vervaldatum, out vervalDatum))
+        //    {
+        //        throw new BusinessException("Geen geldige datum");
+        //    }
+
+        //    using (SqlConnection connection = new SqlConnection(Connection.Instance.ConnectionString))
+        //    {
+        //        connection.Execute(@"insert into product (Id, Naam, Soort, Oorsprong, Prijs, Eenheid, AanmaakDatum, VervalDatum, Stock)
+        //                            values (@Id, @Naam, @Soort, @Oorsprong, @Prijs, @Eenheid, GetDate(), @vervalDatum, @Stock) ",
+        //                            new
+        //                            {
+        //                                Id = id,
+        //                                Naam = naam,
+        //                                Soort = soort,
+        //                                Oorsprong = oorsprong,
+        //                                Prijs = prijs,
+        //                                Eenheid = eenheid,
+        //                                VervalDatum = vervalDatum,
+        //                                Stock = stock
+        //                            });
+        //        connection.Execute(@"update product set Id = @id, Naam = @naam, Soort = @soort, Oorsprong = @oorsprong, Prijs = @prijs, 
+        //                             Eenheid = @Eenheid, VervalDatum = @vervalDatum, Stock = @stock where Id = @id ",
+        //             new
+        //             {
+        //                 Id = id,
+        //                 Naam = naam,
+        //                 Soort = soort,
+        //                 Oorsprong = oorsprong,
+        //                 Prijs = prijs,
+        //                 Eenheid = eenheid,
+        //                 VervalDatum = vervalDatum,
+        //                 Stock = stock
+        //             });
+
+        //        return connection.Query<Product>(@"select Id, Naam, Soort, Oorsprong, Prijs, Eenheid, AanmaakDatum, VervalDatum, Stock FROM PRODUCT where VervalDatum < Getdate() AND Id = @id ");
+        //        return connection.Query<Product>(@"select Id, Naam, Soort, Oorsprong, Prijs, Eenheid, AanmaakDatum, VervalDatum, Stock FROM PRODUCT where VervalDatum < Getdate() AND Id = @id ");
+
+        //public void InsertBetaling(int id )
+        //{
+        //    using (var connection = new SqlConnection(Connection.Instance.ConnectionString))
+        //    {
+        //        connection.Execute(@"insert into Betalingen (BestellingId, Totaal, Betaald, Terug)
+        //                                values((select top 1 Id from Bestelling order by id desc))",
+        //            new
+        //            {
+        //                Id = totaalTeBetalen
+        //            });
+        //    }
+        //}
+        //
+        //    }
+        //}
+
     }
 }

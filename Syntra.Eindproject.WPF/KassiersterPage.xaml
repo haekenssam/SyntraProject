@@ -68,7 +68,7 @@
                        VerticalAlignment="Top" Margin="11,1.2,0,0"  FontWeight="Bold" Height="29" Width="80" Grid.RowSpan="2" />
                 <Label Name="ArtikelId" Content="Artikel ID" Grid.Row="9" Grid.Column="0"  HorizontalAlignment="Left" 
                        VerticalAlignment="Center"   FontWeight="Bold" Margin="11,0.6,0,0.8" Height="29" Width="80" />
-                <TextBox Name="TxtArtikelId" Grid.Column="2" Grid.Row="9" Margin="0,0.6,0.4,0.8"/>
+                <TextBox Name="TxtArtikelId" Grid.Column="2" Grid.Row="9" Margin="0,1,0,0" Height="28" VerticalAlignment="Top"/>
                 <TextBox Name="TxtHoeveelheid"  Grid.Row="10" Grid.Column="2" Margin="0,1.2,0,1.8" Grid.RowSpan="2"/>
                 <Button Name="BtnBestellingLijnToevoegen" Content="Voeg Artikel Toe" Grid.Row="12" Grid.Column="0" FontWeight="Bold" Grid.ColumnSpan="3" Margin="1,1.2,0.2,0.8" Grid.RowSpan="2" Click="BtnBestellingLijnToevoegen_Click" />
                 <Button Name="BestellingLijnVerwijderen" Content="Verwijder Artikel" Grid.Row="12" Grid.Column="4" FontWeight="Bold" Margin="0,1.2,0.4,0.8" Grid.RowSpan="2" Click="BestellingLijnVerwijderen_Click" />
