@@ -31,11 +31,7 @@ namespace Syntra.Eindproject.WPF
 
         private void KassaTicketPage_OnLoaded(object sender, RoutedEventArgs e)
         {
-            //3. Datagrid invullen
-            //LstKassaTicket.ItemsSource = new List<Bestelling>();
             LstKassaTicket.Items.Clear();
-            List<Bestelling> lijst = DatabaseManager.Instance.BestellingRepository.GetBestellingLijnenKassaTicket().ToList();
-            LstKassaTicket.ItemsSource = lijst;
 
             //1. FactuurNr 
             Bestelling factuurNr = DatabaseManager.Instance.BestellingRepository.GetBestellingId();
@@ -48,6 +44,10 @@ namespace Syntra.Eindproject.WPF
                     //2.2 Tijd
                     TxtTijd.Text = DateTime.Now.ToString("HH:mm");
 
+            //3. Datagrid invullen           
+            List<Bestelling> lijst = DatabaseManager.Instance.BestellingRepository.GetBestellingLijnenKassaTicket(factuurNr.Id).ToList();
+            LstKassaTicket.ItemsSource = lijst;
+
             //4. Textbox ticket
             TxtBetaling.Text = string.Empty;
 
@@ -59,9 +59,9 @@ namespace Syntra.Eindproject.WPF
             Math.Round(betaald.Betaald, 2);
             Math.Round(terug.Terug, 2);
 
-            TxtBetaling.Text = "Totaal te betalen: " + totaal.Totaal.ToString() + " €" + "\n" 
-                             + "Betaald: " + betaald.Betaald.ToString() + " €" + "\n"
-                             + "Terug: " + terug.Terug.ToString() + " €" + "\n" +"\n"
+            TxtBetaling.Text = "Totaal te betalen: " + totaal.Totaal.ToString("0.00") + " €" + "\n" 
+                             + "Betaald: " + betaald.Betaald.ToString("0.00") + " €" + "\n"
+                             + "Terug: " + terug.Terug.ToString("0.00") + " €" + "\n" +"\n"
                              + "Dank u en tot ziens!";
 
 

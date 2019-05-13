@@ -179,16 +179,21 @@ namespace Syntra.Eindproject.Dapper.Repositories
         }
 
         //Deze moet ik nog grondig bekijken
-        public IEnumerable<Bestelling> GetBestellingLijnenKassaTicket()
+        public IEnumerable<Bestelling> GetBestellingLijnenKassaTicket(int bestellingid)
         {
             using (var connection = new SqlConnection(Connection.Instance.ConnectionString))
             {
-                return connection.Query<Bestelling>(@"select BestellingLijnen.ProductId, Sum(BestellingLijnen.Aantal) AS Som, 
-                                                      BestellingLijnen.Prijs, Product.Naam, Sum(BestellingLijnen.Bedrag) AS Bedrag
-                                                      From BestellingLijnen 
-	                                                  Inner Join Product On Product.id = BestellingLijnen.ProductId
-                                                      Where BestellingLijnen.BestellingId = (select top 1 Id from Bestelling order by id desc)
-	                                                  Group by BestellingLijnen.ProductId, BestellingLijnen.Prijs, Product.Naam");
+                return connection.Query<Bestelling>(@"select BestellingLijnen.ProductId, CONCAT(Sum(BestellingLijnen.Aantal),' ', Product.Eenheid) AS Hoevl, CONCAT(BestellingLijnen.Prijs,' €/',Product.Eenheid) AS EenheidsPrijs,
+                                                        Product.Naam, CONCAT(Sum(BestellingLijnen.Bedrag),' €')  AS Som 
+                                                        From BestellingLijnen 
+                                                        Inner Join Product On Product.id = BestellingLijnen.ProductId
+                                                        Where BestellingId = @bestellingid
+	                                                    Group by BestellingLijnen.ProductId, BestellingLijnen.Prijs, Product.Naam, Product.Eenheid ",
+                                                        new
+                                                        {
+                                                            BestellingId = bestellingid
+                                                        }
+                                                            );
 
             }
         }

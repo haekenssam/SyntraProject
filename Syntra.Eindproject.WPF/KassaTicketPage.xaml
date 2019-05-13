@@ -51,8 +51,10 @@
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="Artikel.Nr" Binding="{Binding ProductId}"></DataGridTextColumn>
                     <DataGridTextColumn Header="Artikel" Binding="{Binding Naam}"></DataGridTextColumn>
-                    <DataGridTextColumn Header="Aantal" Binding="{Binding Som}"></DataGridTextColumn>
-                    <DataGridTextColumn Header="Bedrag" Binding="{Binding Bedrag}"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Hoevl." Binding="{Binding Hoevl}"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Prijs" Binding="{Binding EenheidsPrijs}"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Bedrag" Binding="{Binding Som}"></DataGridTextColumn>
+                    
                 </DataGrid.Columns>
             </DataGrid>
             <!--************************************************************************************************************-->

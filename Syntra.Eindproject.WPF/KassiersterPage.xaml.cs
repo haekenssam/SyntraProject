@@ -78,7 +78,7 @@ namespace Syntra.Eindproject.WPF
             //Toon de "Te Betalen totaal"
             Bestelling totaaltebetalen = DatabaseManager.Instance.BestellingRepository.GetTotaalTeBetalen();
             Math.Round(totaaltebetalen.Totaal, 2);           
-            TxtTotaalTeBetalen.Text = totaaltebetalen.Totaal.ToString();
+            TxtTotaalTeBetalen.Text = totaaltebetalen.Totaal.ToString("0.00");
 
         }
 
@@ -97,7 +97,7 @@ namespace Syntra.Eindproject.WPF
             }
             else
             {
-                TxtTerugBetalen.Text = terugBetalen.ToString();
+                TxtTerugBetalen.Text = terugBetalen.ToString("0.00");
 
                 //Product Stock aanpassen
 

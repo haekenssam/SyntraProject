@@ -20,6 +20,8 @@ namespace Syntra.Eindproject.BL
         public float TerugBetalen { get; set; }
         public int BestellingLijnenId { get; set; }
         public float Terug { get; set; }
-        public double Som { get; set; }
+        public string Som { get; set; }
+        public string Hoevl { get; set; }
+        public string EenheidsPrijs { get; set; }
     }
 }
