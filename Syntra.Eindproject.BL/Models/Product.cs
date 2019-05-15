@@ -17,6 +17,7 @@ namespace Syntra.Eindproject.BL
         public DateTime AanmaakDatum { get; set; }
         public string VervalDatum { get; set; }
         public double Stock { get; set; }
+        public int Korting { get; set; }
 
         public Product(int id, string naam, string soort, string oorsprong, double prijs, string eenheid, string vervaldatum, double stock)
         {
