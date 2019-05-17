@@ -17,7 +17,7 @@ namespace Syntra.Eindproject.Dapper
             using (var connection = new SqlConnection(Connection.Instance.ConnectionString))
             {
                 return connection.Query<Product>(@"
-                        SELECT Id, Naam, Soort, Oorsprong, Prijs, Eenheid, AanmaakDatum, VervalDatum, Stock FROM PRODUCT ");
+                        SELECT Id, Naam, Soort, Oorsprong, Prijs, Eenheid, AanmaakDatum, VervalDatum, Stock, Korting FROM PRODUCT ");
             }
         }
 
@@ -25,17 +25,21 @@ namespace Syntra.Eindproject.Dapper
         {
             using (var connection = new SqlConnection(Connection.Instance.ConnectionString))
             {
-                return connection.Query<Product>(@"select Id, Naam, Soort, Oorsprong, Prijs, Eenheid, AanmaakDatum, VervalDatum, Stock FROM PRODUCT where VervalDatum < Getdate() ");
+                return connection.Query<Product>(@"select Id, Naam, Soort, Oorsprong, Prijs, Eenheid, AanmaakDatum, VervalDatum, Stock, Korting FROM PRODUCT where VervalDatum < Getdate() ");
             }
         }
 
-        public void InsertProduct(int id, string naam, string soort, string oorsprong, double prijs, string eenheid, string vervaldatum, double stock)
+        public void InsertProduct(int id, string naam, string soort, string oorsprong, double prijs, string eenheid, string vervaldatum, double stock, int korting)
         {
             if (naam == string.Empty || soort == string.Empty || prijs.ToString() == string.Empty || eenheid == string.Empty)
             {
                 throw new BusinessException("Niet alle velden zijn ingevuld!");
             }
 
+            if (korting.ToString() == string.Empty || korting == 0)
+            {
+
+            }
             DateTime vervalDatum;
 
             if (!DateTime.TryParse(vervaldatum, out vervalDatum))
