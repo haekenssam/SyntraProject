@@ -59,6 +59,9 @@
                 <Label Grid.Column="4" Grid.ColumnSpan="1">Stock:</Label>
                 <TextBox Name="TxtStock" Grid.Column="5" TextAlignment="Center" ></TextBox>
 
+                <Label Grid.Column="4" Grid.Row="1">Korting:</Label>
+                <TextBox Name="TxtKorting" Grid.Column="5" Grid.Row="1" TextAlignment="Center"></TextBox>
+
                 <StackPanel  Grid.Column="6" Grid.RowSpan="3">
                     <CheckBox Name="CbAlles"  FontSize="14" Checked="CbAlles_Checked" >Alles</CheckBox>
                     <CheckBox Name="CbVervallen" FontSize="14" Checked="CbVervallen_Checked" >Vervallen</CheckBox>
