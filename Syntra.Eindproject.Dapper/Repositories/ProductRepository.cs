@@ -36,10 +36,7 @@ namespace Syntra.Eindproject.Dapper
                 throw new BusinessException("Niet alle velden zijn ingevuld!");
             }
 
-            if (korting.ToString() == string.Empty || korting == 0)
-            {
 
-            }
             DateTime vervalDatum;
 
             if (!DateTime.TryParse(vervaldatum, out vervalDatum))
@@ -49,8 +46,8 @@ namespace Syntra.Eindproject.Dapper
 
             using (SqlConnection connection = new SqlConnection(Connection.Instance.ConnectionString))
             {
-                connection.Execute(@"insert into product (Id, Naam, Soort, Oorsprong, Prijs, Eenheid, AanmaakDatum, VervalDatum, Stock)
-                                    values (@Id, @Naam, @Soort, @Oorsprong, @Prijs, @Eenheid, GetDate(), @vervalDatum, @Stock) ",
+                connection.Execute(@"insert into product (Id, Naam, Soort, Oorsprong, Prijs, Eenheid, AanmaakDatum, VervalDatum, Stock, Korting)
+                                    values (@Id, @Naam, @Soort, @Oorsprong, @Prijs, @Eenheid, GetDate(), @vervalDatum, @Stock, @Korting) ",
                                     new
                                     {
                                         Id = id,
@@ -60,7 +57,8 @@ namespace Syntra.Eindproject.Dapper
                                         Prijs = prijs,
                                         Eenheid = eenheid,
                                         VervalDatum = vervalDatum,
-                                        Stock = stock
+                                        Stock = stock,
+                                        Korting = korting
                                     });
     
             }
