@@ -42,7 +42,7 @@ namespace Syntra.Eindproject.WPF
                     TxtDatum.Text = DateTime.Now.Date.ToShortDateString();
 
                     //2.2 Tijd
-                    TxtTijd.Text = DateTime.Now.ToString("HH:mm");
+                    TxtTijd.Text = DateTime.Now.ToString("HH:mm:ss");
 
             //3. Datagrid invullen           
             List<Bestelling> lijst = DatabaseManager.Instance.BestellingRepository.GetBestellingLijnenKassaTicket(factuurNr.Id).ToList();

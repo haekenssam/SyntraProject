@@ -38,7 +38,7 @@ namespace Syntra.Eindproject.Dapper.Repositories
                 connection.Execute(
                     @"insert into BestellingLijnen(BestellingId, ProductId, Aantal, Eenheid, Prijs, Bedrag)
                                         values((select top 1 Id from Bestelling order by id desc), @productid, @aantal,(select Eenheid from Product where id = @productid),
-                                        (select Prijs  from Product where id = @productid),(@aantal)*(select Prijs  from Product where id = @productid))",
+                                        (select Prijs  from Product where id = @productid), (select Cast(((100-Korting)/100.00) As Decimal(7,2)) As Korting From Product where id = 1) * (@aantal)*(select Prijs from Product where id = @productid))",
                     new
                     {
                         ProductId = productid,
@@ -88,7 +88,7 @@ namespace Syntra.Eindproject.Dapper.Repositories
             using (var connection = new SqlConnection(Connection.Instance.ConnectionString))
             {
                 return connection.Query<Bestelling>(
-                    @"SELECT BestellingLijnen.ID AS BestellingLijnenId, BestellingLijnen.BestellingId, Product.Naam, BestellingLijnen.ProductId, 
+                    @"SELECT BestellingLijnen.ID AS BestellingLijnenId, BestellingLijnen.BestellingId, Product.Naam, Product.Korting, BestellingLijnen.ProductId, 
 	                                                    BestellingLijnen.Aantal, Product.Prijs, Product.Eenheid, BestellingLijnen.Bedrag 
 	                                                    FROM BestellingLijnen 
 	                                                    INNER JOIN Product 
@@ -189,11 +189,11 @@ namespace Syntra.Eindproject.Dapper.Repositories
             {
                 return connection.Query<Bestelling>(
                     @"select BestellingLijnen.ProductId, CONCAT(Sum(BestellingLijnen.Aantal),' ', Product.Eenheid) AS Hoevl, CONCAT(BestellingLijnen.Prijs,' €/',Product.Eenheid) AS EenheidsPrijs,
-                                                        Product.Naam, CONCAT(Sum(BestellingLijnen.Bedrag),' €')  AS Som 
+                                                        Product.Naam, CONCAT(Sum(BestellingLijnen.Bedrag),' €')  AS Som, CONCAT (Product.Korting, ' %') AS KortingPercentage
                                                         From BestellingLijnen 
                                                         Inner Join Product On Product.id = BestellingLijnen.ProductId
                                                         Where BestellingId = @bestellingid
-	                                                    Group by BestellingLijnen.ProductId, BestellingLijnen.Prijs, Product.Naam, Product.Eenheid ",
+	                                                    Group by BestellingLijnen.ProductId, BestellingLijnen.Prijs, Product.Naam, Product.Eenheid, Product.Korting ",
                     new
                     {
                         BestellingId = bestellingid

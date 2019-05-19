@@ -53,6 +53,7 @@
                     <DataGridTextColumn Header="Artikel" Binding="{Binding Naam}"></DataGridTextColumn>
                     <DataGridTextColumn Header="Hoevl." Binding="{Binding Hoevl}"></DataGridTextColumn>
                     <DataGridTextColumn Header="Prijs" Binding="{Binding EenheidsPrijs}"></DataGridTextColumn>
+                    <DataGridTextColumn Header="Korting" Binding="{Binding KortingPercentage}"></DataGridTextColumn>
                     <DataGridTextColumn Header="Bedrag" Binding="{Binding Som}"></DataGridTextColumn>
                     
                 </DataGrid.Columns>

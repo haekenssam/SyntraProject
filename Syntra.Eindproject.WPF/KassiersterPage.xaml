@@ -58,8 +58,9 @@
                         <DataGridTextColumn Header="Artikel" Binding="{Binding Naam}"></DataGridTextColumn>
                         <DataGridTextColumn Header="Aantal" Binding="{Binding Aantal}"></DataGridTextColumn>
                         <DataGridTextColumn Header="Eenheid" Binding="{Binding Eenheid}"></DataGridTextColumn>
-                        <DataGridTextColumn Header="Prijs" Binding="{Binding Prijs}"></DataGridTextColumn>
-                        <DataGridTextColumn Header="Bedrag" Binding="{Binding Bedrag}"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Prijs (€)" Binding="{Binding Prijs}"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Korting (%)" Binding="{Binding Korting}"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Bedrag (€)" Binding="{Binding Bedrag}"></DataGridTextColumn>
                         <!--<DataGridTextColumn Header="Bedrag" Binding="{Binding Bedrag}"></DataGridTextColumn>-->
                     </DataGrid.Columns>
                 </DataGrid>

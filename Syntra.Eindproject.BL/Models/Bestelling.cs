@@ -23,5 +23,6 @@ namespace Syntra.Eindproject.BL
         public string Som { get; set; }
         public string Hoevl { get; set; }
         public string EenheidsPrijs { get; set; }
+        public string KortingPercentage { get; set; }
     }
 }
