@@ -88,9 +88,21 @@ namespace Syntra.Eindproject.WPF
             //Betaling uitvoeren
             float.TryParse(TxtBetaald.Text, out float betaald);
             float.TryParse(TxtTotaalTeBetalen.Text, out float totaalTeBetalen);
-            float terugBetalen =
-                DatabaseManager.Instance.BestellingRepository.TerugBetalenBedrag(betaald, totaalTeBetalen);
-            //float terugBetalen = (betaald - totaalTeBetalen);  //berekening ook in BestellingRepository doen
+
+            try
+            {
+                float terugBetalen = DatabaseManager.Instance.BestellingRepository.TerugBetalenBedrag(betaald, totaalTeBetalen);
+                TxtTerugBetalen.Text = terugBetalen.ToString("0.00");
+                DatabaseManager.Instance.BestellingRepository.InsertBetaling(totaalTeBetalen, betaald, terugBetalen);
+            }
+            catch (BusinessException excp)
+            {
+                MessageBox.Show(excp.Message);
+            }
+            
+            //Zie hierboven 19/05/2019 
+
+            //float terugBetalen = (betaald - totaalTeBetalen);  
             //Math.Round(terugBetalen, 2);
 
             //if (terugBetalen<0)
@@ -105,14 +117,6 @@ namespace Syntra.Eindproject.WPF
 
 
                 //Betaling Database tabel invullen
-                try
-                {
-                    DatabaseManager.Instance.BestellingRepository.InsertBetaling(totaalTeBetalen, betaald, terugBetalen);
-                }
-                catch (BusinessException excp)
-                {
-                    MessageBox.Show(excp.ToString());
-                }
 
          }
            
