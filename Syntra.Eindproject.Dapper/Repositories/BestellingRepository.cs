@@ -32,9 +32,11 @@ namespace Syntra.Eindproject.Dapper.Repositories
             {
                 throw new BusinessException("Ongeldig product");
             }
+
             using (var connection = new SqlConnection(Connection.Instance.ConnectionString))
             {
-                connection.Execute(@"insert into BestellingLijnen(BestellingId, ProductId, Aantal, Eenheid, Prijs, Bedrag)
+                connection.Execute(
+                    @"insert into BestellingLijnen(BestellingId, ProductId, Aantal, Eenheid, Prijs, Bedrag)
                                         values((select top 1 Id from Bestelling order by id desc), @productid, @aantal,(select Eenheid from Product where id = @productid),
                                         (select Prijs  from Product where id = @productid),(@aantal)*(select Prijs  from Product where id = @productid))",
                     new
@@ -54,8 +56,8 @@ namespace Syntra.Eindproject.Dapper.Repositories
             bool isValid = true;
 
             var q = from p in products
-                    where p.Id == productid
-                    select p;
+                where p.Id == productid
+                select p;
 
             if (q.Any())
             {
@@ -85,7 +87,8 @@ namespace Syntra.Eindproject.Dapper.Repositories
         {
             using (var connection = new SqlConnection(Connection.Instance.ConnectionString))
             {
-                return connection.Query<Bestelling>(@"SELECT BestellingLijnen.ID AS BestellingLijnenId, BestellingLijnen.BestellingId, Product.Naam, BestellingLijnen.ProductId, 
+                return connection.Query<Bestelling>(
+                    @"SELECT BestellingLijnen.ID AS BestellingLijnenId, BestellingLijnen.BestellingId, Product.Naam, BestellingLijnen.ProductId, 
 	                                                    BestellingLijnen.Aantal, Product.Prijs, Product.Eenheid, BestellingLijnen.Bedrag 
 	                                                    FROM BestellingLijnen 
 	                                                    INNER JOIN Product 
@@ -139,18 +142,19 @@ namespace Syntra.Eindproject.Dapper.Repositories
         {
             using (SqlConnection connection = new SqlConnection(Connection.Instance.ConnectionString))
             {
-                connection.Execute(@"delete from BestellingLijnen where (ID = @bestellingLijnenId AND @ProductId = @productid AND Aantal = @aantal) ",
-                                    new
-                                    {
-                                        BestellingLijnenId = bestellingLijnenId,
-                                        ProductId = productId,
-                                        Aantal = aantal
+                connection.Execute(
+                    @"delete from BestellingLijnen where (ID = @bestellingLijnenId AND @ProductId = @productid AND Aantal = @aantal) ",
+                    new
+                    {
+                        BestellingLijnenId = bestellingLijnenId,
+                        ProductId = productId,
+                        Aantal = aantal
 
-                                    });
+                    });
             }
         }
 
-        public void InsertBetaling(float totaalTeBetalen, float betaald, float terugBetalen)
+        public void InsertBetaling(float totaalTeBetalen, float betaald, float terugBetalen) //ID van bestelling toevoegen als parameter?
         {
             using (var connection = new SqlConnection(Connection.Instance.ConnectionString))
             {
@@ -183,17 +187,18 @@ namespace Syntra.Eindproject.Dapper.Repositories
         {
             using (var connection = new SqlConnection(Connection.Instance.ConnectionString))
             {
-                return connection.Query<Bestelling>(@"select BestellingLijnen.ProductId, CONCAT(Sum(BestellingLijnen.Aantal),' ', Product.Eenheid) AS Hoevl, CONCAT(BestellingLijnen.Prijs,' €/',Product.Eenheid) AS EenheidsPrijs,
+                return connection.Query<Bestelling>(
+                    @"select BestellingLijnen.ProductId, CONCAT(Sum(BestellingLijnen.Aantal),' ', Product.Eenheid) AS Hoevl, CONCAT(BestellingLijnen.Prijs,' €/',Product.Eenheid) AS EenheidsPrijs,
                                                         Product.Naam, CONCAT(Sum(BestellingLijnen.Bedrag),' €')  AS Som 
                                                         From BestellingLijnen 
                                                         Inner Join Product On Product.id = BestellingLijnen.ProductId
                                                         Where BestellingId = @bestellingid
 	                                                    Group by BestellingLijnen.ProductId, BestellingLijnen.Prijs, Product.Naam, Product.Eenheid ",
-                                                        new
-                                                        {
-                                                            BestellingId = bestellingid
-                                                        }
-                                                            );
+                    new
+                    {
+                        BestellingId = bestellingid
+                    }
+                );
 
             }
         }
@@ -231,5 +236,23 @@ namespace Syntra.Eindproject.Dapper.Repositories
 
         }
 
-    }
+        public float TerugBetalenBedrag(float betaald, float totaalTeBetalen)
+        {
+            float bedrag = 0;
+            if (betaald < totaalTeBetalen)
+            {
+                throw new BusinessException("Betaald bedrag kan niet kleiner zijn dan het te betalen bedrag");
+            }
+
+            if (betaald > totaalTeBetalen || betaald == totaalTeBetalen)
+            {
+                bedrag = betaald - totaalTeBetalen;
+            }
+            Math.Round(bedrag, 2);
+            return bedrag;
+            
+        }
+    
+
+}
 }

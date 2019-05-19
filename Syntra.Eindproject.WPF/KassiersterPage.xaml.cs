@@ -88,16 +88,18 @@ namespace Syntra.Eindproject.WPF
             //Betaling uitvoeren
             float.TryParse(TxtBetaald.Text, out float betaald);
             float.TryParse(TxtTotaalTeBetalen.Text, out float totaalTeBetalen);
-            float terugBetalen = (betaald - totaalTeBetalen);
-            Math.Round(terugBetalen, 2);
+            float terugBetalen =
+                DatabaseManager.Instance.BestellingRepository.TerugBetalenBedrag(betaald, totaalTeBetalen);
+            //float terugBetalen = (betaald - totaalTeBetalen);  //berekening ook in BestellingRepository doen
+            //Math.Round(terugBetalen, 2);
 
-            if (terugBetalen<0)
-            {
-                MessageBox.Show("Het betaalde bedrag is kleiner dan het totaal te betalen. De betaling is niet uitgevoerd!");            
-            }
-            else
-            {
-                TxtTerugBetalen.Text = terugBetalen.ToString("0.00");
+            //if (terugBetalen<0)
+            //{
+            //    MessageBox.Show("Het betaalde bedrag is kleiner dan het totaal te betalen. De betaling is niet uitgevoerd!");    //Deze controle --> BestellingRepository        
+            //}
+            //else
+            //{
+            //    TxtTerugBetalen.Text = terugBetalen.ToString("0.00");
 
                 //Product Stock aanpassen
 
@@ -112,9 +114,9 @@ namespace Syntra.Eindproject.WPF
                     MessageBox.Show(excp.ToString());
                 }
 
-            }
+         }
            
-        }
+ 
 
         //Volgende klant
         private void BtnVolgendeKlant_Click(object sender, RoutedEventArgs e)
