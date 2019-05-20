@@ -49,7 +49,7 @@ namespace Syntra.Eindproject.WPF
             List<Bestelling> lijst = DatabaseManager.Instance.BestellingRepository.GetBestellingLijnenKassaTicket(factuurNr.Id).ToList();
             LstKassaTicket.ItemsSource = lijst;
 
-            //4. Textbox ticket
+            //4. Textbox invullen
             TxtBetaling.Text = string.Empty;
 
             Bestelling totaal = DatabaseManager.Instance.BestellingRepository.GetBetalingenTotaalTeBetalen();
@@ -64,6 +64,7 @@ namespace Syntra.Eindproject.WPF
                              + "Betaald: " +"\t" + "\t" + betaald.Betaald.ToString("0.00") + " €" + "\n"
                              + "Terug: " + "\t" + "\t" + terug.Terug.ToString("0.00") + " €" + "\n" +"\n"
                              + "Dank u en tot ziens!";
+            //5. Print kassaticket
 
             //6. Terug naar de KassiersterPage
             //NavigationService.Navigate(new KassiersterPage());

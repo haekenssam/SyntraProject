@@ -38,7 +38,7 @@ namespace Syntra.Eindproject.Dapper.Repositories
                 connection.Execute(
                     @"insert into BestellingLijnen(BestellingId, ProductId, Aantal, Eenheid, Prijs, Bedrag)
                                         values((select top 1 Id from Bestelling order by id desc), @productid, @aantal,(select Eenheid from Product where id = @productid),
-                                        (select Prijs  from Product where id = @productid), (select Cast(((100-Korting)/100.00) As Decimal(7,2)) As Korting From Product where id = 1) * (@aantal)*(select Prijs from Product where id = @productid))",
+                                        (select Prijs  from Product where id = @productid), (select Cast(((100-Korting)/100.00) As Decimal(7,2)) As Korting From Product where id = @productid) * (@aantal)*(select Prijs from Product where id = @productid))",
                     new
                     {
                         ProductId = productid,
