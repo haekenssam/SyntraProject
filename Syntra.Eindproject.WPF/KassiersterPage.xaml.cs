@@ -92,6 +92,7 @@ namespace Syntra.Eindproject.WPF
             try
             {
                 float terugBetalen = DatabaseManager.Instance.BestellingRepository.TerugBetalenBedrag(betaald, totaalTeBetalen);
+
                 TxtTerugBetalen.Text = terugBetalen.ToString("0.00");
                 DatabaseManager.Instance.BestellingRepository.InsertBetaling(totaalTeBetalen, betaald, terugBetalen);
             }
@@ -119,8 +120,6 @@ namespace Syntra.Eindproject.WPF
                 //Betaling Database tabel invullen
 
          }
-           
- 
 
         //Volgende klant
         private void BtnVolgendeKlant_Click(object sender, RoutedEventArgs e)

@@ -14,7 +14,8 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Syntra.Eindproject.BL;
 using Syntra.Eindproject.Dapper;
-
+using iTextSharp.text;
+using iTextSharp.text.pdf;
 
 
 namespace Syntra.Eindproject.WPF
@@ -59,18 +60,10 @@ namespace Syntra.Eindproject.WPF
             Math.Round(betaald.Betaald, 2);
             Math.Round(terug.Terug, 2);
 
-            TxtBetaling.Text = "Totaal te betalen: " + totaal.Totaal.ToString("0.00") + " €" + "\n" 
-                             + "Betaald: " + betaald.Betaald.ToString("0.00") + " €" + "\n"
-                             + "Terug: " + terug.Terug.ToString("0.00") + " €" + "\n" +"\n"
+            TxtBetaling.Text = "Totaal te betalen: " + "\t" + totaal.Totaal.ToString("0.00") + " €" + "\n" 
+                             + "Betaald: " +"\t" + "\t" + betaald.Betaald.ToString("0.00") + " €" + "\n"
+                             + "Terug: " + "\t" + "\t" + terug.Terug.ToString("0.00") + " €" + "\n" +"\n"
                              + "Dank u en tot ziens!";
-
-
-            //5. Print ("PrintGrid" is de naam van de Grid van de KassaTicketPage in XAML)
-            //PrintDialog printDialog = new PrintDialog();
-            //if (printDialog.ShowDialog() == true)
-            //{
-            //    printDialog.PrintVisual(this, TxtFactuurNummer.Text);
-            //}
 
             //6. Terug naar de KassiersterPage
             //NavigationService.Navigate(new KassiersterPage());
