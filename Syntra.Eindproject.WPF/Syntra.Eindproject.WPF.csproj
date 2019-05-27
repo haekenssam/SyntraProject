@@ -56,7 +56,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Page Include="BestellingPage.xaml">
+    <Page Include="KlantPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -64,7 +64,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="KlantPage.xaml">
+    <Page Include="KlantPage2.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -84,15 +84,15 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="BestellingPage.xaml.cs">
-      <DependentUpon>BestellingPage.xaml</DependentUpon>
+    <Compile Include="KlantPage.xaml.cs">
+      <DependentUpon>KlantPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="DatabaseManager\DatabaseManager.cs" />
     <Compile Include="KassiersterPage.xaml.cs">
       <DependentUpon>KassiersterPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="KlantPage.xaml.cs">
-      <DependentUpon>KlantPage.xaml</DependentUpon>
+    <Compile Include="KlantPage2.xaml.cs">
+      <DependentUpon>KlantPage2.xaml</DependentUpon>
     </Compile>
     <Compile Include="MagazijnierPage.xaml.cs">
       <DependentUpon>MagazijnierPage.xaml</DependentUpon>

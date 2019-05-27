@@ -12,21 +12,7 @@ namespace Syntra.Eindproject.Dapper.Repositories
     public class BestellingRepository : ProductRepository
     {
 
-        public void InsertWinkelmand(int productid, float aantal)
-        {
-            using (var connection = new SqlConnection(Connection.Instance.ConnectionString))
-            {
-                connection.Execute(@"insert into BestellingLijnen(BestellingId, ProductId, Aantal, Eenheid, Prijs, Bedrag)
-                                        values((select top 1 Id from Bestelling order by id desc), @productid, @aantal,(select Eenheid from Product where id = @productid),
-                                        (select Prijs  from Product where id = @productid),(@aantal)*(select Prijs  from Product where id = @productid))",
-                    new
-                    {
-                        ProductId = productid,
-                        Aantal = aantal,
 
-                    });
-            }
-        }
 
 
         public void InsertBestelling2(int productid, float aantal)
@@ -114,7 +100,7 @@ namespace Syntra.Eindproject.Dapper.Repositories
             }
         }
 
-        public IEnumerable<Bestelling> GetBestellingLijnen()
+        public IEnumerable<Bestelling> GetWinkelwagenLijnenId()
         {
             using (var connection = new SqlConnection(Connection.Instance.ConnectionString))
             {
