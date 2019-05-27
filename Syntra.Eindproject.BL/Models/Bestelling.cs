@@ -12,14 +12,8 @@ namespace Syntra.Eindproject.BL
         public float Totaal { get; set; }
         public DateTime Datum { get; set; }
         public int BestellingId { get; set; }
-        //public int BestellingId { get; set; }
         public int ProductId { get; set; }
-        //public string ProductId2 { get; set; }
-        //public int ProductId2 { get; set; }
         public float Aantal { get; set; }
-        //public int Aantal { get; set; }
-        //public string Aantal2 { get; set; }
-        //public int Aantal2 { get; set; }
         public float Bedrag { get; set; }
         public float TotaalTeBetalen { get; set; }
         public float Betaald { get; set; }

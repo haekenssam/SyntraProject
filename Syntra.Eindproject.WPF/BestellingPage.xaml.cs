@@ -27,66 +27,6 @@ namespace Syntra.Eindproject.WPF
             InitializeComponent();
         }
 
-
-        List<Bestelling> listOfBestelling = new List<Bestelling>();
-
-        private void BtnScan_Click(object sender, RoutedEventArgs e)
-        {
-            //listBoxWinkelmand.Items.Add(textBox.Text);
-
-
-            int a;
-            int b;
-            if ((int.TryParse(textBox.Text, out a)) && (int.TryParse(textBox1.Text, out b)))
-            {
-                listBoxWinkelmand.Items.Clear();
-                Bestelling bestelling = new Bestelling(int.Parse(textBox.Text), int.Parse(textBox1.Text));
-                listOfBestelling.Add(bestelling);
-                foreach (Bestelling best in listOfBestelling)
-                {
-                    listBoxWinkelmand.Items.Add(best.ShowBestellingInput());
-                }
-                textBox.Text = "";
-                textBox1.Text = "";
-            }
-             else
-             {
-                textBox.Text = "";
-                textBox1.Text = "";
-            }
-
-        }
-
-        private void BtnNrKassa_Click(object sender, RoutedEventArgs e)
-        {
-            ////this.NavigationService.Navigate(new KassiersterPage());
-        }
-
-        private void BtnVerwijder_Click(object sender, RoutedEventArgs e)
-        {
-            //listBoxWinkelmand.Items.Remove(textBox.Text);
-            foreach (Bestelling best in listOfBestelling)
-            {
-                listBoxWinkelmand.Items.Remove(best.ShowBestellingInput());
-            }
-
-        }
-
-       //private void BtnAantal_Click(object sender, RoutedEventArgs e)
-       //{
-       //    int a;
-       //    //int.tryparse
-       //    if (int.TryParse(textBox1.Text, out a))
-       //    {
-       //        listBoxWinkelmand.Items.Add(textBox1.Text);
-       //    }
-       //    else
-       //    {
-       //        //textBox1.Text.Items.Clear();
-       //        textBox1.Text = "";
-       //    }
-       //}
-       ////
         //private void BtnVoegToe_Click(object sender, RoutedEventArgs e)
         //{
         //    Popup.IsOpen = true;
@@ -120,7 +60,7 @@ namespace Syntra.Eindproject.WPF
         //    if (!DatabaseManager.Instance.ProductRepository.IsValidProduct(id) || string.IsNullOrEmpty(TbZoekArtikel.Text))
         //    {
         //        MessageBox.Show("Dit product is niet geldig");
-
+                
         //    }
         //    else
         //    {

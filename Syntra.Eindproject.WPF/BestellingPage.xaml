@@ -10,56 +10,7 @@
       d:DesignHeight="450" d:DesignWidth="800"
       Title="BestellingPage">
 
-    <Grid>
 
-        <StackPanel Width="900" Height="600" VerticalAlignment="Center">
-            <Border
-                BorderBrush="Gray"
-                BorderThickness="2"
-                Padding="10" Height="476"
-            >
-
-                <Grid>
-                    <Border BorderThickness="5" BorderBrush="Gray">
-                        <Grid>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="100"></RowDefinition>
-                                <RowDefinition Height="*"></RowDefinition>
-                                <RowDefinition Height="50"></RowDefinition>
-                            </Grid.RowDefinitions>
-                            <DataGrid Name="DgBestellingen" AutoGenerateColumns="False" ItemsSource="{Binding Bestelling}" RowHeight="20" ColumnWidth="*" Grid.Row="1" >
-                                <DataGrid.Columns >
-                                    <DataGridTextColumn Header="Artikel" Binding="{Binding Naam, Mode=TwoWay}"></DataGridTextColumn>
-                                    <DataGridTextColumn Header="Aantal" Binding="{Binding Aantal}"></DataGridTextColumn>
-                                    <DataGridTextColumn Header="Eenheid" Binding="{Binding Eenheid}"></DataGridTextColumn>
-                                    <DataGridTextColumn Header="Prijs" Binding="{Binding Prijs}"></DataGridTextColumn>
-                                    <DataGridTextColumn Header="Totaal" Binding="{Binding Totaal}"></DataGridTextColumn>
-                                </DataGrid.Columns>
-                            </DataGrid>
-                            <StackPanel Grid.Row="2" Orientation="Horizontal">
-                                <TextBox Name="TbZoekArtikel" TextAlignment="Center" Width="100"></TextBox>
-                                <Button x:Name="BtnNrKassa" Content="Kassa" Width="80" Click="BtnNrKassa_Click"/>
-
-                                <Button x:Name="BtnVerwijder" Content="Verwijder" Width="80" Click="BtnVerwijder_Click"/>
-                                <Button x:Name="BtnScan" Content="Scan" Width="75" Click="BtnScan_Click"/>
-                                <TextBox x:Name="textBox" TextWrapping="Wrap" Text="TextBox" Width="120"/>
-                                <Label x:Name="label" Content="Aantal"/>
-                                <!--<Button x:Name="Aantal" Content="Aantal" Width="75" Click="BtnAantal_Click"/>-->
-                                <TextBox x:Name="textBox1" TextWrapping="Wrap" Text="TextBox" Width="120"/>
-                                <!--<Button Name="BtnNrKassa" Width="80" Click="BtnNrKassa">Naar Kassa</Button>-->
-                                <!--<Button Name="BtnWinkel" Width="90"  Click="BtnNrWinkel_Click" Content="Naar Winkel"/>-->
-                                <!--<Button Name="BtnVerwijder" Width="80" Click="BtnVerwijder_Click" Content="Verwijder" />-->
-                            </StackPanel>
-                            <Label x:Name="Winkelwagen" FontSize="48" Width="294" Content="Winkelmand" HorizontalAlignment="Left" Margin="244,10,0,0" VerticalAlignment="Top" Height="80"/>
-                            <ListBox x:Name="listBoxWinkelmand" HorizontalAlignment="Left" Height="208" Margin="0,24,0,0" Grid.Row="1" VerticalAlignment="Top" Width="780"/>
-                        </Grid>
-                    </Border>
-                </Grid>
-
-
-            </Border>
-        </StackPanel>
-    </Grid>
 
 
 </Page>
