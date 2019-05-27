@@ -43,7 +43,7 @@
                 <ColumnDefinition Width="2"/>
                 <ColumnDefinition Width="70"/>
             </Grid.ColumnDefinitions>
-            
+
             <!--********************************************************************************************************
              DataGrid-->
             <DataGrid Name="LstKassaTicket" AutoGenerateColumns="False"  RowHeight="20" 
@@ -55,7 +55,7 @@
                     <DataGridTextColumn Header="Prijs" Binding="{Binding EenheidsPrijs}"></DataGridTextColumn>
                     <DataGridTextColumn Header="Korting" Binding="{Binding KortingPercentage}"></DataGridTextColumn>
                     <DataGridTextColumn Header="Bedrag" Binding="{Binding Som}"></DataGridTextColumn>
-                    
+
                 </DataGrid.Columns>
             </DataGrid>
             <!--************************************************************************************************************-->
@@ -77,6 +77,5 @@
 
         </Grid>
     </Border>
-
 </Page>
 

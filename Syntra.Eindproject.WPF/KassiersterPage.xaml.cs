@@ -100,24 +100,10 @@ namespace Syntra.Eindproject.WPF
             {
                 MessageBox.Show(excp.Message);
             }
-            
-            //Zie hierboven 19/05/2019 
 
-            //float terugBetalen = (betaald - totaalTeBetalen);  
-            //Math.Round(terugBetalen, 2);
+            //Product Stock aanpassen
+            DatabaseManager.Instance.ProductRepository.UpdateStockProduct();
 
-            //if (terugBetalen<0)
-            //{
-            //    MessageBox.Show("Het betaalde bedrag is kleiner dan het totaal te betalen. De betaling is niet uitgevoerd!");    //Deze controle --> BestellingRepository        
-            //}
-            //else
-            //{
-            //    TxtTerugBetalen.Text = terugBetalen.ToString("0.00");
-
-                //Product Stock aanpassen
-
-
-                //Betaling Database tabel invullen
 
          }
 
@@ -176,6 +162,12 @@ namespace Syntra.Eindproject.WPF
         private void BtnKassaTicket_Click(object sender, RoutedEventArgs e)
         {
             NavigationService.Navigate(new KassaTicketPage());
+        }
+
+        //Terug naar MainMenu
+        private void TerugNaarHoofdMenu_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService.Navigate(new MainMenu());
         }
     }
 }

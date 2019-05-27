@@ -21,8 +21,7 @@ namespace Syntra.Eindproject.Dapper.Repositories
         }
 
         public void InsertBestellingLijn(int productid, float aantal)
-        {
-            //Hier moeten wij nog controle van hoeveelheid plaatsen (mag enkel cijfers zijn en geen letters bv in het geval van een typfout)
+        {          
             if (string.IsNullOrEmpty(productid.ToString()))
             {
                 throw new BusinessException("Ongeldig product");
@@ -170,19 +169,6 @@ namespace Syntra.Eindproject.Dapper.Repositories
             }
         }
 
-        public void UpdateStockProduct()
-        {
-            //using (var connection = new SqlConnection(Connection.Instance.ConnectionString))
-            //{
-            //    connection.Execute(@"UPDATE Product 
-            //                         SET  Stock = (Product.Stock - BestellingLijnen.Aantal)
-            //                         FROM Product LEFT JOIN BestellingLijnen
-            //                         ON BestellingLijnen.ProductId = Product.id
-            //                         WHERE Product.id = BestellingLijnen.ProductId 
-            //                         AND BestellingLijnen.BestellingId = (select top 1 id from Bestelling Order by id desc) )");
-        }
-
-        //Deze moet ik nog grondig bekijken
         public IEnumerable<Bestelling> GetBestellingLijnenKassaTicket(int bestellingid)
         {
             using (var connection = new SqlConnection(Connection.Instance.ConnectionString))
@@ -252,7 +238,6 @@ namespace Syntra.Eindproject.Dapper.Repositories
             return bedrag;
             
         }
-    
-
-}
+   
+     }
 }

@@ -131,5 +131,19 @@ namespace Syntra.Eindproject.Dapper
                return IsValidProduct;
            }
         }
+
+        public void UpdateStockProduct()
+        {
+            using (var connection = new SqlConnection(Connection.Instance.ConnectionString))
+            {
+                connection.Execute(@"UPDATE Product 
+                                     SET  Product.Stock = (Product.Stock - BestellingLijnen.Aantal)
+                                     FROM Product 
+                                     INNER JOIN BestellingLijnen
+                                     ON BestellingLijnen.ProductId = Product.id
+                                     WHERE Product.id = BestellingLijnen.ProductId 
+                                     AND (BestellingLijnen.BestellingId = (select top 1 id from Bestelling Order by id desc))");
+            }
+        }
     }
 }
