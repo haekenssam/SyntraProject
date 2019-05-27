@@ -12,14 +12,6 @@
       Title="MagazijnierPage">
 <Border BorderThickness="5" BorderBrush="Orange">
     <Grid Margin="2,2,2,2">
-        <Grid.Resources>
-            <Style TargetType="{x:Type Button}">
-                <Setter Property="FontWeight" Value="Bold"></Setter>
-            </Style>
-            <Style TargetType="{x:Type Label}">
-                <Setter Property="FontWeight" Value="Bold"></Setter>
-            </Style>
-            </Grid.Resources>
         <Grid.RowDefinitions>
                 <RowDefinition Height="100"/>
                 <RowDefinition Height="*"/>
@@ -86,19 +78,18 @@
                 </StackPanel>
 
     </Grid>
-            <ListView Name="LbProducts" HorizontalContentAlignment="Stretch"  Grid.Row="1" Grid.Column="0" SelectionChanged="LbProducts_SelectionChanged">
+            <ListView Name="LbProducts"  Grid.Row="1" Grid.Column="0" SelectionChanged="LbProducts_SelectionChanged">
                 <ListView.View>
-                    <GridView >
-                        <GridViewColumn Header="Id" DisplayMemberBinding="{Binding Id}" />
-                        <GridViewColumn Header="Naam" DisplayMemberBinding="{Binding Naam}"  />
-                        <GridViewColumn Header="Soort" DisplayMemberBinding="{Binding Soort}" />
-                        <GridViewColumn Header="Oorsprong" DisplayMemberBinding="{Binding Oorsprong}" />
-                        <GridViewColumn Header="Prijs" DisplayMemberBinding="{Binding Prijs}" />
-                        <GridViewColumn Header="Eenheid" DisplayMemberBinding="{Binding Eenheid}" />
-                        <GridViewColumn Header="Korting" DisplayMemberBinding="{Binding Korting}" />
-                        <GridViewColumn Header="Stock" DisplayMemberBinding="{Binding Stock}" />
+                    <GridView>
+                        <GridViewColumn Header="Id" DisplayMemberBinding="{Binding Id}"  Width="50" />
+                        <GridViewColumn Header="Naam" DisplayMemberBinding="{Binding Naam}" Width="100"/>
+                        <GridViewColumn Header="Soort" DisplayMemberBinding="{Binding Soort}" Width="100"/>
+                        <GridViewColumn Header="Oorsprong" DisplayMemberBinding="{Binding Oorsprong}" Width="100"/>
+                        <GridViewColumn Header="Prijs" DisplayMemberBinding="{Binding Prijs}" Width="100"/>
+                        <GridViewColumn Header="Eenheid" DisplayMemberBinding="{Binding Eenheid}" Width="50"/>
+                        <GridViewColumn Header="Stock" DisplayMemberBinding="{Binding Stock}" Width="50"/>
                         <!--<GridViewColumn Header="Aanmaakdatum" DisplayMemberBinding="{Binding AanmaakDatum}" Width="Auto"/>-->
-                        <GridViewColumn Header="Vervaldatum" DisplayMemberBinding="{Binding VervalDatum}" />
+                        <GridViewColumn Header="Vervaldatum" DisplayMemberBinding="{Binding VervalDatum}" Width="100"/>
                     </GridView>
                 </ListView.View>
             </ListView>
