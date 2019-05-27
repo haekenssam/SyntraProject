@@ -76,8 +76,8 @@ namespace Syntra.Eindproject.WPF
             }
             else
             {
-                MessageBox.Show("verkeerde login");
-               // NavigationService.Navigate(new BestellingPage());
+                //MessageBox.Show("verkeerde login");
+                NavigationService.Navigate(new BestellingPage());
             }
 
             // Oude manier van login --> nu met code behind in Gebruikerrepository 5/05/2019
