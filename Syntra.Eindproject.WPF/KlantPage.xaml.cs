@@ -16,18 +16,13 @@ using System.Windows.Shapes;
 namespace Syntra.Eindproject.WPF
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for KlantPage.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class KlantPage : Page
     {
-        public MainWindow()
+        public KlantPage()
         {
             InitializeComponent();
-        }
-
-        private void Window_Loaded(object sender, RoutedEventArgs e)
-        {
-            Frame.NavigationService.Navigate(new MainMenu());
         }
     }
 }

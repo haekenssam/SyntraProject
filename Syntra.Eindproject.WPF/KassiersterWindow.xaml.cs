@@ -16,18 +16,15 @@ using System.Windows.Shapes;
 namespace Syntra.Eindproject.WPF
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for KassiersterWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class KassiersterWindow : Window
     {
-        public MainWindow()
+        public KassiersterWindow()
         {
             InitializeComponent();
         }
 
-        private void Window_Loaded(object sender, RoutedEventArgs e)
-        {
-            Frame.NavigationService.Navigate(new MainMenu());
-        }
+
     }
 }
