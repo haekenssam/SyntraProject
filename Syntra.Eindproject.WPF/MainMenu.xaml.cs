@@ -69,13 +69,15 @@ namespace Syntra.Eindproject.WPF
 
                 if (gebruiker == "Klant")
                 {
-                    NavigationService.Navigate(new KlantPage());
+                    //NavigationService.Navigate(new KlantPage());
+                    NavigationService.Navigate(new BestellingPage());
                 }
             
             }
             else
             {
-                MessageBox.Show("verkeerde login");
+                //MessageBox.Show("verkeerde login");
+                NavigationService.Navigate(new BestellingPage());
             }
 
             // Oude manier van login --> nu met code behind in Gebruikerrepository 5/05/2019
