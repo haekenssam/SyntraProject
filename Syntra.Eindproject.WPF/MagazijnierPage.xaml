@@ -12,6 +12,17 @@
       Title="MagazijnierPage">
 <Border BorderThickness="5" BorderBrush="Orange">
     <Grid Margin="2,2,2,2">
+        <Grid.Resources>
+            <Style TargetType="{x:Type Button}">
+                <Setter Property="FontWeight" Value="Bold"></Setter>
+            </Style>
+            <Style TargetType="{x:Type Label}">
+                <Setter Property="FontWeight" Value="Bold"></Setter>
+            </Style>
+            <Style TargetType="{x:Type CheckBox}">
+                <Setter Property="FontWeight" Value="Bold"></Setter>
+            </Style>
+        </Grid.Resources>
         <Grid.RowDefinitions>
                 <RowDefinition Height="100"/>
                 <RowDefinition Height="*"/>
@@ -32,7 +43,7 @@
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="100"/>
                     <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="50"/>
+                    <ColumnDefinition Width="60"/>
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
@@ -85,8 +96,9 @@
                         <GridViewColumn Header="Naam" DisplayMemberBinding="{Binding Naam}" Width="100"/>
                         <GridViewColumn Header="Soort" DisplayMemberBinding="{Binding Soort}" Width="100"/>
                         <GridViewColumn Header="Oorsprong" DisplayMemberBinding="{Binding Oorsprong}" Width="100"/>
-                        <GridViewColumn Header="Prijs" DisplayMemberBinding="{Binding Prijs}" Width="100"/>
+                        <GridViewColumn Header="Prijs" DisplayMemberBinding="{Binding Prijs}" Width="50"/>
                         <GridViewColumn Header="Eenheid" DisplayMemberBinding="{Binding Eenheid}" Width="50"/>
+                        <GridViewColumn Header="Korting" DisplayMemberBinding="{Binding Korting}" Width="50"/>
                         <GridViewColumn Header="Stock" DisplayMemberBinding="{Binding Stock}" Width="50"/>
                         <!--<GridViewColumn Header="Aanmaakdatum" DisplayMemberBinding="{Binding AanmaakDatum}" Width="Auto"/>-->
                         <GridViewColumn Header="Vervaldatum" DisplayMemberBinding="{Binding VervalDatum}" Width="100"/>
