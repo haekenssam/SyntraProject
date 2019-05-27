@@ -6,7 +6,7 @@
       xmlns:local="clr-namespace:Syntra.Eindproject.WPF"
       mc:Ignorable="d"
       Loaded="MagazijnierPage_OnLoaded"
-      Background="AliceBlue"
+      Background="DarkGray"
       ShowsNavigationUI="True"
       d:DesignHeight="450" d:DesignWidth="800"
       Title="MagazijnierPage">
@@ -74,8 +74,8 @@
                 <TextBox Name="TxtKorting" Grid.Column="5" Grid.Row="1" TextAlignment="Center"></TextBox>
 
                 <StackPanel  Grid.Column="6" Grid.RowSpan="3">
-                    <CheckBox Name="CbAlles"  FontSize="14" Checked="CbAlles_Checked" >Alles</CheckBox>
-                    <CheckBox Name="CbVervallen" FontSize="14" Checked="CbVervallen_Checked" >Vervallen</CheckBox>
+                    <CheckBox Name="CbAlles"  Checked="CbAlles_Checked" >Alles</CheckBox>
+                    <CheckBox Name="CbVervallen"  Checked="CbVervallen_Checked" >Vervallen</CheckBox>
                 </StackPanel>
 
     </Grid>

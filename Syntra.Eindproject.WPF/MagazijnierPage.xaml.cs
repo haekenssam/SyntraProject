@@ -36,6 +36,7 @@ namespace Syntra.Eindproject.WPF
             TxtId.Text = string.Empty;
             TxtPrijs.Text = string.Empty;
             TxtEenheid.Text = string.Empty;
+            TxtKorting.Text = string.Empty;
             TxtVervalDatum.Text = string.Empty;
             TxtStock.Text = string.Empty;
 
@@ -88,6 +89,7 @@ namespace Syntra.Eindproject.WPF
                 TxtOorsprong.Text = product.Oorsprong;
                 TxtPrijs.Text = product.Prijs.ToString();
                 TxtEenheid.Text = product.Eenheid;
+                TxtKorting.Text = product.Korting.ToString();
                 TxtVervalDatum.Text = product.VervalDatum;
                 TxtStock.Text = product.Stock.ToString();
             }
