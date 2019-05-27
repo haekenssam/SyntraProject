@@ -54,127 +54,17 @@
                 <DataGrid Name="LstBestellingLijnen"  AutoGenerateColumns="False"  RowHeight="20" 
                           ColumnWidth="*" Grid.Row="9" ItemStringFormat="" Margin="2,1.6,2.4,0.8" Grid.ColumnSpan="13" >/>
                     <DataGrid.Columns>
-                        
-                        <DataGridTextColumn Header="Id" Binding="{Binding BestellingLijnenId}">
-                            <DataGridTextColumn.HeaderStyle>
-                                <Style TargetType="DataGridColumnHeader">
-                                    <Setter Property="HorizontalContentAlignment" Value="Center" />
-                                </Style>
-                            </DataGridTextColumn.HeaderStyle>
-                            <DataGridTextColumn.ElementStyle>
-                                <Style TargetType="TextBlock">
-                                    <Setter Property="TextAlignment" Value="Center" />
-                                </Style>
-                            </DataGridTextColumn.ElementStyle>
-                        </DataGridTextColumn>  
-                        
-                        <DataGridTextColumn Header="BestellingId" Binding="{Binding BestellingId}">
-                            <DataGridTextColumn.HeaderStyle>
-                                <Style TargetType="DataGridColumnHeader">
-                                    <Setter Property="HorizontalContentAlignment" Value="Center" />
-                                </Style>
-                            </DataGridTextColumn.HeaderStyle>
-                            <DataGridTextColumn.ElementStyle>
-                                <Style TargetType="TextBlock">
-                                    <Setter Property="TextAlignment" Value="Center" />
-                                </Style>
-                            </DataGridTextColumn.ElementStyle>
-                        </DataGridTextColumn>
-                        
-                        <DataGridTextColumn Header="Art.Nr" Binding="{Binding ProductId}">
-                            <DataGridTextColumn.HeaderStyle>
-                                <Style TargetType="DataGridColumnHeader">
-                                    <Setter Property="HorizontalContentAlignment" Value="Center" />
-                                </Style>
-                            </DataGridTextColumn.HeaderStyle>
-                            <DataGridTextColumn.ElementStyle>
-                                <Style TargetType="TextBlock">
-                                    <Setter Property="TextAlignment" Value="Center" />
-                                </Style>
-                            </DataGridTextColumn.ElementStyle>
-                        </DataGridTextColumn>
-
-                        <DataGridTextColumn Header="Artikel" Binding="{Binding Naam}">
-                            <DataGridTextColumn.HeaderStyle>
-                                <Style TargetType="DataGridColumnHeader">
-                                    <Setter Property="HorizontalContentAlignment" Value="Center" />
-                                </Style>
-                            </DataGridTextColumn.HeaderStyle>
-                            <DataGridTextColumn.ElementStyle>
-                                <Style TargetType="TextBlock">
-                                    <Setter Property="TextAlignment" Value="Center" />
-                                </Style>
-                            </DataGridTextColumn.ElementStyle>
-                        </DataGridTextColumn>
-
-                        <DataGridTextColumn Header="Aantal" Binding="{Binding Aantal}">
-                            <DataGridTextColumn.HeaderStyle>
-                                <Style TargetType="DataGridColumnHeader">
-                                    <Setter Property="HorizontalContentAlignment" Value="Center" />
-                                </Style>
-                            </DataGridTextColumn.HeaderStyle>
-                            <DataGridTextColumn.ElementStyle>
-                                <Style TargetType="TextBlock">
-                                    <Setter Property="TextAlignment" Value="Center" />
-                                </Style>
-                            </DataGridTextColumn.ElementStyle>
-                        </DataGridTextColumn>
-                        
-                        <DataGridTextColumn Header="Eenheid" Binding="{Binding Eenheid}">
-                            <DataGridTextColumn.HeaderStyle>
-                                <Style TargetType="DataGridColumnHeader">
-                                    <Setter Property="HorizontalContentAlignment" Value="Center" />
-                                </Style>
-                            </DataGridTextColumn.HeaderStyle>
-                            <DataGridTextColumn.ElementStyle>
-                                <Style TargetType="TextBlock">
-                                    <Setter Property="TextAlignment" Value="Center" />
-                                </Style>
-                            </DataGridTextColumn.ElementStyle>
-                        </DataGridTextColumn>
-                        
-                        <DataGridTextColumn Header="Prijs (€)" Binding="{Binding Prijs}">
-                            <DataGridTextColumn.HeaderStyle>
-                                <Style TargetType="DataGridColumnHeader">
-                                    <Setter Property="HorizontalContentAlignment" Value="Center" />
-                                </Style>
-                            </DataGridTextColumn.HeaderStyle>
-                            <DataGridTextColumn.ElementStyle>
-                                <Style TargetType="TextBlock">
-                                    <Setter Property="TextAlignment" Value="Center" />
-                                </Style>
-                            </DataGridTextColumn.ElementStyle>
-                        </DataGridTextColumn>
-                        
-                        <DataGridTextColumn Header="Korting (%)" Binding="{Binding Korting}">
-                            <DataGridTextColumn.HeaderStyle>
-                                <Style TargetType="DataGridColumnHeader">
-                                    <Setter Property="HorizontalContentAlignment" Value="Center" />
-                                </Style>
-                            </DataGridTextColumn.HeaderStyle>
-                            <DataGridTextColumn.ElementStyle>
-                                <Style TargetType="TextBlock">
-                                    <Setter Property="TextAlignment" Value="Center" />
-                                </Style>
-                            </DataGridTextColumn.ElementStyle>
-                        </DataGridTextColumn>
-                        
-                        <DataGridTextColumn Header="Bedrag (€)" Binding="{Binding Bedrag}">
-                            <DataGridTextColumn.HeaderStyle>
-                                <Style TargetType="DataGridColumnHeader">
-                                    <Setter Property="HorizontalContentAlignment" Value="Center" />
-                                </Style>
-                            </DataGridTextColumn.HeaderStyle>
-                            <DataGridTextColumn.ElementStyle>
-                                <Style TargetType="TextBlock">
-                                    <Setter Property="TextAlignment" Value="Center" />
-                                </Style>
-                            </DataGridTextColumn.ElementStyle>
-                        </DataGridTextColumn>
-                        
+                        <DataGridTextColumn Header="Id" Binding="{Binding BestellingLijnenId}"></DataGridTextColumn>
+                        <DataGridTextColumn Header="BestellingId" Binding="{Binding BestellingId}"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Art.Nr" Binding="{Binding ProductId}"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Artikel" Binding="{Binding Naam}"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Aantal" Binding="{Binding Aantal}"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Eenheid" Binding="{Binding Eenheid}"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Prijs (€)" Binding="{Binding Prijs}"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Korting (%)" Binding="{Binding Korting}"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Bedrag (€)" Binding="{Binding Bedrag}"></DataGridTextColumn>
                         <!--<DataGridTextColumn Header="Bedrag" Binding="{Binding Bedrag}"></DataGridTextColumn>-->
                     </DataGrid.Columns>
-                    
                 </DataGrid>
                 <!--*******************************************************************************************************************-->
                 <!--Artikel ID, Hoeveelheid, Voeg Artikel Toe, Verwijder Artikel-->
