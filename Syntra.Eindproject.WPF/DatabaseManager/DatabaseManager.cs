@@ -17,10 +17,12 @@ namespace Syntra.Eindproject.WPF
         public ProductRepository ProductRepository => new ProductRepository();
         public GebruikerRepository GebruikerRepository => new GebruikerRepository();
         public BestellingRepository BestellingRepository => new BestellingRepository();
+        public WinkelwagenRepository WinkelwagenRepository => new WinkelwagenRepository();
 
         private DatabaseManager()
         {
-            Connection.Instance.SetConnection("server=Eindproject; database=Syntra; User id= Syntra; password=Syntra123!");
+            //Connection.Instance.SetConnection("server=FILIP\\FILIPDECKERS; database=Syntra; User id= Syntra; password=Syntra123!");
+            Connection.Instance.SetConnection("server=FILIP\\FILIPDECKERS; database=Syntra; User id= sa; password=Desultan0");
         }
     }
 }

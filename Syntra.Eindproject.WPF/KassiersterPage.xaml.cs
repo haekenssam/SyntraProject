@@ -48,7 +48,7 @@ namespace Syntra.Eindproject.WPF
         public void Initialize()
         {
             //BestellingLijnen importeren en tonen
-            List<Bestelling> bestellingLijnen = DatabaseManager.Instance.BestellingRepository.GetBestellingLijnen().ToList();
+            List<Bestelling> bestellingLijnen = DatabaseManager.Instance.BestellingRepository.GetWinkelwagenLijnenId().ToList();
             LstBestellingLijnen.ItemsSource = bestellingLijnen;
         }
 
@@ -58,7 +58,7 @@ namespace Syntra.Eindproject.WPF
             //BestellingLijn toevoegen
             int.TryParse(TxtArtikelId.Text, out int productid);
             float.TryParse(TxtHoeveelheid.Text, out float aantal);
-
+            if(TxtArtikelId.Text == string.Empty || TxtHoeveelheid.Text == string.Empty)
                 try
                 {
                     DatabaseManager.Instance.BestellingRepository.InsertBestellingLijn(productid, aantal);
@@ -117,7 +117,7 @@ namespace Syntra.Eindproject.WPF
             DatabaseManager.Instance.BestellingRepository.InsertBestelling();
 
             //Datagrid resetten
-            List<Bestelling> bestellingLijnen = DatabaseManager.Instance.BestellingRepository.GetBestellingLijnen().ToList();
+            List<Bestelling> bestellingLijnen = DatabaseManager.Instance.BestellingRepository.GetWinkelwagenLijnenId().ToList();
             LstBestellingLijnen.ItemsSource = bestellingLijnen;
 
             //FactuurNr = BestellingId opladen           
@@ -138,7 +138,7 @@ namespace Syntra.Eindproject.WPF
             DatabaseManager.Instance.BestellingRepository.DeleteBestellingLijn(bestellingLijn.BestellingLijnenId, bestellingLijn.ProductId, bestellingLijn.Aantal);
 
             //BestellingLijnen importeren en tonen
-            List<Bestelling> bestellingLijnen = DatabaseManager.Instance.BestellingRepository.GetBestellingLijnen().ToList();
+            List<Bestelling> bestellingLijnen = DatabaseManager.Instance.BestellingRepository.GetWinkelwagenLijnenId().ToList();
             LstBestellingLijnen.ItemsSource = bestellingLijnen;
 
             //Toon de "Te Betalen totaal"
