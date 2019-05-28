@@ -70,6 +70,7 @@ namespace Syntra.Eindproject.WPF
                 if (gebruiker == "Klant")
                 {
                     NavigationService.Navigate(new KlantPage());
+                    //NavigationService.Navigate(new BestellingPage());
                 }
             
             }
