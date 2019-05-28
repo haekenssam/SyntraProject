@@ -135,10 +135,11 @@ namespace Syntra.Eindproject.WPF
             double.TryParse(TxtPrijs.Text, out double prijs);
             int.TryParse(TxtId.Text, out int id);
             double.TryParse(TxtStock.Text, out double stock);
+            int.TryParse(TxtKorting.Text, out int korting);
 
             try
             {
-                DatabaseManager.Instance.ProductRepository.UpdateProduct(id, TxtNaam.Text, TxtSoort.Text,TxtOorsprong.Text, prijs, TxtEenheid.Text, TxtVervalDatum.Text, stock );
+                DatabaseManager.Instance.ProductRepository.UpdateProduct(id, TxtNaam.Text, TxtSoort.Text,TxtOorsprong.Text, prijs, TxtEenheid.Text, TxtVervalDatum.Text, stock, korting );
             }
             catch (BusinessException ex)
             {

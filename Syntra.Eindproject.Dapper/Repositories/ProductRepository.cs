@@ -77,9 +77,9 @@ namespace Syntra.Eindproject.Dapper
             }
         }
 
-        public void UpdateProduct(int id, string naam, string soort, string oorsprong, double prijs, string eenheid, string vervaldatum, double stock)
+        public void UpdateProduct(int id, string naam, string soort, string oorsprong, double prijs, string eenheid, string vervaldatum, double stock, int korting)
         {
-            if (naam == string.Empty || soort == string.Empty || prijs.ToString() == string.Empty || eenheid == string.Empty)
+            if (naam == string.Empty || soort == string.Empty || prijs.ToString() == string.Empty || eenheid == string.Empty )
             {
                 throw new BusinessException("Niet alle velden zijn ingevuld!");
             }
@@ -94,7 +94,7 @@ namespace Syntra.Eindproject.Dapper
             using (SqlConnection connection = new SqlConnection(Connection.Instance.ConnectionString))
             {
                 connection.Execute(@"update product set Id = @id, Naam = @naam, Soort = @soort, Oorsprong = @oorsprong, Prijs = @prijs, 
-                                     Eenheid = @Eenheid, VervalDatum = @vervalDatum, Stock = @stock where Id = @id ",
+                                     Eenheid = @Eenheid, VervalDatum = @vervalDatum, Stock = @stock, Korting = @korting where Id = @id ",
                                      new
                                      {
                                          Id = id,
@@ -104,7 +104,8 @@ namespace Syntra.Eindproject.Dapper
                                          Prijs = prijs,
                                          Eenheid = eenheid,
                                          VervalDatum = vervalDatum,
-                                         Stock = stock
+                                         Stock = stock,
+                                         Korting = korting
                                      });
                 
             }
