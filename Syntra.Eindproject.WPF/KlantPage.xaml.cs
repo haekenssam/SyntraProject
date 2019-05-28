@@ -1,32 +1,4 @@
-﻿//using System;
-//using System.Collections.Generic;
-//using System.Linq;
-//using System.Text;
-//using System.Threading.Tasks;
-//using System.Windows;
-//using System.Windows.Controls;
-//using System.Windows.Data;
-//using System.Windows.Documents;
-//using System.Windows.Input;
-//using System.Windows.Media;
-//using System.Windows.Media.Imaging;
-//using System.Windows.Navigation;
-//using System.Windows.Shapes;
-
-//namespace Syntra.Eindproject.WPF
-//{
-//    /// <summary>
-//    /// Interaction logic for KlantPage.xaml
-//    /// </summary>
-//    public partial class KlantPage : Page
-//    {
-//        public KlantPage()
-//        {
-//            InitializeComponent();
-//        }
-//    }
-//}
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -44,7 +16,6 @@ using Syntra.Eindproject.BL;
 using Syntra.Eindproject.BL.Models;
 using Syntra.Eindproject.Dapper;
 using Syntra.Eindproject.Dapper.Repositories;
-using static Syntra.Eindproject.WPF.MoveablePopup;
 
 namespace Syntra.Eindproject.WPF
 {
@@ -57,17 +28,15 @@ namespace Syntra.Eindproject.WPF
         {
             InitializeComponent();
         }
+
         //Lijnen importeren en tonen
         public void Initialize()
         {
-
             List<Winkelwagen> winkelwagenLijnen = DatabaseManager.Instance.WinkelwagenRepository.GetWinkelwagenLijnen().ToList();
             WinkelwagenLijnen.ItemsSource = winkelwagenLijnen;
 
             List<Winkelwagen> winkelwagenLijnen2 = DatabaseManager.Instance.WinkelwagenRepository.GetWinkelwagenLijnen2().ToList();
             WinkelwagenLijnen2.ItemsSource = winkelwagenLijnen2;
-
-
         }
 
         // Winkelwagen nummer maken
@@ -76,13 +45,11 @@ namespace Syntra.Eindproject.WPF
             DatabaseManager.Instance.WinkelwagenRepository.InsertWinkelwagen();
         }
 
-        // List<Winkelwagen> listOfWinkelwagenLijnen = new List<Winkelwagen>();
-
         // Button product inscannen
         private void BtnScan_Click(object sender, RoutedEventArgs e)
         {
-            bool checktB = int.TryParse(textBox.Text, out int productid);
-            bool checktB1 = float.TryParse(textBox1.Text, out float aantal);
+            bool checktB = int.TryParse(TxtProductId.Text, out int productid);
+            bool checktB1 = float.TryParse(TxtAantal.Text, out float aantal);
 
             List<int?> checkAvailableProductId = DatabaseManager.Instance.WinkelwagenRepository.CheckProductIdAvailable(productid).ToList();
             List<float> checkAvailableAantalMagazijn = DatabaseManager.Instance.WinkelwagenRepository.CheckAantalInMagazijn(productid).ToList();
@@ -94,7 +61,7 @@ namespace Syntra.Eindproject.WPF
             }
             else
             {
-                if (textBox.Text == (string.Empty) || textBox.Text == "" || textBox1.Text == string.Empty || textBox1.Text == "" || checktB == false || checktB1 == false || float.Parse(textBox1.Text) < 0)
+                if (TxtProductId.Text == (string.Empty) || TxtProductId.Text == "" || TxtAantal.Text == string.Empty || TxtAantal.Text == "" || checktB == false || checktB1 == false || float.Parse(TxtAantal.Text) < 0)
                 {
                     //throw new BusinessException("Niet alle velden zijn ingevuld!");
                     MessageBox.Show("Inhoud niet correct ingevuld");
@@ -104,7 +71,7 @@ namespace Syntra.Eindproject.WPF
                     int sizeId = checkAvailableProductId.Count;
                     float? aantalMagazijn = checkAvailableAantalMagazijn[0];
                     float? aantalWinkelwagenLijnen = checkAvailableAantalWinkelwagenLijnen[0];
-                    float? difference = aantalMagazijn - aantalWinkelwagenLijnen - float.Parse(textBox1.Text);
+                    float? difference = aantalMagazijn - aantalWinkelwagenLijnen - float.Parse(TxtAantal.Text);
                     if (difference < 0)
                     {
                         MessageBox.Show("Te weinig in voorraad");
@@ -173,7 +140,8 @@ namespace Syntra.Eindproject.WPF
             //listBoxWinkelmand.Items.Add(DatabWinkelwagenLijnen);
 
             #endregion
-
+            TxtProductId.Text = string.Empty;
+            TxtAantal.Text = string.Empty;
         }
 
         //Button naar kassa
@@ -204,10 +172,10 @@ namespace Syntra.Eindproject.WPF
         private void btnUpdateLijn(object sender, RoutedEventArgs e)
         {
 
-            bool check1tB = float.TryParse(textBox1.Text, out float AantalProdWinkelwagen);
+            bool check1tB = float.TryParse(TxtAantal.Text, out float AantalProdWinkelwagen);
             Winkelwagen winkelwagenLijn = GetSelectedWinkelwagenLijn();
 
-            if (textBox1.Text == string.Empty || textBox1.Text == "" || winkelwagenLijn == null || check1tB == false || float.Parse(textBox1.Text) < 0)
+            if (TxtAantal.Text == string.Empty || TxtAantal.Text == "" || winkelwagenLijn == null || check1tB == false || float.Parse(TxtAantal.Text) < 0)
             {
                 //throw new BusinessException("Niet alle velden zijn ingevuld!");
                 MessageBox.Show("Inhoud niet correct ingevuld");
@@ -219,7 +187,7 @@ namespace Syntra.Eindproject.WPF
 
                 float? aantalMagazijn = checkAvailableAantalMagazijn[0];
                 float? aantalWinkelwagenLijnen = checkAvailableAantalWinkelwagenLijnen[0];
-                float? difference = aantalMagazijn - aantalWinkelwagenLijnen - float.Parse(textBox1.Text);
+                float? difference = aantalMagazijn - aantalWinkelwagenLijnen - float.Parse(TxtAantal.Text);
                 if (difference < 0)
                 {
                     MessageBox.Show("Niet voldoende voorraad");
@@ -248,6 +216,5 @@ namespace Syntra.Eindproject.WPF
 
             return current;
         }
-
     }
 }
