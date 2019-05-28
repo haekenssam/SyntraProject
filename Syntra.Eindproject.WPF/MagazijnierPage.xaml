@@ -76,6 +76,7 @@
                 <StackPanel  Grid.Column="6" Grid.RowSpan="3">
                     <CheckBox Name="CbAlles"  Checked="CbAlles_Checked" >Alles</CheckBox>
                     <CheckBox Name="CbVervallen"  Checked="CbVervallen_Checked" >Vervallen</CheckBox>
+                    <CheckBox Name="CbClearAlles" Checked="CbClearAlles_OnChecked" >Clear</CheckBox>
                 </StackPanel>
 
     </Grid>
@@ -89,22 +90,88 @@
                 </StackPanel>
 
     </Grid>
-            <ListView Name="LbProducts"  Grid.Row="1" Grid.Column="0" SelectionChanged="LbProducts_SelectionChanged">
-                <ListView.View>
-                    <GridView>
-                        <GridViewColumn Header="Id" DisplayMemberBinding="{Binding Id}"  Width="50" />
-                        <GridViewColumn Header="Naam" DisplayMemberBinding="{Binding Naam}" Width="100"/>
-                        <GridViewColumn Header="Soort" DisplayMemberBinding="{Binding Soort}" Width="100"/>
-                        <GridViewColumn Header="Oorsprong" DisplayMemberBinding="{Binding Oorsprong}" Width="100"/>
-                        <GridViewColumn Header="Prijs" DisplayMemberBinding="{Binding Prijs}" Width="50"/>
-                        <GridViewColumn Header="Eenheid" DisplayMemberBinding="{Binding Eenheid}" Width="50"/>
-                        <GridViewColumn Header="Korting" DisplayMemberBinding="{Binding Korting}" Width="50"/>
-                        <GridViewColumn Header="Stock" DisplayMemberBinding="{Binding Stock}" Width="50"/>
-                        <!--<GridViewColumn Header="Aanmaakdatum" DisplayMemberBinding="{Binding AanmaakDatum}" Width="Auto"/>-->
-                        <GridViewColumn Header="Vervaldatum" DisplayMemberBinding="{Binding VervalDatum}" Width="100"/>
-                    </GridView>
-                </ListView.View>
-            </ListView>
+            <DataGrid Name="LbProducts" AutoGenerateColumns="False"  Grid.Row="1" Grid.Column="0" RowHeight="20" 
+                      ColumnWidth="*" SelectionChanged="LbProducts_SelectionChanged">
+                <DataGrid.Resources>
+                    <Style TargetType="DataGridColumnHeader">
+                        <Setter Property="HorizontalContentAlignment" Value="Center"></Setter>
+                    </Style>
+                </DataGrid.Resources>
+                <DataGrid.Columns>
+
+                    <DataGridTextColumn Header="Id" Binding="{Binding Id}">
+                    <DataGridTextColumn.ElementStyle>
+                        <Style TargetType="TextBlock">
+                            <Setter Property="TextAlignment" Value="Center" />
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                    </DataGridTextColumn>
+
+                    <DataGridTextColumn Header="Naam" Binding="{Binding Naam}" >
+                        <DataGridTextColumn.ElementStyle>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="TextAlignment" Value="Center" />
+                            </Style>
+                        </DataGridTextColumn.ElementStyle>
+                    </DataGridTextColumn>
+
+                    <DataGridTextColumn Header="Soort" Binding="{Binding Soort}" >
+                        <DataGridTextColumn.ElementStyle>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="TextAlignment" Value="Center" />
+                            </Style>
+                        </DataGridTextColumn.ElementStyle>
+                    </DataGridTextColumn>
+
+                    <DataGridTextColumn Header="Oorsprong" Binding="{Binding Oorsprong}" >
+                        <DataGridTextColumn.ElementStyle>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="TextAlignment" Value="Center" />
+                            </Style>
+                        </DataGridTextColumn.ElementStyle>
+                    </DataGridTextColumn>
+
+                    <DataGridTextColumn Header="Prijs" Binding="{Binding Prijs}" >
+                        <DataGridTextColumn.ElementStyle>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="TextAlignment" Value="Center" />
+                            </Style>
+                        </DataGridTextColumn.ElementStyle>
+                    </DataGridTextColumn>
+
+                    <DataGridTextColumn Header="Eenheid" Binding="{Binding Eenheid}" >
+                        <DataGridTextColumn.ElementStyle>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="TextAlignment" Value="Center" />
+                            </Style>
+                        </DataGridTextColumn.ElementStyle>
+                    </DataGridTextColumn>
+
+                    <DataGridTextColumn Header="Korting" Binding="{Binding Korting}" >
+                        <DataGridTextColumn.ElementStyle>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="TextAlignment" Value="Center" />
+                            </Style>
+                        </DataGridTextColumn.ElementStyle>
+                    </DataGridTextColumn>
+
+                    <DataGridTextColumn Header="Stock" Binding="{Binding Stock}" >
+                        <DataGridTextColumn.ElementStyle>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="TextAlignment" Value="Center" />
+                            </Style>
+                        </DataGridTextColumn.ElementStyle>
+                    </DataGridTextColumn>
+
+                    <DataGridTextColumn Header="Vervaldatum" Binding="{Binding VervalDatum}" >
+                        <DataGridTextColumn.ElementStyle>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="TextAlignment" Value="Center" />
+                            </Style>
+                        </DataGridTextColumn.ElementStyle>
+                    </DataGridTextColumn>
+                </DataGrid.Columns>
+            </DataGrid>
 
     </Grid>
 </Border>

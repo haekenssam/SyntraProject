@@ -170,5 +170,11 @@ namespace Syntra.Eindproject.WPF
         {
             Initialize();
         }
+
+        private void CbClearAlles_OnChecked(object sender, RoutedEventArgs e)
+        {
+            Initialize();
+            CbClearAlles.IsChecked = false;
+        }
     }
 }
