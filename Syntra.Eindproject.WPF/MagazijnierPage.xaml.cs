@@ -144,7 +144,7 @@ namespace Syntra.Eindproject.WPF
             }
             catch (BusinessException ex)
             {
-                MessageBox.Show(ex.ToString());
+                MessageBox.Show(ex.Message);
             }
             Initialize();
         }

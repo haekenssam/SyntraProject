@@ -96,14 +96,14 @@ namespace Syntra.Eindproject.Dapper
                 throw new BusinessException("Geen geldige datum");
             }
 
-            if (!IsValidProduct(id))
-            {
-                throw new BusinessException("Product ID bestaat al");
-            }
+            //if (!IsValidProduct(id))
+            //{
+            //    throw new BusinessException("Product ID bestaat al");
+            //}
 
             using (SqlConnection connection = new SqlConnection(Connection.Instance.ConnectionString))
             {
-                connection.Execute(@"update product set Id = @id, Naam = @naam, Soort = @soort, Oorsprong = @oorsprong, Prijs = @prijs, 
+                connection.Execute(@"update product set Naam = @naam, Soort = @soort, Oorsprong = @oorsprong, Prijs = @prijs, 
                                      Eenheid = @Eenheid, VervalDatum = @vervalDatum, Stock = @stock, Korting = @korting where Id = @id ",
                                      new
                                      {

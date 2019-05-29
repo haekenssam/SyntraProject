@@ -22,6 +22,10 @@
             <Style TargetType="{x:Type CheckBox}">
                 <Setter Property="FontWeight" Value="Bold"></Setter>
             </Style>
+            <Style TargetType="{x:Type TextBox}">
+                    <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                    <Setter Property="VerticalContentAlignment" Value="Center"/>
+                </Style>
         </Grid.Resources>
         <Grid.RowDefinitions>
                 <RowDefinition Height="100"/>
@@ -49,29 +53,29 @@
                 </Grid.ColumnDefinitions>
 
                 <Label Grid.Row="0" Grid.Column="0">Id:</Label>
-                <TextBox Name="TxtId" Grid.Row="0" Grid.Column="1" TextAlignment="Center"></TextBox>
+                <TextBox Name="TxtId" Grid.Row="0" Grid.Column="1"></TextBox>
 
                 <Label Grid.Row="0" Grid.Column="2">Oorsprong:</Label>
-                <TextBox Name="TxtOorsprong" Grid.Row="0" Grid.Column="3" TextAlignment="Center"></TextBox>
+                <TextBox Name="TxtOorsprong" Grid.Row="0" Grid.Column="3"></TextBox>
 
                 <Label Grid.Row="1" Grid.Column="0">Naam:</Label>
-                <TextBox Name="TxtNaam" Grid.Row="1" Grid.Column="1" TextAlignment="Center"></TextBox>
+                <TextBox Name="TxtNaam" Grid.Row="1" Grid.Column="1"></TextBox>
 
                 <Label Grid.Row="2" Grid.Column="0">Vervaldatum:</Label>
-                <TextBox Name="TxtVervalDatum" Grid.Row="2" Grid.Column="1" TextAlignment="Center"></TextBox>
+                <TextBox Name="TxtVervalDatum" Grid.Row="2" Grid.Column="1"></TextBox>
 
                 <Label Grid.Row="1" Grid.Column="2">Soort:</Label>
-                <TextBox Name="TxtSoort" Grid.Row="1" Grid.Column="3" TextAlignment="Center"></TextBox>
+                <TextBox Name="TxtSoort" Grid.Row="1" Grid.Column="3"></TextBox>
 
                 <Label Grid.Row="2" Grid.Column="2">Prijs/eenheid:</Label>
-                <TextBox Name="TxtPrijs" Grid.Row="2" Grid.Column="3" TextAlignment="Center"></TextBox>
-                <TextBox Name="TxtEenheid" Grid.Row="2" Grid.Column="4" TextAlignment="Center"></TextBox>
+                <TextBox Name="TxtPrijs" Grid.Row="2" Grid.Column="3"></TextBox>
+                <TextBox Name="TxtEenheid" Grid.Row="2" Grid.Column="4"></TextBox>
 
                 <Label Grid.Column="4" Grid.ColumnSpan="1">Stock:</Label>
-                <TextBox Name="TxtStock" Grid.Column="5" TextAlignment="Center" ></TextBox>
+                <TextBox Name="TxtStock" Grid.Column="5"></TextBox>
 
                 <Label Grid.Column="4" Grid.Row="1">Korting:</Label>
-                <TextBox Name="TxtKorting" Grid.Column="5" Grid.Row="1" TextAlignment="Center"></TextBox>
+                <TextBox Name="TxtKorting" Grid.Column="5" Grid.Row="1"></TextBox>
 
                 <StackPanel  Grid.Column="6" Grid.RowSpan="3">
                     <CheckBox Name="CbAlles"  Checked="CbAlles_Checked" >Alles</CheckBox>
@@ -90,8 +94,8 @@
                 </StackPanel>
 
     </Grid>
-            <DataGrid Name="LbProducts" AutoGenerateColumns="False"  Grid.Row="1" Grid.Column="0" RowHeight="20" 
-                      ColumnWidth="*" SelectionChanged="LbProducts_SelectionChanged">
+            <DataGrid Name="LbProducts" AutoGenerateColumns="False" Grid.Row="1" Grid.Column="0" RowHeight="20" 
+                      ColumnWidth="*" SelectionChanged="LbProducts_SelectionChanged" IsReadOnly="True">
                 <DataGrid.Resources>
                     <Style TargetType="DataGridColumnHeader">
                         <Setter Property="HorizontalContentAlignment" Value="Center"></Setter>
