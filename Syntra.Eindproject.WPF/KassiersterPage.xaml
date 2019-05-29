@@ -54,21 +54,8 @@
                 <DataGrid Name="LstBestellingLijnen"  AutoGenerateColumns="False"  RowHeight="20" 
                           ColumnWidth="*" Grid.Row="9" ItemStringFormat="" Margin="2,1.6,2.4,0.8" Grid.ColumnSpan="13" >/>
                     <DataGrid.Columns>
-                        
-                        <DataGridTextColumn Header="Id" Binding="{Binding BestellingLijnenId}">
-                            <DataGridTextColumn.HeaderStyle>
-                                <Style TargetType="DataGridColumnHeader">
-                                    <Setter Property="HorizontalContentAlignment" Value="Center" />
-                                </Style>
-                            </DataGridTextColumn.HeaderStyle>
-                            <DataGridTextColumn.ElementStyle>
-                                <Style TargetType="TextBlock">
-                                    <Setter Property="TextAlignment" Value="Center" />
-                                </Style>
-                            </DataGridTextColumn.ElementStyle>
-                        </DataGridTextColumn>  
-                        
-                        <DataGridTextColumn Header="BestellingId" Binding="{Binding BestellingId}">
+
+                        <DataGridTextColumn Header="Best.LijnId" Binding="{Binding BestellingLijnenId}">
                             <DataGridTextColumn.HeaderStyle>
                                 <Style TargetType="DataGridColumnHeader">
                                     <Setter Property="HorizontalContentAlignment" Value="Center" />
@@ -80,7 +67,7 @@
                                 </Style>
                             </DataGridTextColumn.ElementStyle>
                         </DataGridTextColumn>
-                        
+
                         <DataGridTextColumn Header="Art.Nr" Binding="{Binding ProductId}">
                             <DataGridTextColumn.HeaderStyle>
                                 <Style TargetType="DataGridColumnHeader">
@@ -119,7 +106,7 @@
                                 </Style>
                             </DataGridTextColumn.ElementStyle>
                         </DataGridTextColumn>
-                        
+
                         <DataGridTextColumn Header="Eenheid" Binding="{Binding Eenheid}">
                             <DataGridTextColumn.HeaderStyle>
                                 <Style TargetType="DataGridColumnHeader">
@@ -132,7 +119,7 @@
                                 </Style>
                             </DataGridTextColumn.ElementStyle>
                         </DataGridTextColumn>
-                        
+
                         <DataGridTextColumn Header="Prijs (€)" Binding="{Binding Prijs}">
                             <DataGridTextColumn.HeaderStyle>
                                 <Style TargetType="DataGridColumnHeader">
@@ -145,7 +132,7 @@
                                 </Style>
                             </DataGridTextColumn.ElementStyle>
                         </DataGridTextColumn>
-                        
+
                         <DataGridTextColumn Header="Korting (%)" Binding="{Binding Korting}">
                             <DataGridTextColumn.HeaderStyle>
                                 <Style TargetType="DataGridColumnHeader">
@@ -158,7 +145,7 @@
                                 </Style>
                             </DataGridTextColumn.ElementStyle>
                         </DataGridTextColumn>
-                        
+
                         <DataGridTextColumn Header="Bedrag (€)" Binding="{Binding Bedrag}">
                             <DataGridTextColumn.HeaderStyle>
                                 <Style TargetType="DataGridColumnHeader">
@@ -171,10 +158,10 @@
                                 </Style>
                             </DataGridTextColumn.ElementStyle>
                         </DataGridTextColumn>
-                        
+
                         <!--<DataGridTextColumn Header="Bedrag" Binding="{Binding Bedrag}"></DataGridTextColumn>-->
                     </DataGrid.Columns>
-                    
+
                 </DataGrid>
                 <!--*******************************************************************************************************************-->
                 <!--Artikel ID, Hoeveelheid, Voeg Artikel Toe, Verwijder Artikel-->
@@ -183,7 +170,7 @@
                 <Label Name="ArtikelId" Content="Artikel ID" Grid.Row="11" Grid.Column="0"  HorizontalAlignment="Left" 
                        VerticalAlignment="Center"   FontWeight="Bold" Margin="11,0.6,0,0.8" Height="29" Width="80" />
                 <TextBox Name="TxtArtikelId" Grid.Column="2" Grid.Row="11" Margin="0,0.6,0.4,0.8"/>
-                <TextBox Name="TxtHoeveelheid"  Grid.Row="12" Grid.Column="2" Margin="0,1.2,1,1.8" Grid.RowSpan="2" Grid.ColumnSpan="2"/>
+                <TextBox Name="TxtHoeveelheid"  Grid.Row="12" Grid.Column="2" Margin="0,1.2,0.4,1.8" Grid.RowSpan="2"/>
                 <Button Name="BtnBestellingLijnToevoegen" Content="Voeg Artikel Toe" Grid.Row="14" Grid.Column="0" FontWeight="Bold" Grid.ColumnSpan="3" Margin="1,1.2,0.4,0.8" Grid.RowSpan="2" Click="BtnBestellingLijnToevoegen_Click" />
                 <Button Name="BestellingLijnVerwijderen" Content="Verwijder Artikel" Grid.Row="14" Grid.Column="4" FontWeight="Bold" Margin="0,1.2,0.4,0.8" Grid.RowSpan="2" Click="BestellingLijnVerwijderen_Click" />
 
