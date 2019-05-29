@@ -100,6 +100,7 @@ namespace Syntra.Eindproject.Dapper
             {
                 throw new BusinessException("Product ID bestaat al");
             }
+
             using (SqlConnection connection = new SqlConnection(Connection.Instance.ConnectionString))
             {
                 connection.Execute(@"update product set Id = @id, Naam = @naam, Soort = @soort, Oorsprong = @oorsprong, Prijs = @prijs, 

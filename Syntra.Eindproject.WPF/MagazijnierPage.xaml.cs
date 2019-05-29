@@ -109,7 +109,7 @@ namespace Syntra.Eindproject.WPF
             //return null;
 
             Product current = LbProducts.SelectedItem as Product;
-
+            TxtId.IsReadOnly = true;
             return current;
         }
         #endregion
