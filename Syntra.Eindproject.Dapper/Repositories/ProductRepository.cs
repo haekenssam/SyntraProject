@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Threading.Tasks;
 using Syntra.Eindproject.BL;
@@ -36,7 +37,6 @@ namespace Syntra.Eindproject.Dapper
                 throw new BusinessException("Niet alle velden zijn ingevuld!");
             }
 
-
             DateTime vervalDatum;
 
             if (!DateTime.TryParse(vervaldatum, out vervalDatum))
@@ -44,6 +44,11 @@ namespace Syntra.Eindproject.Dapper
                 throw new BusinessException("Geen geldige datum");
             }
 
+            if (!IsValidProduct(id))
+            {
+                throw new BusinessException("Product ID bestaat al");
+            }
+            
             using (SqlConnection connection = new SqlConnection(Connection.Instance.ConnectionString))
             {
                 connection.Execute(@"insert into product (Id, Naam, Soort, Oorsprong, Prijs, Eenheid, AanmaakDatum, VervalDatum, Stock, Korting)
@@ -91,6 +96,10 @@ namespace Syntra.Eindproject.Dapper
                 throw new BusinessException("Geen geldige datum");
             }
 
+            if (!IsValidProduct(id))
+            {
+                throw new BusinessException("Product ID bestaat al");
+            }
             using (SqlConnection connection = new SqlConnection(Connection.Instance.ConnectionString))
             {
                 connection.Execute(@"update product set Id = @id, Naam = @naam, Soort = @soort, Oorsprong = @oorsprong, Prijs = @prijs, 
@@ -115,22 +124,16 @@ namespace Syntra.Eindproject.Dapper
         {
            bool IsValidProduct = true;
 
-           using (SqlConnection connection = new SqlConnection(Connection.Instance.ConnectionString))
+           List<Product> products = GetProducts().ToList();
+
+           bool t = products.Any(x => x.Id == id);
+
+           if (t == true)
            {
-               int count = connection.QuerySingle<int>(
-                   @"select count(id) from product where stock > 0 and vervaldatum > GETDATE() and id = @id",
-                   new
-                   {
-                       id = id
-                   });
-
-               if (count < 1)
-               {
-                   IsValidProduct = false;
-               }
-
-               return IsValidProduct;
+               IsValidProduct = false;
            }
+
+           return IsValidProduct;
         }
 
         public void UpdateStockProduct()

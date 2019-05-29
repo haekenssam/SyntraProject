@@ -66,6 +66,7 @@ namespace Syntra.Eindproject.WPF
             try
             {
                 DatabaseManager.Instance.ProductRepository.InsertProduct(id, TxtNaam.Text, TxtSoort.Text, TxtOorsprong.Text, prijs, TxtEenheid.Text, TxtVervalDatum.Text, stock, korting);
+                Initialize();
             }
             catch (BusinessException ex)
             {
@@ -73,7 +74,7 @@ namespace Syntra.Eindproject.WPF
             }
             
 
-            Initialize();
+            
         }
         #endregion
         #region GetCurrentProduct
