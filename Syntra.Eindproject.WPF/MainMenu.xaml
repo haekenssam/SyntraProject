@@ -50,7 +50,7 @@
                             </Style>
                         </StackPanel.Resources>
                         <Button Click="Button_Click" >Login</Button>
-                        <Button >Cancel</Button>
+                        <Button Name="BtnCancelLogin" Click="BtnCancelLogin_OnClick" >Cancel</Button>
                     </StackPanel>
 
                 </Grid>

@@ -123,5 +123,9 @@ namespace Syntra.Eindproject.WPF
         }
 
 
+        private void BtnCancelLogin_OnClick(object sender, RoutedEventArgs e)
+        {
+            App.Current.Shutdown();
+        }
     }
 }
