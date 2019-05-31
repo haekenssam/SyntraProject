@@ -50,96 +50,22 @@ namespace Syntra.Eindproject.WPF
         {
             bool checktB = int.TryParse(TxtProductId.Text, out int productid);
             bool checktB1 = float.TryParse(TxtAantal.Text, out float aantal);
-
-            List<int?> checkAvailableProductId = DatabaseManager.Instance.WinkelwagenRepository.CheckProductIdAvailable(productid).ToList();
-            List<float> checkAvailableAantalMagazijn = DatabaseManager.Instance.WinkelwagenRepository.CheckAantalInMagazijn(productid).ToList();
-            List<float?> checkAvailableAantalWinkelwagenLijnen = DatabaseManager.Instance.WinkelwagenRepository.CheckAantalInWinkelwagen(productid).ToList();
-
-            if (checkAvailableProductId.Count == 0)
+            if (checktB == false)
+            { MessageBox.Show("'Product' is niet correct ingegeven"); }
+            else if (checktB1 == false)
+            { MessageBox.Show("'Aantal' is niet correct ingegeven"); }
+            else { 
+            try
             {
-                MessageBox.Show("Gekozen product is niet beschikbaar");
+                DatabaseManager.Instance.WinkelwagenRepository.InsertWinkelwagenLijnen(productid, aantal);
+                Initialize();
             }
-            else
+            catch (BusinessException ex)
             {
-                if (TxtProductId.Text == (string.Empty) || TxtProductId.Text == "" || TxtAantal.Text == string.Empty || TxtAantal.Text == "" || checktB == false || checktB1 == false || float.Parse(TxtAantal.Text) < 0)
-                {
-                    //throw new BusinessException("Niet alle velden zijn ingevuld!");
-                    MessageBox.Show("Inhoud niet correct ingevuld");
-                }
-                else
-                {
-                    int sizeId = checkAvailableProductId.Count;
-                    float? aantalMagazijn = checkAvailableAantalMagazijn[0];
-                    float? aantalWinkelwagenLijnen = checkAvailableAantalWinkelwagenLijnen[0];
-                    float? difference = aantalMagazijn - aantalWinkelwagenLijnen - float.Parse(TxtAantal.Text);
-                    if (difference < 0)
-                    {
-                        MessageBox.Show("Te weinig in voorraad");
-                    }
-                    else
-                    {
-                        #region tekst2
-                        //List<Winkelwagen> winkelwagenAantalProductId = DatabaseManager.Instance.WinkelwagenRepository.CountAantalWinkelwagenPerProductId( productid).ToList();
-                        //List<Winkelwagen> productAantalProductId = DatabaseManager.Instance.WinkelwagenRepository.CountAantalProductPerProductId(productid).ToList();
-                        // winkelwagenAantalProductId[0];
-                        //float winkelwagenAantalProductId2 = DatabaseManager.Instance.WinkelwagenRepository.CountAantalWinkelwagenPerProductId2( productid);
-                        //float productAantalProductId2 = DatabaseManager.Instance.WinkelwagenRepository.CountAantalWinkelwagenPerProductId2(productid);
-                        //bool compareAantal = DatabaseManager.Instance.WinkelwagenRepository.CompareAantal(winkelwagenAantalProductId2, productAantalProductId2, productid);
-                        //WinkelwagenRepository.CompareAantal2(int.Parse(winkelwagenAantalProductId2), productAantalProductId2, productid);
-                        //if (compareAantal)
-                        //{
-                        //if (productid.ToString() == (string.Empty) || productid.ToString() == "" || aantal.ToString() == string.Empty || aantal.ToString() == "")
-                        #endregion
-
-                        try
-                        {
-
-                            DatabaseManager.Instance.WinkelwagenRepository.InsertWinkelwagenLijnen(productid, aantal);
-                        }
-                        catch (BusinessException excp)
-                        {
-                            MessageBox.Show(excp.ToString());
-                        }
-
-                        //DatabaseManager.Instance.WinkelwagenRepository.CountAantalPerProductId( productid );
-                        Initialize();
-                    }
-                }
+                MessageBox.Show(ex.Message);
             }
-            #region list
+            }
 
-            //listBoxWinkelmand.Items.Add(textBox.Text);
-            //int a;
-            //float b;
-            //if ((int.TryParse(textBox.Text, out a)) && (float.TryParse(textBox1.Text, out b)))
-            //{
-            //listBoxWinkelmand.Items.Clear();
-            //Winkelwagen bestelling = new Winkelwagen(int.Parse(textBox.Text), int.Parse(textBox1.Text));
-            //listOfWinkelwagenLijnen.Add(bestelling);
-            //foreach (Winkelwagen best in listOfWinkelwagenLijnen)
-            // {
-            //     listBoxWinkelmand.Items.Add(best.ShowWinkelwagen());
-            // }
-            // //textBox.Text = "";
-            //textBox1.Text = "";
-            //}
-            //else
-            //{
-            //textBox.Text = "";
-            //textBox1.Text = "";
-            //}
-
-            //List<Winkelwagen> winkelwagenLijnen = DatabaseManager.Instance.WinkelwagenRepository.GetWinkelwagenLijnen().ToList();
-            //ListWinkelwagenLijnen.ItemsSource = winkelwagenLijnen;
-            //listBoxWinkelmand.ItemsSource = winkelwagenLijnen;
-
-            //textBox.Text = string.Empty;
-            //textBox1.Text = string.Empty;
-
-            //listBoxWinkelmand.Items.Clear();
-            //listBoxWinkelmand.Items.Add(DatabWinkelwagenLijnen);
-
-            #endregion
             TxtProductId.Text = string.Empty;
             TxtAantal.Text = string.Empty;
         }
@@ -150,6 +76,7 @@ namespace Syntra.Eindproject.WPF
             this.NavigationService.Navigate(new MainMenu());
         }
 
+
         // Button verwijderen van de lijn
         private void BtnVerwijder_Click(object sender, RoutedEventArgs e)
         {
@@ -157,15 +84,13 @@ namespace Syntra.Eindproject.WPF
             Winkelwagen winkelwagenLijn = GetSelectedWinkelwagenLijn();
             if (winkelwagenLijn == null)
             {
-                //throw new BusinessException("Niet alle velden zijn ingevuld!");
+                MessageBox.Show("Verwijderen niet mogelijk");
             }
             else
             {
                 DatabaseManager.Instance.WinkelwagenRepository.DeleteWinkelwagenLijnen(winkelwagenLijn.ID);
+                Initialize();
             }
-
-            Initialize();
-
         }
 
         // Button update Lijn
@@ -174,36 +99,27 @@ namespace Syntra.Eindproject.WPF
 
             bool check1tB = float.TryParse(TxtAantal.Text, out float AantalProdWinkelwagen);
             Winkelwagen winkelwagenLijn = GetSelectedWinkelwagenLijn();
-
-            if (TxtAantal.Text == string.Empty || TxtAantal.Text == "" || winkelwagenLijn == null || check1tB == false || float.Parse(TxtAantal.Text) < 0)
+            if (winkelwagenLijn == null)
             {
                 //throw new BusinessException("Niet alle velden zijn ingevuld!");
-                MessageBox.Show("Inhoud niet correct ingevuld");
+                MessageBox.Show("Gelieve een lijn te selecteren");
+            }
+            else if (check1tB == false)
+            {
+                //throw new BusinessException("Niet alle velden zijn ingevuld!");
+                MessageBox.Show("'aantal' niet correct ingegeven");
             }
             else
             {
-                List<float?> checkAvailableAantalMagazijn = DatabaseManager.Instance.WinkelwagenRepository.CheckProductIdAvailableUpdate(winkelwagenLijn.ID).ToList();
-                List<float?> checkAvailableAantalWinkelwagenLijnen = DatabaseManager.Instance.WinkelwagenRepository.CheckAantalProductIdAvailableWinkelwagenUpdate(winkelwagenLijn.ID).ToList();
-
-                float? aantalMagazijn = checkAvailableAantalMagazijn[0];
-                float? aantalWinkelwagenLijnen = checkAvailableAantalWinkelwagenLijnen[0];
-                float? difference = aantalMagazijn - aantalWinkelwagenLijnen - float.Parse(TxtAantal.Text);
-                if (difference < 0)
+                try
                 {
-                    MessageBox.Show("Niet voldoende voorraad");
-                }
-                else
-                {
-                    try
-                    {
-                        DatabaseManager.Instance.WinkelwagenRepository.UpdateWinkelwagenLijnen(winkelwagenLijn.ID, AantalProdWinkelwagen);
-                    }
-                    catch (BusinessException excp)
-                    {
-                        MessageBox.Show(excp.ToString());
-                    }
-
+                    DatabaseManager.Instance.WinkelwagenRepository.UpdateWinkelwagenLijnen(winkelwagenLijn.ID, AantalProdWinkelwagen);
                     Initialize();
+                }
+                catch (BusinessException ex)
+                {
+                    MessageBox.Show(ex.Message);
+
                 }
             }
 

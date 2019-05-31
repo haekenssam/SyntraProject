@@ -5,274 +5,256 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:Syntra.Eindproject.WPF"
       mc:Ignorable="d"
-      Loaded="Page_Loaded"
-     
+      Loaded="Page_Loaded" 
       Background="DarkGray"
-      WindowTitle="Nieuwe bestelling toevoegen" d:DesignWidth="800"
-      Title="KlantPage" Height="408.4">
-    <!--Background="White"-->
-    <Grid Height="411" VerticalAlignment="Top">
-        <Grid.Resources>
-            <Style TargetType="{x:Type Button}">
-                <Setter Property="FontWeight" Value="Bold"/>
-            </Style>
-            <Style TargetType="{x:Type Label}">
-                <Setter Property="FontWeight" Value="Bold"/>
-            </Style>
-            <Style TargetType="{x:Type DataGrid}">
-                <Setter Property="FontWeight" Value="Bold"/>
-            </Style>
+      WindowTitle="Nieuwe bestelling toevoegen" d:DesignHeight="700" d:DesignWidth="800"
+      Title="KlantPage" >
 
 
-
-        </Grid.Resources>
-        <Grid.RowDefinitions>
-            <RowDefinition/>
-            <RowDefinition Height="0*"/>
-        </Grid.RowDefinitions>
-
-        <StackPanel Height="416" VerticalAlignment="Top" Margin="0,0,0,-3.2" Grid.RowSpan="2">
-            <Border
-                BorderBrush="Orange"
-                BorderThickness="5"
-                Padding="5" Height="408" Margin="0,0,0,0"
-            >
-
-                <Grid>
-                    <Border BorderThickness="2" BorderBrush="Gray">
-                        <Grid>
-
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="70"></RowDefinition>
-                                <RowDefinition Height="*"></RowDefinition>
-                                <RowDefinition Height="100"></RowDefinition>
-                            </Grid.RowDefinitions>
-
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="*"/>
-
-                            </Grid.ColumnDefinitions>
-
-                            <Grid Grid.Column="0" Grid.Row="1">
-
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="1*"></ColumnDefinition>
-                                    <ColumnDefinition Width="100"></ColumnDefinition>
-                                </Grid.ColumnDefinitions>
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="1*"></RowDefinition>
-                                </Grid.RowDefinitions>
+    <Border BorderBrush="Orange" BorderThickness="5" >
 
 
-                                <!--<StackPanel Grid.Row="0" Orientation="Horizontal" Grid.ColumnSpan="3">
-                                <ListBox x:Name="listBoxWinkelmand" HorizontalAlignment="Left" Height="208" Margin="0,-24,0,0" Grid.Row="1" VerticalAlignment="Top" Width="780" Grid.ColumnSpan="3"></ListBox>
-                            </StackPanel>-->
+        <Border BorderThickness="2" BorderBrush="Gray">
+            <Grid Margin="2,2,2,2">
+                <Grid.Resources>
+                    <Style TargetType="{x:Type Button}">
+                        <Setter Property="FontWeight" Value="Bold"/>
+                    </Style>
+                    <Style TargetType="{x:Type Label}">
+                        <Setter Property="FontWeight" Value="Bold"/>
+                    </Style>
+                    <Style TargetType="{x:Type DataGrid}">
+                        <Setter Property="FontWeight" Value="Bold"/>
+                    </Style>
+                </Grid.Resources>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="70"></RowDefinition>
+                    <RowDefinition Height="200*"></RowDefinition>
+                    <RowDefinition Height="60"></RowDefinition>
+                    <RowDefinition Height="60"></RowDefinition>
+                </Grid.RowDefinitions>
 
-                                <DataGrid Name="WinkelwagenLijnen" AutoGenerateColumns="False" ItemsSource="{Binding WinkelwagenLijnen}" RowHeight="20" ColumnWidth="*" Grid.Row="1" Grid.Column="0" >
-                                    <DataGrid.Columns >
-                                        <!--<DataGridTextColumn Header="WinkelwagenLijnId" Binding="{Binding ID}" Width="50"></DataGridTextColumn>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*"/>
+
+                </Grid.ColumnDefinitions>
+
+                <Grid Grid.Column="0" Grid.Row="1">
+
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="10*"></ColumnDefinition>
+                        <ColumnDefinition Width="2*"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="1*"></RowDefinition>
+                    </Grid.RowDefinitions>
+
+                    <DataGrid Name="WinkelwagenLijnen" AutoGenerateColumns="False" ItemsSource="{Binding WinkelwagenLijnen}" RowHeight="20" ColumnWidth="*" Grid.Row="1" Grid.Column="0" >
+                        <DataGrid.Columns >
+                            <!--<DataGridTextColumn Header="WinkelwagenLijnId" Binding="{Binding ID}" Width="50"></DataGridTextColumn>
                                         <DataGridTextColumn Header="WinkelwagenId" Binding="{Binding WinkelwagenId}" Width="50"></DataGridTextColumn>-->
-                                        <DataGridTextColumn Header="Naam" Binding="{Binding Naam}" Width="80">
-                                            <DataGridTextColumn.HeaderStyle>
-                                                <Style TargetType="DataGridColumnHeader">
-                                                    <Setter Property="HorizontalContentAlignment" Value="Center" />
-                                                </Style>
-                                            </DataGridTextColumn.HeaderStyle>
-                                            <DataGridTextColumn.ElementStyle>
-                                                <Style TargetType="TextBlock">
-                                                    <Setter Property="TextAlignment" Value="Center" />
-                                                </Style>
-                                            </DataGridTextColumn.ElementStyle>
-                                        </DataGridTextColumn>
-                                        <DataGridTextColumn Header="Soort" Binding="{Binding Soort}" Width="70">
-                                            <DataGridTextColumn.HeaderStyle>
-                                                <Style TargetType="DataGridColumnHeader">
-                                                    <Setter Property="HorizontalContentAlignment" Value="Center" />
-                                                </Style>
-                                            </DataGridTextColumn.HeaderStyle>
-                                            <DataGridTextColumn.ElementStyle>
-                                                <Style TargetType="TextBlock">
-                                                    <Setter Property="TextAlignment" Value="Center" />
-                                                </Style>
-                                            </DataGridTextColumn.ElementStyle>
-                                        </DataGridTextColumn>
-                                        <!--<DataGridTextColumn Header="WinkelwagenLijn" Binding="{Binding ID}" Width="100"></DataGridTextColumn>-->
-                                        <DataGridTextColumn Header="ProductId" Binding="{Binding ProductId}" Width="70">
-                                            <DataGridTextColumn.HeaderStyle>
-                                                <Style TargetType="DataGridColumnHeader">
-                                                    <Setter Property="HorizontalContentAlignment" Value="Center" />
-                                                </Style>
-                                            </DataGridTextColumn.HeaderStyle>
-                                            <DataGridTextColumn.ElementStyle>
-                                                <Style TargetType="TextBlock">
-                                                    <Setter Property="TextAlignment" Value="Center" />
-                                                </Style>
-                                            </DataGridTextColumn.ElementStyle>
-                                        </DataGridTextColumn>
-                                        <DataGridTextColumn Header="Aantal" Binding="{Binding Aantal}" Width="50">
-                                            <DataGridTextColumn.HeaderStyle>
-                                                <Style TargetType="DataGridColumnHeader">
-                                                    <Setter Property="HorizontalContentAlignment" Value="Center" />
-                                                </Style>
-                                            </DataGridTextColumn.HeaderStyle>
-                                            <DataGridTextColumn.ElementStyle>
-                                                <Style TargetType="TextBlock">
-                                                    <Setter Property="TextAlignment" Value="Center" />
-                                                </Style>
-                                            </DataGridTextColumn.ElementStyle>
-                                        </DataGridTextColumn>
-                                        <!--<DataGridTextColumn Header="Prijs" Binding="{Binding Prijs}" Width="50"></DataGridTextColumn>-->
-                                        <DataGridTextColumn Header="Prijs" Binding="{Binding Bedrag}" Width="80">
-                                            <DataGridTextColumn.HeaderStyle>
-                                                <Style TargetType="DataGridColumnHeader">
-                                                    <Setter Property="HorizontalContentAlignment" Value="Center" />
-                                                </Style>
-                                            </DataGridTextColumn.HeaderStyle>
-                                            <DataGridTextColumn.ElementStyle>
-                                                <Style TargetType="TextBlock">
-                                                    <Setter Property="TextAlignment" Value="Center" />
-                                                </Style>
-                                            </DataGridTextColumn.ElementStyle>
-                                        </DataGridTextColumn>
-                                        <DataGridTextColumn Header="Korting" Binding="{Binding Korting}" Width="80">
-                                            <DataGridTextColumn.HeaderStyle>
-                                                <Style TargetType="DataGridColumnHeader">
-                                                    <Setter Property="HorizontalContentAlignment" Value="Center" />
-                                                </Style>
-                                            </DataGridTextColumn.HeaderStyle>
-                                            <DataGridTextColumn.ElementStyle>
-                                                <Style TargetType="TextBlock">
-                                                    <Setter Property="TextAlignment" Value="Center" />
-                                                </Style>
-                                            </DataGridTextColumn.ElementStyle>
-                                        </DataGridTextColumn>
-                                        <DataGridTextColumn Header="Eenheid" Binding="{Binding Eenheid}" Width="60">
-                                            <DataGridTextColumn.HeaderStyle>
-                                                <Style TargetType="DataGridColumnHeader">
-                                                    <Setter Property="HorizontalContentAlignment" Value="Center" />
-                                                </Style>
-                                            </DataGridTextColumn.HeaderStyle>
-                                            <DataGridTextColumn.ElementStyle>
-                                                <Style TargetType="TextBlock">
-                                                    <Setter Property="TextAlignment" Value="Center" />
-                                                </Style>
-                                            </DataGridTextColumn.ElementStyle>
-                                        </DataGridTextColumn>
-                                        <DataGridTextColumn Header="Subtotaal" Binding="{Binding Subtotaal}" Width="70">
-                                            <DataGridTextColumn.HeaderStyle>
-                                                <Style TargetType="DataGridColumnHeader">
-                                                    <Setter Property="HorizontalContentAlignment" Value="Center" />
-                                                </Style>
-                                            </DataGridTextColumn.HeaderStyle>
-                                            <DataGridTextColumn.ElementStyle>
-                                                <Style TargetType="TextBlock">
-                                                    <Setter Property="TextAlignment" Value="Center" />
-                                                </Style>
-                                            </DataGridTextColumn.ElementStyle>
-                                        </DataGridTextColumn>
-                                        <DataGridTextColumn Header="Vervaldatum" Binding="{Binding VervalDatum}" Width="90">
-                                            <DataGridTextColumn.HeaderStyle>
-                                                <Style TargetType="DataGridColumnHeader">
-                                                    <Setter Property="HorizontalContentAlignment" Value="Center" />
-                                                </Style>
-                                            </DataGridTextColumn.HeaderStyle>
-                                            <DataGridTextColumn.ElementStyle>
-                                                <Style TargetType="TextBlock">
-                                                    <Setter Property="TextAlignment" Value="Center" />
-                                                </Style>
-                                            </DataGridTextColumn.ElementStyle>
-                                        </DataGridTextColumn>
+                            <DataGridTextColumn Header="Naam" Binding="{Binding Naam}" Width="80*">
+                                <DataGridTextColumn.HeaderStyle>
+                                    <Style TargetType="DataGridColumnHeader">
+                                        <Setter Property="HorizontalContentAlignment" Value="Center" />
+                                    </Style>
+                                </DataGridTextColumn.HeaderStyle>
+                                <DataGridTextColumn.ElementStyle>
+                                    <Style TargetType="TextBlock">
+                                        <Setter Property="TextAlignment" Value="Center" />
+                                    </Style>
+                                </DataGridTextColumn.ElementStyle>
+                            </DataGridTextColumn>
+                            <DataGridTextColumn Header="Soort" Binding="{Binding Soort}" Width="70*">
+                                <DataGridTextColumn.HeaderStyle>
+                                    <Style TargetType="DataGridColumnHeader">
+                                        <Setter Property="HorizontalContentAlignment" Value="Center" />
+                                    </Style>
+                                </DataGridTextColumn.HeaderStyle>
+                                <DataGridTextColumn.ElementStyle>
+                                    <Style TargetType="TextBlock">
+                                        <Setter Property="TextAlignment" Value="Center" />
+                                    </Style>
+                                </DataGridTextColumn.ElementStyle>
+                            </DataGridTextColumn>
+                            <!--<DataGridTextColumn Header="WinkelwagenLijn" Binding="{Binding ID}" Width="100"></DataGridTextColumn>-->
+                            <DataGridTextColumn Header="ProductId" Binding="{Binding ProductId}" Width="70*">
+                                <DataGridTextColumn.HeaderStyle>
+                                    <Style TargetType="DataGridColumnHeader">
+                                        <Setter Property="HorizontalContentAlignment" Value="Center" />
+                                    </Style>
+                                </DataGridTextColumn.HeaderStyle>
+                                <DataGridTextColumn.ElementStyle>
+                                    <Style TargetType="TextBlock">
+                                        <Setter Property="TextAlignment" Value="Center" />
+                                    </Style>
+                                </DataGridTextColumn.ElementStyle>
+                            </DataGridTextColumn>
+                            <DataGridTextColumn Header="Aantal" Binding="{Binding Aantal}" Width="50*">
+                                <DataGridTextColumn.HeaderStyle>
+                                    <Style TargetType="DataGridColumnHeader">
+                                        <Setter Property="HorizontalContentAlignment" Value="Center" />
+                                    </Style>
+                                </DataGridTextColumn.HeaderStyle>
+                                <DataGridTextColumn.ElementStyle>
+                                    <Style TargetType="TextBlock">
+                                        <Setter Property="TextAlignment" Value="Center" />
+                                    </Style>
+                                </DataGridTextColumn.ElementStyle>
+                            </DataGridTextColumn>
+                            <!--<DataGridTextColumn Header="Prijs" Binding="{Binding Prijs}" Width="50"></DataGridTextColumn>-->
+                            <DataGridTextColumn Header="Prijs (€)" Binding="{Binding Bedrag}" Width="80*">
+                                <DataGridTextColumn.HeaderStyle>
+                                    <Style TargetType="DataGridColumnHeader">
+                                        <Setter Property="HorizontalContentAlignment" Value="Center" />
+                                    </Style>
+                                </DataGridTextColumn.HeaderStyle>
+                                <DataGridTextColumn.ElementStyle>
+                                    <Style TargetType="TextBlock">
+                                        <Setter Property="TextAlignment" Value="Center" />
+                                    </Style>
+                                </DataGridTextColumn.ElementStyle>
+                            </DataGridTextColumn>
+                            <DataGridTextColumn Header="Korting (%)" Binding="{Binding Korting}" Width="80*">
+                                <DataGridTextColumn.HeaderStyle>
+                                    <Style TargetType="DataGridColumnHeader">
+                                        <Setter Property="HorizontalContentAlignment" Value="Center" />
+                                    </Style>
+                                </DataGridTextColumn.HeaderStyle>
+                                <DataGridTextColumn.ElementStyle>
+                                    <Style TargetType="TextBlock">
+                                        <Setter Property="TextAlignment" Value="Center" />
+                                    </Style>
+                                </DataGridTextColumn.ElementStyle>
+                            </DataGridTextColumn>
+                            <DataGridTextColumn Header="Eenheid" Binding="{Binding Eenheid}" Width="60*">
+                                <DataGridTextColumn.HeaderStyle>
+                                    <Style TargetType="DataGridColumnHeader">
+                                        <Setter Property="HorizontalContentAlignment" Value="Center" />
+                                    </Style>
+                                </DataGridTextColumn.HeaderStyle>
+                                <DataGridTextColumn.ElementStyle>
+                                    <Style TargetType="TextBlock">
+                                        <Setter Property="TextAlignment" Value="Center" />
+                                    </Style>
+                                </DataGridTextColumn.ElementStyle>
+                            </DataGridTextColumn>
+                            <DataGridTextColumn Header="Subtotaal (€)" Binding="{Binding Subtotaal}" Width="90*">
+                                <DataGridTextColumn.HeaderStyle>
+                                    <Style TargetType="DataGridColumnHeader">
+                                        <Setter Property="HorizontalContentAlignment" Value="Center" />
+                                    </Style>
+                                </DataGridTextColumn.HeaderStyle>
+                                <DataGridTextColumn.ElementStyle>
+                                    <Style TargetType="TextBlock">
+                                        <Setter Property="TextAlignment" Value="Center" />
+                                    </Style>
+                                </DataGridTextColumn.ElementStyle>
+                            </DataGridTextColumn>
+                            <DataGridTextColumn Header="Vervaldatum" Binding="{Binding VervalDatum}" Width="100*">
+                                <DataGridTextColumn.HeaderStyle>
+                                    <Style TargetType="DataGridColumnHeader">
+                                        <Setter Property="HorizontalContentAlignment" Value="Center" />
+                                    </Style>
+                                </DataGridTextColumn.HeaderStyle>
+                                <DataGridTextColumn.ElementStyle>
+                                    <Style TargetType="TextBlock">
+                                        <Setter Property="TextAlignment" Value="Center" />
+                                    </Style>
+                                </DataGridTextColumn.ElementStyle>
+                            </DataGridTextColumn>
 
-                                    </DataGrid.Columns>
+                        </DataGrid.Columns>
 
-                                </DataGrid>
+                    </DataGrid>
+                    <Grid Grid.Column="1" Grid.Row="1">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="81"></RowDefinition>
+                            <RowDefinition Height="1*"></RowDefinition>
+                        </Grid.RowDefinitions>
 
-                                <DataGrid Name="WinkelwagenLijnen2" AutoGenerateColumns="False" ItemsSource="{Binding WinkelwagenLijnen}" RowHeight="20" ColumnWidth="*" Grid.Row="1" Grid.Column="1" >
-                                    <DataGrid.Columns >
+                        <DataGrid Name="WinkelwagenLijnen2" AutoGenerateColumns="False" ItemsSource="{Binding WinkelwagenLijnen}" RowHeight="20" ColumnWidth="*" Grid.Row="0" Grid.Column="0" >
+                            <DataGrid.Columns >
 
-                                        <DataGridTextColumn Header="Totaal prijs" Binding="{Binding TotaalPrijsLijst}" Width="*">
-                                            <DataGridTextColumn.HeaderStyle>
-                                                <Style TargetType="DataGridColumnHeader">
-                                                    <Setter Property="HorizontalContentAlignment" Value="Center" />
-                                                </Style>
-                                            </DataGridTextColumn.HeaderStyle>
-                                            <DataGridTextColumn.ElementStyle>
-                                                <Style TargetType="TextBlock">
-                                                    <Setter Property="TextAlignment" Value="Center" />
-                                                </Style>
-                                            </DataGridTextColumn.ElementStyle>
-                                        </DataGridTextColumn>
+                                <DataGridTextColumn Header="Totaal prijs (€)" Binding="{Binding TotaalPrijsLijst}" Width="*">
+                                    <DataGridTextColumn.HeaderStyle>
+                                        <Style TargetType="DataGridColumnHeader">
+                                            <Setter Property="HorizontalContentAlignment" Value="Center" />
+                                        </Style>
+                                    </DataGridTextColumn.HeaderStyle>
+                                    <DataGridTextColumn.ElementStyle>
+                                        <Style TargetType="TextBlock">
+                                            <Setter Property="TextAlignment" Value="Center" />
+                                        </Style>
+                                    </DataGridTextColumn.ElementStyle>
+                                </DataGridTextColumn>
 
-                                    </DataGrid.Columns>
+                            </DataGrid.Columns>
 
-                                </DataGrid>
+                        </DataGrid>
+                    </Grid>
 
+                </Grid>
 
-                            </Grid>
+                <Grid Grid.Column="0" Grid.Row="0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="3*"></ColumnDefinition>
+                        <ColumnDefinition Width="10*"></ColumnDefinition>
+                        <ColumnDefinition Width="200"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
 
-                            <StackPanel Grid.Row="0" Orientation="Horizontal" Grid.ColumnSpan="3">
-                                <Label x:Name="Winkelwagen" FontSize="24" Width="410" Content="Syntra Groenten en Fruit" Margin="200,0,0,0" Height="70" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                                <Image x:Name="SyntraLogo" Width="150" Margin="0,0,0,0.4" Source="Documents/SyntraLogo.gif" />
+                    <Label x:Name="Winkelwagen" FontSize="24" Width="410" Grid.Row="0" Grid.Column="1" Content="Syntra Groenten en Fruit" Margin="0,0,0,0" Height="70" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                    <Image x:Name="SyntraLogo" Width="150" Grid.Row="0" Grid.Column="2" Margin="0,0,0,0.4" Source="Documents/SyntraLogo.gif" />
 
-                            </StackPanel>
-
-                            <Grid Grid.Column="0" Grid.Row="2">
-
-                                <Grid.ColumnDefinitions>
-                                    <ColumnDefinition Width="1*"></ColumnDefinition>
-                                </Grid.ColumnDefinitions>
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="1*"></RowDefinition>
-                                    <RowDefinition Height="1*"></RowDefinition>
-                                </Grid.RowDefinitions>
-
-                                <StackPanel Grid.Row="0" Orientation="Horizontal" >
-                                    <StackPanel Orientation="Horizontal" Margin="10"   Grid.Column="0">
-
-                                        <Label x:Name="label2" Content="Productid" BorderBrush="Gray" BorderThickness="1"/>
-                                        <TextBox x:Name="TxtProductId" TextWrapping="Wrap" Text="" Width="80" Height="30" HorizontalAlignment="Left"  VerticalAlignment="Center" />
-
-                                    </StackPanel>
-
-                                    <StackPanel Orientation="Horizontal" Margin="10"   Grid.Column="1">
-
-                                        <Label x:Name="label" Content="Aantal" BorderBrush="Gray" BorderThickness="1"/>
-                                        <TextBox x:Name="TxtAantal" TextWrapping="Wrap" Text="" Width="80" Height="30" HorizontalAlignment="Left"  VerticalAlignment="Center"/>
-
-                                    </StackPanel>
-
-
-                                </StackPanel>
-                                <StackPanel Grid.Row="1" Orientation="Horizontal" Margin="0,0.4,0,0" >
-                                    <StackPanel Orientation="Horizontal" Margin="10" Grid.Column="0" Width="92">
-                                        <Button x:Name="BtnNrKassa" Content="Naar Kassa" Width="90" Click="BtnNrKassa_Click"/>
-                                    </StackPanel>
-                                    <StackPanel Orientation="Horizontal" Margin="10" Grid.Column="1">
-                                        <Button x:Name="BtnScan" Content="Scan" Width="75" Click="BtnScan_Click" />
-                                    </StackPanel>
-                                    <StackPanel Orientation="Horizontal" Margin="10" Grid.Column="2">
-                                        <Button x:Name="UpdateLijn" Content="Update Lijn" Width="80" Click="btnUpdateLijn"/>
-                                    </StackPanel>
-                                    <StackPanel Orientation="Horizontal" Margin="10" Grid.Column="3">
-                                        <Button x:Name="BtnVerwijder" Content="Verwijder Lijn" Width="90" Click="BtnVerwijder_Click" />
-
-                                    </StackPanel>
-                                    <!--<StackPanel Orientation="Horizontal" Margin="10" Grid.Column="4">
-                                    <Button x:Name="ShowTable" Content="Toon Winkelwagenlijst" Width="130" Click="BtnShow_Click" />
-                                </StackPanel>-->
-
-                                </StackPanel>
-                            </Grid>
-
-
-                        </Grid>
-                    </Border>
                 </Grid>
 
 
-            </Border>
-        </StackPanel>
-    </Grid>
+                <Grid Grid.Column="0" Grid.Row="2">
 
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1*"></ColumnDefinition>
+                        <ColumnDefinition Width="1*"></ColumnDefinition>
+                        <ColumnDefinition Width="2*"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="10*"></RowDefinition>
+                    </Grid.RowDefinitions>
+
+                    <StackPanel Orientation="Horizontal" Margin="10"   Grid.Column="0">
+
+                        <Label x:Name="label2" Content="Productid" BorderBrush="Gray" Height="30" BorderThickness="1"/>
+                        <TextBox x:Name="TxtProductId" TextWrapping="Wrap" Text="" Width="80" Height="30" HorizontalAlignment="Left"  VerticalAlignment="Center" />
+
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal" Margin="10"   Grid.Column="1">
+
+                        <Label x:Name="label" Content="Aantal" BorderBrush="Gray" Height="30" BorderThickness="1"/>
+                        <TextBox x:Name="TxtAantal" TextWrapping="Wrap" Text="" Width="80" Height="30" HorizontalAlignment="Left"  VerticalAlignment="Center"/>
+
+                    </StackPanel>
+
+                </Grid>
+                <Grid Grid.Column="0" Grid.Row="3">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="120"></ColumnDefinition>
+                        <ColumnDefinition Width="1*"></ColumnDefinition>
+                        <ColumnDefinition Width="1*"></ColumnDefinition>
+                        <ColumnDefinition Width="1*"></ColumnDefinition>
+                        <ColumnDefinition Width="3*"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <StackPanel Orientation="Horizontal" Margin="10" Grid.Column="0" Width="92">
+                        <Button x:Name="BtnNrKassa" Content="Naar Kassa" Width="85" Click="BtnNrKassa_Click"/>
+                    </StackPanel>
+
+                    <Button x:Name="BtnScan" Content="Scan" Width="85" Margin="10" Grid.Column="1" Click="BtnScan_Click" />
+                    <Button x:Name="UpdateLijn" Content="Update Lijn" Width="85" Margin="10" Grid.Column="2" Click="btnUpdateLijn"/>
+                    <Button x:Name="BtnVerwijder" Content="Verwijder Lijn" Width="85" Margin="10" Grid.Column="3" Click="BtnVerwijder_Click" />
+
+                </Grid>
+            </Grid>
+        </Border>
+
+    </Border>
 
 </Page>

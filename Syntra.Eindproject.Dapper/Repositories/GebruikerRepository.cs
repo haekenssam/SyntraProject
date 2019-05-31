@@ -16,6 +16,8 @@ namespace Syntra.Eindproject.Dapper.Repositories
             using (var connection = new SqlConnection(Connection.Instance.ConnectionString))
             {
                 return connection.Query<User>(@"SELECT ID, Gebruiker, Paswoord FROM Gebruikers");
+
+
             }
         }
 
