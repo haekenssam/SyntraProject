@@ -9,8 +9,8 @@
       Background="DarkGray"
       d:DesignHeight="600" d:DesignWidth="1000"
       Title="KlantPage">
-
-    <Grid>
+    <Border BorderThickness="5" BorderBrush="Orange">
+        <Grid>
         <Grid.Resources>
             <Style TargetType="{x:Type Button}">
                 <Setter Property="FontWeight" Value="Bold"/>
@@ -19,7 +19,7 @@
                 <Setter Property="FontWeight" Value="Bold"/>
             </Style>
         </Grid.Resources>
-        <Border BorderThickness="5" BorderBrush="Orange">
+
             <Grid Margin="2,2,2,2">
                 <!--Rijen-->
                 <Grid.RowDefinitions>
@@ -181,7 +181,7 @@
                 <TextBox Name="TxtHoeveelheid"  Grid.Row="12" Grid.Column="2" Margin="1,1.2,0.4,1.8" Grid.RowSpan="2"/>
                 <Button Name="BtnWinkelwagenLijnToevoegen" Content="Toevoegen" Grid.Row="14" Grid.Column="0" Margin="1,1.2,1.4,0.8" Grid.RowSpan="2" Click="BtnWinkelwagenLijnToevoegen_Click" />
                 <Button Name="BtnWinkelwagenLijnVerwijderen" Content="Verwijderen" Grid.Row="14" Grid.Column="2"  Margin="1,1.2,0.4,0.8" Click="BtnWinkelwagenLijnVerwijderen_Click" Grid.RowSpan="2" />
-                
+
 
                 <!--*******************************************************************************************************************-->
                 <!--Te Betalen -->
@@ -201,6 +201,6 @@
                 <Button x:Name="BtnNaarDeKassa" Content="Naar De Kassa" Grid.Row="12" Margin="0.4,1.2,0.2,1.4"  Grid.Column="10" Grid.RowSpan="3" Click="BtnNaarDeKassa_Click"/>
                 <Button Name="BtnGoBack" Content="Terug" Grid.Row="14" Grid.Column="10" Grid.RowSpan="2" Margin="1,1.2,0.4,0.8" Click="BtnGoBack_Click"/>
             </Grid>
-        </Border>
-    </Grid>
+        </Grid>
+    </Border>
 </Page>

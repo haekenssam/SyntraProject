@@ -169,6 +169,10 @@ namespace Syntra.Eindproject.Dapper
             {
                 throw new BusinessException("Geef een aantal in!");
             }
+            if (Aantal < 0)
+            {
+                throw new BusinessException("Aantal kan niet negatief zijn.");
+            }
             else
             {
                 var stock = (from i in products

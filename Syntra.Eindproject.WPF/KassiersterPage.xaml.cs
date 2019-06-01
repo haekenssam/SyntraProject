@@ -62,19 +62,27 @@ namespace Syntra.Eindproject.WPF
         private void BtnBestellingLijnToevoegen_Click(object sender, RoutedEventArgs e)
         {
             //BestellingLijn toevoegen
-            int.TryParse(TxtArtikelId.Text, out int productid);
-            float.TryParse(TxtHoeveelheid.Text, out float aantal);
-            try
-            {
-               aantal = (float)DatabaseManager.Instance.ProductRepository.ControleStock(productid, aantal);
-               DatabaseManager.Instance.BestellingRepository.InsertBestellingLijn(productid, aantal);
-            }
-            catch (BusinessException excp)
-            {
+            bool ProductId = int.TryParse(TxtArtikelId.Text, out int productid);
+            bool Aantal = float.TryParse(TxtHoeveelheid.Text, out float aantal);
 
-                MessageBox.Show(excp.Message);
+            if (Aantal && ProductId)
+            {
+                try
+                {
+                    aantal = (float)DatabaseManager.Instance.ProductRepository.ControleStock(productid, aantal);
+                    DatabaseManager.Instance.BestellingRepository.InsertBestellingLijn(productid, aantal);
+                }
+                catch (BusinessException excp)
+                {
+
+                    MessageBox.Show(excp.Message);
+                }
+                DatabaseManager.Instance.ProductRepository.UpdateStockProduct(aantal);
             }
-            DatabaseManager.Instance.ProductRepository.UpdateStockProduct(aantal);
+            else
+            {
+                MessageBox.Show("Ongeldige invoer");
+            }
             
             //TxtArtikelId + TxtHoeveelheid resetten (leegmaken)
             TxtArtikelId.Text = string.Empty;
@@ -94,22 +102,24 @@ namespace Syntra.Eindproject.WPF
         private void BtnBetalen_Click(object sender, RoutedEventArgs e)
         {
             //Betaling uitvoeren
-            float.TryParse(TxtBetaald.Text, out float betaald);
-            float.TryParse(TxtTotaalTeBetalen.Text, out float totaalTeBetalen);
-
-            try
+            bool Betaald = float.TryParse(TxtBetaald.Text, out float betaald);
+            bool TotaalTeBetalen = float.TryParse(TxtTotaalTeBetalen.Text, out float totaalTeBetalen);
+            if (Betaald && TotaalTeBetalen)
             {
-                float terugBetalen = DatabaseManager.Instance.BestellingRepository.TerugBetalenBedrag(betaald, totaalTeBetalen);
+                try
+                {
+                    float terugBetalen = DatabaseManager.Instance.BestellingRepository.TerugBetalenBedrag(betaald, totaalTeBetalen);
 
-                TxtTerugBetalen.Text = terugBetalen.ToString("0.00");
-                DatabaseManager.Instance.BestellingRepository.InsertBetaling(totaalTeBetalen, betaald, terugBetalen);
-                MessageBox.Show("Betaling uitgevoerd");
+                    TxtTerugBetalen.Text = terugBetalen.ToString("0.00");
+                    DatabaseManager.Instance.BestellingRepository.InsertBetaling(totaalTeBetalen, betaald, terugBetalen);
+                    MessageBox.Show("Betaling uitgevoerd");
+                }
+                catch (BusinessException excp)
+                {
+                    MessageBox.Show(excp.Message);
+                }
             }
-            catch (BusinessException excp)
-            {
-                MessageBox.Show(excp.Message);
-            }
-
+            
             //update veld Totaal in de tabel Bestelling
             int.TryParse(TxtFactuurNummer.Text, out int bestellingid);
             DatabaseManager.Instance.BestellingRepository.UpdateTotaalBestelling(bestellingid, totaalTeBetalen);

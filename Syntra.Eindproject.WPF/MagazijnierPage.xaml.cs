@@ -123,6 +123,7 @@ namespace Syntra.Eindproject.WPF
                 DatabaseManager.Instance.ProductRepository.DeleteProduct(product.Id, product.Naam);
 
                 Initialize();
+                TxtId.IsReadOnly = false;
             }
 
         }

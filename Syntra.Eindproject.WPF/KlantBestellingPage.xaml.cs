@@ -43,5 +43,10 @@ namespace Syntra.Eindproject.WPF
         {
             NavigationService.Navigate(new KlantPage());
         }
+
+        private void BtnTerugLogin_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService.Navigate(new MainMenu());
+        }
     }
 }

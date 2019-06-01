@@ -64,19 +64,25 @@ namespace Syntra.Eindproject.WPF
         private void BtnWinkelwagenLijnToevoegen_Click(object sender, RoutedEventArgs e)
         {
             //BestellingLijn toevoegen
-            int.TryParse(TxtArtikelId.Text, out int productid);
-            float.TryParse(TxtHoeveelheid.Text, out float aantal);
-
-            try
+            bool ProductId = int.TryParse(TxtArtikelId.Text, out int productid);
+            bool Aantal = float.TryParse(TxtHoeveelheid.Text, out float aantal);
+            if (ProductId && Aantal)
             {
-                aantal = (float)DatabaseManager.Instance.ProductRepository.ControleStock(productid, aantal);
-                DatabaseManager.Instance.WinkelwagenRepository.InsertWinkelwagenLijnen(productid, aantal);
+                try
+                {
+                    aantal = (float)DatabaseManager.Instance.ProductRepository.ControleStock(productid, aantal);
+                    DatabaseManager.Instance.WinkelwagenRepository.InsertWinkelwagenLijnen(productid, aantal);
+                }
+                catch (BusinessException excp)
+                {
+                    MessageBox.Show(excp.Message);
+                }
+                DatabaseManager.Instance.ProductRepository.UpdateStockProduct(aantal);
             }
-            catch (BusinessException excp)
+            else
             {
-                MessageBox.Show(excp.Message);
+                MessageBox.Show("Ongeldige invoer");
             }
-            DatabaseManager.Instance.ProductRepository.UpdateStockProduct(aantal);
 
             //TxtArtikelId + TxtHoeveelheid resetten (leegmaken)
             TxtArtikelId.Text = string.Empty;
