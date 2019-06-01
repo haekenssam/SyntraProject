@@ -35,7 +35,7 @@
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="150"/>
             </Grid.ColumnDefinitions>
-
+            <Image x:Name="Syntra_Logo" Grid.Column="2" Margin="0,0.4,0.2,0" Source="Documents/SyntraLogo.gif"  Width="81"/>
             <Grid Grid.Row="0" Grid.Column="0">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*"/>
@@ -82,17 +82,20 @@
                     <CheckBox Name="CbVervallen"  Checked="CbVervallen_Checked" >Vervallen</CheckBox>
                     <CheckBox Name="CbClearAlles" Checked="CbClearAlles_OnChecked" >Clear</CheckBox>
                 </StackPanel>
-
-    </Grid>
+            </Grid>
 
         <Grid Grid.Row="1" Grid.Column="1">
+                <Grid.RowDefinitions>
+                    <RowDefinition></RowDefinition>
+                    
+                </Grid.RowDefinitions>
                 <StackPanel Grid.Row="1" Grid.Column="1">
                     <Button Name="BtnWisProduct"  Content="Wis product" Height="60" Click="BtnWisProduct_Click"></Button>
                     <Button Name="BtnUpdateProduct"  Content="Update product" Height="60" Click="BtnUpdateProduct_Click"></Button>
                     <Button Name="BtnVoegProductToe"  Content="Voeg product toe" Height="60" Click="BtnVoegProductToe_Click"></Button>
                     <Button Name="BtnGoBack" Height="60" Click="BtnGoBack_OnClick">Terug</Button>
                 </StackPanel>
-
+                
     </Grid>
             <DataGrid Name="LbProducts" AutoGenerateColumns="False" Grid.Row="1" Grid.Column="0" RowHeight="20" 
                       ColumnWidth="*" SelectionChanged="LbProducts_SelectionChanged" IsReadOnly="True">

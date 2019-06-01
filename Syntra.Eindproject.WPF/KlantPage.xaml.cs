@@ -69,12 +69,14 @@ namespace Syntra.Eindproject.WPF
 
             try
             {
+                aantal = (float)DatabaseManager.Instance.ProductRepository.ControleStock(productid, aantal);
                 DatabaseManager.Instance.WinkelwagenRepository.InsertWinkelwagenLijnen(productid, aantal);
             }
             catch (BusinessException excp)
             {
-                MessageBox.Show(excp.ToString());
+                MessageBox.Show(excp.Message);
             }
+            DatabaseManager.Instance.ProductRepository.UpdateStockProduct(aantal);
 
             //TxtArtikelId + TxtHoeveelheid resetten (leegmaken)
             TxtArtikelId.Text = string.Empty;
@@ -95,7 +97,12 @@ namespace Syntra.Eindproject.WPF
         {
             //De geselecteerde winkelwagenLijn uit de database verwijderen
             Winkelwagen winkelwagenLijn = GetSelectedWinkelwagenLijn();
-            DatabaseManager.Instance.WinkelwagenRepository.DeletewinkelwagenLijn(winkelwagenLijn.LijnId, winkelwagenLijn.ProductId, winkelwagenLijn.Aantal);
+            if (winkelwagenLijn != null)
+            {
+                DatabaseManager.Instance.WinkelwagenRepository.DeletewinkelwagenLijn(winkelwagenLijn.LijnId, winkelwagenLijn.ProductId, winkelwagenLijn.Aantal);
+                DatabaseManager.Instance.ProductRepository.AddStock(winkelwagenLijn.ProductId, winkelwagenLijn.Aantal);
+            }
+            
 
             //WinkelwagenLijnen importeren en tonen
             List<Winkelwagen> winkelwagenLijnen = DatabaseManager.Instance.WinkelwagenRepository.GetWinkelwagenLijnen().ToList();
@@ -123,6 +130,11 @@ namespace Syntra.Eindproject.WPF
 
             NavigationService.Navigate(new KlantBestellingPage());
             
+        }
+
+        private void BtnGoBack_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService.Navigate(new MainMenu());
         }
     }
 }

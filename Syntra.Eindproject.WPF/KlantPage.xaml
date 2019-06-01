@@ -11,6 +11,14 @@
       Title="KlantPage">
 
     <Grid>
+        <Grid.Resources>
+            <Style TargetType="{x:Type Button}">
+                <Setter Property="FontWeight" Value="Bold"/>
+            </Style>
+            <Style TargetType="{x:Type Label}">
+                <Setter Property="FontWeight" Value="Bold"/>
+            </Style>
+        </Grid.Resources>
         <Border BorderThickness="5" BorderBrush="Orange">
             <Grid Margin="2,2,2,2">
                 <!--Rijen-->
@@ -166,30 +174,32 @@
                 <!--*******************************************************************************************************************-->
                 <!--Artikel ID, Hoeveelheid, Voeg Artikel Toe, Verwijder Artikel-->
                 <Label Name="ProductHoeveelheid" Content="Hoeveelheid" Grid.Row="12"  HorizontalAlignment="Left" 
-                       VerticalAlignment="Top" Margin="11,1.2,0,0"  FontWeight="Bold" Height="29" Width="80" Grid.RowSpan="2" />
+                       VerticalAlignment="Top" Margin="11,1.2,0,0" Height="29" Width="80" Grid.RowSpan="2" />
                 <Label Name="ArtikelId" Content="Artikel ID" Grid.Row="11" Grid.Column="0"  HorizontalAlignment="Left" 
-                       VerticalAlignment="Center"   FontWeight="Bold" Margin="11,0.6,0,0.8" Height="29" Width="80" />
+                       VerticalAlignment="Center" Margin="11,0.6,0,0.8" Height="29" Width="80" />
                 <TextBox Name="TxtArtikelId" Grid.Column="2" Grid.Row="11" Margin="1,0.6,0.4,0.8"/>
                 <TextBox Name="TxtHoeveelheid"  Grid.Row="12" Grid.Column="2" Margin="1,1.2,0.4,1.8" Grid.RowSpan="2"/>
-                <Button Name="BtnWinkelwagenLijnToevoegen" Content="Toevoegen" Grid.Row="14" Grid.Column="0" FontWeight="Bold" Margin="1,1.2,1.4,0.8" Grid.RowSpan="2" Click="BtnWinkelwagenLijnToevoegen_Click" />
-                <Button Name="BtnWinkelwagenLijnVerwijderen" Content="Verwijderen" Grid.Row="14" Grid.Column="2" FontWeight="Bold" Margin="1,1.2,0.4,0.8" Click="BtnWinkelwagenLijnVerwijderen_Click" Grid.RowSpan="2" />
+                <Button Name="BtnWinkelwagenLijnToevoegen" Content="Toevoegen" Grid.Row="14" Grid.Column="0" Margin="1,1.2,1.4,0.8" Grid.RowSpan="2" Click="BtnWinkelwagenLijnToevoegen_Click" />
+                <Button Name="BtnWinkelwagenLijnVerwijderen" Content="Verwijderen" Grid.Row="14" Grid.Column="2"  Margin="1,1.2,0.4,0.8" Click="BtnWinkelwagenLijnVerwijderen_Click" Grid.RowSpan="2" />
+                
 
                 <!--*******************************************************************************************************************-->
                 <!--Te Betalen -->
-                <Label Name="TotaalTeBetalen" Content="Totaal Te Betalen" Grid.Row="11" Grid.Column="8" FontWeight="Bold" Margin="0,0.6,1.2,0.8" HorizontalAlignment="Right" Width="112" />
+                <Label Name="TotaalTeBetalen" Content="Totaal Te Betalen" Grid.Row="11" Grid.Column="8" Margin="0,0.6,1.2,0.8" HorizontalAlignment="Right" Width="112" />
                 <TextBox Name="TxtTotaalTeBetalen" Grid.Row="11" Grid.Column="10" Margin="0.4,0.6,0.2,0.8" />
-                <Label Name="EuroSymbol" Content="€" Grid.Row="11" Grid.Column="11" FontWeight="Bold" Margin="0.8,0.6,0,1.8" HorizontalAlignment="Left" VerticalAlignment="Center" Height="28" Width="20" />
+                <Label Name="EuroSymbol" Content="€" Grid.Row="11" Grid.Column="11" Margin="0.8,0.6,0,1.8" HorizontalAlignment="Left" VerticalAlignment="Center" Height="28" Width="20" />
 
                 <!--*******************************************************************************************************************-->
                 <!--Betalen, Kassa Ticket, Volgende Klant-->
                 <!--*******************************************************************************************************************-->
                 <!--Factuur Nr = Bestelling ID-->
-                <Label Name="WinkelwagenNr" Content="Winkelwagen Nr." Grid.Row="6" Grid.Column="0" Margin="2,2.4,2.4,2" FontWeight="Bold"/>
+                <Label Name="WinkelwagenNr" Content="Winkelwagen Nr." Grid.Row="6" Grid.Column="0" Margin="2,2.4,2.4,2" />
                 <TextBox Name="TxtWinkelwagenNr" Grid.Row="6" Grid.Column="2" Grid.ColumnSpan="2" Margin="1,0.4,1,1.4" Grid.RowSpan="2"></TextBox>
                 <Image x:Name="Syntra_Logo" Grid.Column="10" Margin="0,0.4,0.2,0" Grid.Row="2" Grid.RowSpan="5" Source="Documents/SyntraLogo.gif" HorizontalAlignment="Right" Width="81"/>
                 <!--********************************************************************************************************************-->
                 <!--Naar de kassa-->
-                <Button x:Name="BtnNaarDeKassa" Content="Naar De Kassa" Grid.Row="12"  FontWeight="Bold" Margin="0.4,1.2,0.2,1.4"  Grid.Column="10" Grid.RowSpan="3" Click="BtnNaarDeKassa_Click"/>
+                <Button x:Name="BtnNaarDeKassa" Content="Naar De Kassa" Grid.Row="12" Margin="0.4,1.2,0.2,1.4"  Grid.Column="10" Grid.RowSpan="3" Click="BtnNaarDeKassa_Click"/>
+                <Button Name="BtnGoBack" Content="Terug" Grid.Row="14" Grid.Column="10" Grid.RowSpan="2" Margin="1,1.2,0.4,0.8" Click="BtnGoBack_Click"/>
             </Grid>
         </Border>
     </Grid>

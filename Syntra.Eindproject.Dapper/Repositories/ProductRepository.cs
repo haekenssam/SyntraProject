@@ -137,17 +137,68 @@ namespace Syntra.Eindproject.Dapper
            return IsValidProduct;
         }
 
-        public void UpdateStockProduct()
+        public void UpdateStockProduct(double Aantal)
         {
+
             using (var connection = new SqlConnection(Connection.Instance.ConnectionString))
             {
                 connection.Execute(@"UPDATE Product 
-                                     SET  Product.Stock = (Product.Stock - BestellingLijnen.Aantal)
+                                     SET  Product.Stock = (Product.Stock - @Aantal)
                                      FROM Product 
                                      INNER JOIN BestellingLijnen
                                      ON BestellingLijnen.ProductId = Product.id
                                      WHERE Product.id = BestellingLijnen.ProductId 
-                                     AND (BestellingLijnen.BestellingId = (select top 1 id from Bestelling Order by id desc))");
+                                     AND (BestellingLijnen.BestellingId = (select top 1 id from Bestelling Order by id desc))",
+                                     new
+                                     {
+                                         Aantal = Aantal
+                                     });
+            }
+        }
+
+        public double ControleStock(int ProductId, Double Aantal)
+        {
+            List<Product> products = GetProducts().ToList();
+
+
+            if (ProductId.ToString() == string.Empty || ProductId == 0)
+            {
+                throw new BusinessException("Ongeldig product");
+            }
+            if (Aantal == 0)
+            {
+                throw new BusinessException("Geef een aantal in!");
+            }
+            else
+            {
+                var stock = (from i in products
+                             where i.Id == ProductId
+                             select i.Stock).Single();
+                if (Aantal > stock)
+                {
+                    Aantal = stock;
+                }
+                if (stock == 0)
+                {
+                    throw new BusinessException("Geen stock meer");
+                }
+            }
+
+            return Aantal;
+        }
+
+        public void AddStock(int ProductId, double Aantal)
+        {
+            using(var connection = new SqlConnection(Connection.Instance.ConnectionString))
+            {
+                connection.Execute(@"UPDATE Product
+                                     SET Product.Stock = (Product.Stock + @Aantal)
+                                     WHERE Product.Id = @ProductId",
+                                     new
+                                     {
+                                         Aantal = Aantal,
+                                         ProductId = ProductId
+                                     });
             }
         }
     }

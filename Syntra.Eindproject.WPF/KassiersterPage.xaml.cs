@@ -64,16 +64,18 @@ namespace Syntra.Eindproject.WPF
             //BestellingLijn toevoegen
             int.TryParse(TxtArtikelId.Text, out int productid);
             float.TryParse(TxtHoeveelheid.Text, out float aantal);
-
             try
             {
-                DatabaseManager.Instance.BestellingRepository.InsertBestellingLijn(productid, aantal);
+               aantal = (float)DatabaseManager.Instance.ProductRepository.ControleStock(productid, aantal);
+               DatabaseManager.Instance.BestellingRepository.InsertBestellingLijn(productid, aantal);
             }
             catch (BusinessException excp)
             {
-                MessageBox.Show(excp.ToString());
-            }
 
+                MessageBox.Show(excp.Message);
+            }
+            DatabaseManager.Instance.ProductRepository.UpdateStockProduct(aantal);
+            
             //TxtArtikelId + TxtHoeveelheid resetten (leegmaken)
             TxtArtikelId.Text = string.Empty;
             TxtHoeveelheid.Text = string.Empty;
@@ -113,7 +115,7 @@ namespace Syntra.Eindproject.WPF
             DatabaseManager.Instance.BestellingRepository.UpdateTotaalBestelling(bestellingid, totaalTeBetalen);
 
             //Product Stock aanpassen
-            DatabaseManager.Instance.ProductRepository.UpdateStockProduct();
+            //DatabaseManager.Instance.ProductRepository.UpdateStockProduct(); //Nakijken!!!!!!!!
 
 
         }
@@ -146,7 +148,11 @@ namespace Syntra.Eindproject.WPF
         {
             //De geselecteerde bestellinglijn door de functie GetSelectedBestellingLijn() uit de database verwijderen
             Bestelling bestellingLijn = GetSelectedBestellingLijn();
-            DatabaseManager.Instance.BestellingRepository.DeleteBestellingLijn(bestellingLijn.BestellingLijnenId, bestellingLijn.ProductId, bestellingLijn.Aantal);
+            if (bestellingLijn != null)
+            {
+                DatabaseManager.Instance.BestellingRepository.DeleteBestellingLijn(bestellingLijn.LijnId, bestellingLijn.ProductId, bestellingLijn.Aantal);
+                DatabaseManager.Instance.ProductRepository.AddStock(bestellingLijn.ProductId, bestellingLijn.Aantal);
+            }
 
             //BestellingLijnen importeren en tonen
             List<Bestelling> bestellingLijnen = DatabaseManager.Instance.BestellingRepository.GetBestellingLijnen().ToList();
@@ -155,9 +161,6 @@ namespace Syntra.Eindproject.WPF
             //Toon de "Te Betalen totaal"
             Bestelling tebetalen = DatabaseManager.Instance.BestellingRepository.GetTotaalTeBetalen();
             TxtTotaalTeBetalen.Text = tebetalen.Totaal.ToString("0.00");
-
-
-
 
         }
 
