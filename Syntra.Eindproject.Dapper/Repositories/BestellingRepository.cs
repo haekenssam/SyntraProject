@@ -21,7 +21,7 @@ namespace Syntra.Eindproject.Dapper.Repositories
         }
 
         public void InsertBestellingLijn(int productid, float aantal)
-        {          
+        {
             if (string.IsNullOrEmpty(productid.ToString()))
             {
                 throw new BusinessException("Ongeldig product");
@@ -55,8 +55,8 @@ namespace Syntra.Eindproject.Dapper.Repositories
             bool isValid = true;
 
             var q = from p in products
-                where p.Id == productid
-                select p;
+                    where p.Id == productid
+                    select p;
 
             if (q.Any())
             {
@@ -87,7 +87,7 @@ namespace Syntra.Eindproject.Dapper.Repositories
             using (var connection = new SqlConnection(Connection.Instance.ConnectionString))
             {
                 return connection.Query<Bestelling>(
-                    @"SELECT BestellingLijnen.ID AS BestellingLijnenId, BestellingLijnen.BestellingId, Product.Naam, Product.Korting, BestellingLijnen.ProductId, 
+                    @"SELECT BestellingLijnen.ID AS LijnId, Product.Naam, Product.Korting, BestellingLijnen.ProductId, 
 	                                                    BestellingLijnen.Aantal, Product.Prijs, Product.Eenheid, BestellingLijnen.Bedrag 
 	                                                    FROM BestellingLijnen 
 	                                                    INNER JOIN Product 
@@ -236,8 +236,8 @@ namespace Syntra.Eindproject.Dapper.Repositories
             }
             Math.Round(bedrag, 2);
             return bedrag;
-            
+
         }
-   
-     }
+
+    }
 }

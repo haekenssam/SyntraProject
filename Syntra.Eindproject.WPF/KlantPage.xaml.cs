@@ -13,124 +13,105 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Syntra.Eindproject.BL;
-using Syntra.Eindproject.BL.Models;
 using Syntra.Eindproject.Dapper;
-using Syntra.Eindproject.Dapper.Repositories;
+using Syntra.Eindproject.BL.Models;
 
 namespace Syntra.Eindproject.WPF
 {
     /// <summary>
-    /// Interaction logic for BestellingPage.xaml
+    /// Interaction logic for KlantPage.xaml
     /// </summary>
     public partial class KlantPage : Page
     {
         public KlantPage()
         {
-            InitializeComponent();
+            InitializeComponent();            
         }
 
-        //Lijnen importeren en tonen
+        //WinkelwagenId aanmaken en tonen + Datagrid en textboxes resetten
+        private void KlantPage_OnLoaded(object sender, RoutedEventArgs e)
+        {
+            //Reset 
+            TxtTotaalTeBetalen.Text = "0,00";
+            TxtArtikelId.Text = string.Empty;
+            TxtHoeveelheid.Text = string.Empty;
+
+            //Datagrid resetten 
+            LstWinkelwagenLijnen.Items.Clear();
+
+            //Nieuwe WinkelwagenId aanmaken
+            DatabaseManager.Instance.WinkelwagenRepository.InsertWinkelwagen();
+
+            //WinkelwagenId opladen           
+            Winkelwagen winkelwagenNr = DatabaseManager.Instance.WinkelwagenRepository.GetWinkelWagenId();
+            TxtWinkelwagenNr.Text = winkelwagenNr.Id.ToString();
+        }
+
+        //WinkelwagenLijnen importeren en tonen
         public void Initialize()
         {
+            //WinkelwagenLijnen importeren en tonen
             List<Winkelwagen> winkelwagenLijnen = DatabaseManager.Instance.WinkelwagenRepository.GetWinkelwagenLijnen().ToList();
-            WinkelwagenLijnen.ItemsSource = winkelwagenLijnen;
-
-            List<Winkelwagen> winkelwagenLijnen2 = DatabaseManager.Instance.WinkelwagenRepository.GetWinkelwagenLijnen2().ToList();
-            WinkelwagenLijnen2.ItemsSource = winkelwagenLijnen2;
+            LstWinkelwagenLijnen.ItemsSource = winkelwagenLijnen;
         }
 
-        // Winkelwagen nummer maken
-        private void Page_Loaded(object sender, RoutedEventArgs e)
+        //(Product + hoeveelheid) toevoegen  + Toon "Totaal te betalen bedrag"
+        private void BtnWinkelwagenLijnToevoegen_Click(object sender, RoutedEventArgs e)
         {
-            DatabaseManager.Instance.WinkelwagenRepository.InsertWinkelwagen();
-        }
+            //BestellingLijn toevoegen
+            int.TryParse(TxtArtikelId.Text, out int productid);
+            float.TryParse(TxtHoeveelheid.Text, out float aantal);
 
-        // Button product inscannen
-        private void BtnScan_Click(object sender, RoutedEventArgs e)
-        {
-            bool checktB = int.TryParse(TxtProductId.Text, out int productid);
-            bool checktB1 = float.TryParse(TxtAantal.Text, out float aantal);
-            if (checktB == false)
-            { MessageBox.Show("'Product' is niet correct ingegeven"); }
-            else if (checktB1 == false)
-            { MessageBox.Show("'Aantal' is niet correct ingegeven"); }
-            else { 
             try
             {
                 DatabaseManager.Instance.WinkelwagenRepository.InsertWinkelwagenLijnen(productid, aantal);
-                Initialize();
             }
-            catch (BusinessException ex)
+            catch (BusinessException excp)
             {
-                MessageBox.Show(ex.Message);
-            }
+                MessageBox.Show(excp.ToString());
             }
 
-            TxtProductId.Text = string.Empty;
-            TxtAantal.Text = string.Empty;
+            //TxtArtikelId + TxtHoeveelheid resetten (leegmaken)
+            TxtArtikelId.Text = string.Empty;
+            TxtHoeveelheid.Text = string.Empty;
+
+            Initialize();
+
+
+            //Toon de "Te Betalen totaal"
+            Winkelwagen totaaltebetalen = DatabaseManager.Instance.WinkelwagenRepository.GetTotaalTeBetalen();
+            Math.Round(totaaltebetalen.Totaal, 2);
+            TxtTotaalTeBetalen.Text = totaaltebetalen.Totaal.ToString("0.00");
+
         }
 
-        //Button naar kassa
-        private void BtnNrKassa_Click(object sender, RoutedEventArgs e)
+        //BestellingLijn verwijderen
+        private void BtnWinkelwagenLijnVerwijderen_Click(object sender, RoutedEventArgs e)
         {
-            this.NavigationService.Navigate(new MainMenu());
-        }
-
-
-        // Button verwijderen van de lijn
-        private void BtnVerwijder_Click(object sender, RoutedEventArgs e)
-        {
-
+            //De geselecteerde winkelwagenLijn uit de database verwijderen
             Winkelwagen winkelwagenLijn = GetSelectedWinkelwagenLijn();
-            if (winkelwagenLijn == null)
-            {
-                MessageBox.Show("Verwijderen niet mogelijk");
-            }
-            else
-            {
-                DatabaseManager.Instance.WinkelwagenRepository.DeleteWinkelwagenLijnen(winkelwagenLijn.ID);
-                Initialize();
-            }
+            DatabaseManager.Instance.WinkelwagenRepository.DeletewinkelwagenLijn(winkelwagenLijn.LijnId, winkelwagenLijn.ProductId, winkelwagenLijn.Aantal);
+
+            //WinkelwagenLijnen importeren en tonen
+            List<Winkelwagen> winkelwagenLijnen = DatabaseManager.Instance.WinkelwagenRepository.GetWinkelwagenLijnen().ToList();
+            LstWinkelwagenLijnen.ItemsSource = winkelwagenLijnen;
+
+            //Toon de "Te Betalen totaal"
+            Winkelwagen tebetalen = DatabaseManager.Instance.WinkelwagenRepository.GetTotaalTeBetalen();
+            TxtTotaalTeBetalen.Text = tebetalen.Totaal.ToString("0.00");
         }
 
-        // Button update Lijn
-        private void btnUpdateLijn(object sender, RoutedEventArgs e)
-        {
-
-            bool check1tB = float.TryParse(TxtAantal.Text, out float AantalProdWinkelwagen);
-            Winkelwagen winkelwagenLijn = GetSelectedWinkelwagenLijn();
-            if (winkelwagenLijn == null)
-            {
-                //throw new BusinessException("Niet alle velden zijn ingevuld!");
-                MessageBox.Show("Gelieve een lijn te selecteren");
-            }
-            else if (check1tB == false)
-            {
-                //throw new BusinessException("Niet alle velden zijn ingevuld!");
-                MessageBox.Show("'aantal' niet correct ingegeven");
-            }
-            else
-            {
-                try
-                {
-                    DatabaseManager.Instance.WinkelwagenRepository.UpdateWinkelwagenLijnen(winkelwagenLijn.ID, AantalProdWinkelwagen);
-                    Initialize();
-                }
-                catch (BusinessException ex)
-                {
-                    MessageBox.Show(ex.Message);
-
-                }
-            }
-
-        }
-
-        // Geselecteerde lijn importeren
+        //WinkelwagenLijn Selecteren
         private Winkelwagen GetSelectedWinkelwagenLijn()
         {
-            Winkelwagen current = WinkelwagenLijnen.SelectedItem as Winkelwagen;
+            Winkelwagen selectedwinkelwagenLijn = LstWinkelwagenLijnen.SelectedItem as Winkelwagen;
 
-            return current;
+            return selectedwinkelwagenLijn;
+        }
+
+        private void BtnNaarDeKassa_Click(object sender, RoutedEventArgs e)
+        {
+            NavigationService.Navigate(new KlantBestellingPage());
         }
     }
 }

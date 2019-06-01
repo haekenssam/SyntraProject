@@ -8,7 +8,7 @@ namespace Syntra.Eindproject.BL
 {
     public class Bestelling : Product
     {
-        public int ID { get; set; }
+        public int Id { get; set; }
         public float Totaal { get; set; }
         public DateTime Datum { get; set; }
         public int BestellingId { get; set; }
@@ -24,5 +24,6 @@ namespace Syntra.Eindproject.BL
         public string Hoevl { get; set; }
         public string EenheidsPrijs { get; set; }
         public string KortingPercentage { get; set; }
+        public int LijnId { get; set; }
     }
 }

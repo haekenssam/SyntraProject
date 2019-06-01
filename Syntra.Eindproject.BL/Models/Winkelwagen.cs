@@ -9,7 +9,7 @@ namespace Syntra.Eindproject.BL.Models
     public class Winkelwagen
     {
 
-        public int ID { get; set; }
+        public int Id { get; set; }
         public int WinkelwagenId { get; set; }
         public int ProductId { get; set; }
         public float Aantal { get; set; }
@@ -19,9 +19,12 @@ namespace Syntra.Eindproject.BL.Models
         public string Soort { get; set; }
         public string VervalDatum { get; set; }
         public float Subtotaal { get; set; }
-        public float TotaalPrijsLijst { get; set; }
+        public float Totaal { get; set; }
         public decimal Korting { get; set; }
         public decimal Bedrag { get; set; }
+        public int WinkelwagenLijnenId { get; set; }
+        public int WinkelwagenNr { get; set; }
+        public int LijnId { get; set; }
 
         //constructor
         public Winkelwagen()

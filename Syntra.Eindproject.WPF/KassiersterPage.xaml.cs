@@ -14,6 +14,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Syntra.Eindproject.BL;
 using Syntra.Eindproject.Dapper;
+using Syntra.Eindproject.BL.Models;
 
 namespace Syntra.Eindproject.WPF
 {
@@ -24,7 +25,7 @@ namespace Syntra.Eindproject.WPF
     {
         public KassiersterPage()
         {
-            InitializeComponent();   
+            InitializeComponent();
         }
 
         //BestellingId aanmaken en tonen als FactuurNr + Datagrid en textboxes resetten
@@ -59,15 +60,15 @@ namespace Syntra.Eindproject.WPF
             int.TryParse(TxtArtikelId.Text, out int productid);
             float.TryParse(TxtHoeveelheid.Text, out float aantal);
 
-                try
-                {
-                    DatabaseManager.Instance.BestellingRepository.InsertBestellingLijn(productid, aantal);
-                }
-                catch (BusinessException excp)
-                {
-                    MessageBox.Show(excp.ToString());
-                }
-            
+            try
+            {
+                DatabaseManager.Instance.BestellingRepository.InsertBestellingLijn(productid, aantal);
+            }
+            catch (BusinessException excp)
+            {
+                MessageBox.Show(excp.ToString());
+            }
+
             //TxtArtikelId + TxtHoeveelheid resetten (leegmaken)
             TxtArtikelId.Text = string.Empty;
             TxtHoeveelheid.Text = string.Empty;
@@ -77,7 +78,7 @@ namespace Syntra.Eindproject.WPF
 
             //Toon de "Te Betalen totaal"
             Bestelling totaaltebetalen = DatabaseManager.Instance.BestellingRepository.GetTotaalTeBetalen();
-            Math.Round(totaaltebetalen.Totaal, 2);           
+            Math.Round(totaaltebetalen.Totaal, 2);
             TxtTotaalTeBetalen.Text = totaaltebetalen.Totaal.ToString("0.00");
 
         }
@@ -105,7 +106,7 @@ namespace Syntra.Eindproject.WPF
             DatabaseManager.Instance.ProductRepository.UpdateStockProduct();
 
 
-         }
+        }
 
         //Volgende klant
         private void BtnVolgendeKlant_Click(object sender, RoutedEventArgs e)
@@ -143,7 +144,7 @@ namespace Syntra.Eindproject.WPF
 
             //Toon de "Te Betalen totaal"
             Bestelling tebetalen = DatabaseManager.Instance.BestellingRepository.GetTotaalTeBetalen();
-            TxtTotaalTeBetalen.Text = tebetalen.Totaal.ToString();
+            TxtTotaalTeBetalen.Text = tebetalen.Totaal.ToString("0.00");
 
 
 
@@ -168,6 +169,23 @@ namespace Syntra.Eindproject.WPF
         private void TerugNaarHoofdMenu_Click(object sender, RoutedEventArgs e)
         {
             NavigationService.Navigate(new MainMenu());
+        }
+
+        private void BtnBestellingNrToevoegen_Click(object sender, RoutedEventArgs e)
+        {
+            LstBestellingLijnen.Items.Clear();
+
+            int.TryParse(TxtBestellingNrToevoegen.Text, out int winkelwagenNr);
+            TxtFactuurNummer.Text = winkelwagenNr.ToString();
+
+            List <Winkelwagen> winkelwagenLijnen = DatabaseManager.Instance.WinkelwagenRepository.GetWinkelwagenLijnen2(winkelwagenNr).ToList();
+            LstBestellingLijnen.ItemsSource = winkelwagenLijnen;
+
+            //Toon de "Te Betalen totaal"
+            Winkelwagen totaaltebetalen = DatabaseManager.Instance.WinkelwagenRepository.GetTotaalTeBetalen2();
+            Math.Round(totaaltebetalen.Totaal, 2);
+            TxtTotaalTeBetalen.Text = totaaltebetalen.Totaal.ToString("0.00");
+
         }
     }
 }
