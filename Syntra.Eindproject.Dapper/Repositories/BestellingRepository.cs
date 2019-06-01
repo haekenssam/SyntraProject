@@ -239,5 +239,39 @@ namespace Syntra.Eindproject.Dapper.Repositories
 
         }
 
+        public void UpdateTotaalBestelling(int id, float totaalTeBetalen)
+        {
+            using (SqlConnection connection = new SqlConnection(Connection.Instance.ConnectionString))
+            {
+                connection.Execute(@"UPDATE Bestelling
+                                     SET Totaal = @totaaltebetalen where ID = @id
+                                     ",
+                                 new
+                                 {
+                                     TotaalTeBetalen = totaalTeBetalen,
+                                     Id =id
+                                 }    
+                                     );
+            }
+        }
+
+        public void DeleteEmptyBestellingLijnen()
+        {
+            using (SqlConnection connection = new SqlConnection(Connection.Instance.ConnectionString))
+            {
+                connection.Execute(@"DELETE BestellingLijnen FROM BestellingLijnen 
+                                     INNER JOIN Bestelling 
+                                     ON BestellingLijnen.BestellingId = Bestelling.ID
+                                     WHERE Bestelling.Totaal = 0 ");
+            }
+        }
+
+        public void DeleteEmptyBestelling()
+        {
+            using (SqlConnection connection = new SqlConnection(Connection.Instance.ConnectionString))
+            {
+                connection.Execute(@"DELETE Bestelling FROM Bestelling WHERE Totaal = 0");
+            }
+        }
     }
 }

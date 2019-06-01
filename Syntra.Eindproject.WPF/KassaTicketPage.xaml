@@ -7,7 +7,7 @@
       mc:Ignorable="d"
       Loaded="KassaTicketPage_OnLoaded"
       Background="DarkGray"
-      d:DesignHeight="595" d:DesignWidth="421"
+      d:DesignHeight="600" d:DesignWidth="900"
       Title="KassaTicketPage">
     <!--A5 72 PPI/DPI -->
 

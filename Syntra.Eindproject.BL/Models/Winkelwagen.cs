@@ -25,6 +25,7 @@ namespace Syntra.Eindproject.BL.Models
         public int WinkelwagenLijnenId { get; set; }
         public int WinkelwagenNr { get; set; }
         public int LijnId { get; set; }
+        public float TotaalTeBetalen { get; set; }
 
         //constructor
         public Winkelwagen()

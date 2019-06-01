@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:Syntra.Eindproject.WPF"
         mc:Ignorable="d"
         Loaded="Window_Loaded"
-        Title="MainMenu" Height="450" Width="800">
+        Title="MainMenu" Height="600" Width="900">
 
     <Grid>
         <Frame Name="Frame" NavigationUIVisibility="Hidden"></Frame>

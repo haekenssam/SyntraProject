@@ -31,10 +31,15 @@ namespace Syntra.Eindproject.WPF
         //BestellingId aanmaken en tonen als FactuurNr + Datagrid en textboxes resetten
         private void KassiersterPage_OnLoaded(object sender, RoutedEventArgs e)
         {
+            //Tabellen BestellingLijnen en Bestelling leegmaken van de rijen waar "Totaal = 0" in de tabel Bestelling
+            DatabaseManager.Instance.BestellingRepository.DeleteEmptyBestellingLijnen();
+            DatabaseManager.Instance.BestellingRepository.DeleteEmptyBestelling();
+
             // TxtTotaalTeBetalen, TxtBetaald en TxtTerugBetalen resetten naar 0
             TxtTotaalTeBetalen.Text = "0,00";
             TxtBetaald.Text = "0,00";
             TxtTerugBetalen.Text = "0,00";
+            TxtBestellingNrToevoegen.Text = string.Empty;
 
             //Datagrid resetten + 1 een nieuwe BestellingId aanmaken
             LstBestellingLijnen.Items.Clear();
@@ -96,11 +101,16 @@ namespace Syntra.Eindproject.WPF
 
                 TxtTerugBetalen.Text = terugBetalen.ToString("0.00");
                 DatabaseManager.Instance.BestellingRepository.InsertBetaling(totaalTeBetalen, betaald, terugBetalen);
+                MessageBox.Show("Betaling uitgevoerd");
             }
             catch (BusinessException excp)
             {
                 MessageBox.Show(excp.Message);
             }
+
+            //update veld Totaal in de tabel Bestelling
+            int.TryParse(TxtFactuurNummer.Text, out int bestellingid);
+            DatabaseManager.Instance.BestellingRepository.UpdateTotaalBestelling(bestellingid, totaalTeBetalen);
 
             //Product Stock aanpassen
             DatabaseManager.Instance.ProductRepository.UpdateStockProduct();
@@ -159,7 +169,7 @@ namespace Syntra.Eindproject.WPF
             return selectedBestellingLijn;
         }
 
-        //KassaTicket aanmaken+printen
+        //KassaTicket aanmaken+(printen)
         private void BtnKassaTicket_Click(object sender, RoutedEventArgs e)
         {
             NavigationService.Navigate(new KassaTicketPage());
@@ -171,21 +181,38 @@ namespace Syntra.Eindproject.WPF
             NavigationService.Navigate(new MainMenu());
         }
 
+        //Bestelling van de klant intypen
         private void BtnBestellingNrToevoegen_Click(object sender, RoutedEventArgs e)
         {
             LstBestellingLijnen.Items.Clear();
-
+            
             int.TryParse(TxtBestellingNrToevoegen.Text, out int winkelwagenNr);
-            TxtFactuurNummer.Text = winkelwagenNr.ToString();
 
-            List <Winkelwagen> winkelwagenLijnen = DatabaseManager.Instance.WinkelwagenRepository.GetWinkelwagenLijnen2(winkelwagenNr).ToList();
-            LstBestellingLijnen.ItemsSource = winkelwagenLijnen;
+            //WinkelwagenLijnen kopieren naar BestellingLijnen
+            List<Winkelwagen> winkelwagenLijnen = DatabaseManager.Instance.WinkelwagenRepository.GetWinkelwagenLijnen2(winkelwagenNr).ToList();                      
+            foreach (Winkelwagen  item in winkelwagenLijnen)
+            {
+                try
+                {
+                    DatabaseManager.Instance.BestellingRepository.InsertBestellingLijn(item.ProductId, item.Aantal);
+                }
+                catch (BusinessException excp)
+                {
+                    MessageBox.Show(excp.ToString());
+                }
+            }
+
+            //BestellingLijnen importeren en tonen
+            List<Bestelling> bestellingLijnen = DatabaseManager.Instance.BestellingRepository.GetBestellingLijnen().ToList();
+            LstBestellingLijnen.ItemsSource = bestellingLijnen;
 
             //Toon de "Te Betalen totaal"
-            Winkelwagen totaaltebetalen = DatabaseManager.Instance.WinkelwagenRepository.GetTotaalTeBetalen2();
+            Bestelling totaaltebetalen = DatabaseManager.Instance.BestellingRepository.GetTotaalTeBetalen();
             Math.Round(totaaltebetalen.Totaal, 2);
             TxtTotaalTeBetalen.Text = totaaltebetalen.Totaal.ToString("0.00");
 
+            //Reset TxtBestellingNrToevoegen.Text
+            TxtBestellingNrToevoegen.Text = string.Empty;
         }
     }
 }

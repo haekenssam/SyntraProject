@@ -7,7 +7,7 @@
       mc:Ignorable="d"
       Loaded="KassiersterPage_OnLoaded"
       Background="DarkGray"
-      d:DesignHeight="600" d:DesignWidth="1000"
+      d:DesignHeight="600" d:DesignWidth="900"
       Title="KassiersterPage">
 
     <Grid>

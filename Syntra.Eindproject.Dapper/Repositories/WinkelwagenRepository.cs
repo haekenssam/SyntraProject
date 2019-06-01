@@ -79,7 +79,6 @@ namespace Syntra.Eindproject.Dapper.Repositories
             }
         }
 
-
         //WinkelwagenLijnen2 (OK) 
         public IEnumerable<Winkelwagen> GetWinkelwagenLijnen2(int winkelwagenNr)
         {
@@ -116,7 +115,7 @@ namespace Syntra.Eindproject.Dapper.Repositories
 
         }
 
-        //Delete WinkelwagenLijnen
+        //Delete WinkelwagenLijnen (OK)
         public void DeletewinkelwagenLijn(int winkelwagenLijnenId, int productId, float aantal)
         {
             using (SqlConnection connection = new SqlConnection(Connection.Instance.ConnectionString))
@@ -133,6 +132,7 @@ namespace Syntra.Eindproject.Dapper.Repositories
             }
         }
 
+        //MOET NAAR Product Repository?
         public bool IsValidProduct(int productid)
         {
             List<Product> products = GetProducts().ToList();
@@ -154,6 +154,7 @@ namespace Syntra.Eindproject.Dapper.Repositories
             return isValid;
         }
 
+        //TotaalTeBetalen (OK)
         public Winkelwagen GetTotaalTeBetalen2()
         {
             using (var connection = new SqlConnection(Connection.Instance.ConnectionString))
@@ -166,6 +167,46 @@ namespace Syntra.Eindproject.Dapper.Repositories
 
 
         }
+
+        //Insert totaal te betalen bedrag in Totaalprijs in tabel Winkelwagen (OK)
+        public void UpdateTotaalWinkelWagen(int id, float totaalTeBetalen)
+        {
+            using (SqlConnection connection = new SqlConnection(Connection.Instance.ConnectionString))
+            {
+                connection.Execute(@"UPDATE Winkelwagen
+                                     SET Totaalprijs
+ = @totaaltebetalen where ID = @id
+                                     ",
+                                 new
+                                 {
+                                     TotaalTeBetalen = totaalTeBetalen,
+                                     Id = id
+                                 }
+                                     );
+            }
+        }
+
+        // (OK)
+        public void DeleteEmptyWinkelwagenLijnen()
+        {
+            using (SqlConnection connection = new SqlConnection(Connection.Instance.ConnectionString))
+            {
+                connection.Execute(@"DELETE WinkelwagenLijnen FROM WinkelwagenLijnen 
+                                     INNER JOIN Winkelwagen 
+                                     ON WinkelwagenLijnen.WinkelwagenId = Winkelwagen.ID
+                                     WHERE Winkelwagen.Totaalprijs = 0 ");
+            }
+        }
+
+        // (OK)
+        public void DeleteEmptyWinkelwagen()
+        {
+            using (SqlConnection connection = new SqlConnection(Connection.Instance.ConnectionString))
+            {
+                connection.Execute(@"DELETE Winkelwagen FROM Winkelwagen WHERE Totaalprijs = 0");
+            }
+        }
+
 
         //******************************************************************************************************************************
 

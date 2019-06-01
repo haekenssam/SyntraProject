@@ -31,6 +31,11 @@ namespace Syntra.Eindproject.WPF
         //WinkelwagenId aanmaken en tonen + Datagrid en textboxes resetten
         private void KlantPage_OnLoaded(object sender, RoutedEventArgs e)
         {
+            //Tabellen WinkelwagenLijnen en Winkelwagen leegmaken van de rijen waar "Totaal = 0" in de tabel Winkelwagen
+            DatabaseManager.Instance.WinkelwagenRepository.DeleteEmptyWinkelwagenLijnen();
+            DatabaseManager.Instance.WinkelwagenRepository.DeleteEmptyWinkelwagen();
+
+
             //Reset 
             TxtTotaalTeBetalen.Text = "0,00";
             TxtArtikelId.Text = string.Empty;
@@ -109,9 +114,15 @@ namespace Syntra.Eindproject.WPF
             return selectedwinkelwagenLijn;
         }
 
+        //Naar De kassa + Update veld Totaal in de tabel Winkelwagen
         private void BtnNaarDeKassa_Click(object sender, RoutedEventArgs e)
         {
+            int.TryParse(TxtWinkelwagenNr.Text, out int winkelwagenid);
+            float.TryParse(TxtTotaalTeBetalen.Text, out float totaaltebetalen);
+            DatabaseManager.Instance.WinkelwagenRepository.UpdateTotaalWinkelWagen(winkelwagenid, totaaltebetalen);
+
             NavigationService.Navigate(new KlantBestellingPage());
+            
         }
     }
 }
