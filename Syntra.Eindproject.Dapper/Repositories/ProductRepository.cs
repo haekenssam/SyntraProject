@@ -120,7 +120,7 @@ namespace Syntra.Eindproject.Dapper
                 
             }
         }
-
+        //Controle of ProductId al bestaat 
         public bool IsValidProduct(int id)
         {
            bool IsValidProduct = true;
@@ -136,7 +136,7 @@ namespace Syntra.Eindproject.Dapper
 
            return IsValidProduct;
         }
-
+        //Update van de stock in winkelwagen en kassierster
         public void UpdateStockProduct(double Aantal)
         {
 
@@ -155,7 +155,7 @@ namespace Syntra.Eindproject.Dapper
                                      });
             }
         }
-
+        //Controle van de actuele stock 
         public double ControleStock(int ProductId, Double Aantal)
         {
             List<Product> products = GetProducts().ToList();
@@ -190,7 +190,7 @@ namespace Syntra.Eindproject.Dapper
 
             return Aantal;
         }
-
+        //Als lijnen verwijderd worden wordt de stock terug aangepast
         public void AddStock(int ProductId, double Aantal)
         {
             using(var connection = new SqlConnection(Connection.Instance.ConnectionString))
