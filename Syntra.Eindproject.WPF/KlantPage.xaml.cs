@@ -95,7 +95,7 @@ namespace Syntra.Eindproject.WPF
             //Toon de "Te Betalen totaal"
             Winkelwagen totaaltebetalen = DatabaseManager.Instance.WinkelwagenRepository.GetTotaalTeBetalen();
             Math.Round(totaaltebetalen.Totaal, 2);
-            TxtTotaalTeBetalen.Text = totaaltebetalen.Totaal.ToString("0,00");
+            TxtTotaalTeBetalen.Text = totaaltebetalen.Totaal.ToString("0.00");
 
         }
 
@@ -117,7 +117,7 @@ namespace Syntra.Eindproject.WPF
 
             //Toon de "Te Betalen totaal"
             Winkelwagen tebetalen = DatabaseManager.Instance.WinkelwagenRepository.GetTotaalTeBetalen();
-            TxtTotaalTeBetalen.Text = tebetalen.Totaal.ToString("0,00");
+            TxtTotaalTeBetalen.Text = tebetalen.Totaal.ToString("0.00");
         }
 
         //WinkelwagenLijn Selecteren
