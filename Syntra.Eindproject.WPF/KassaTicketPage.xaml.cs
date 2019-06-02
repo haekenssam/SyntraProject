@@ -59,9 +59,9 @@ namespace Syntra.Eindproject.WPF
             Math.Round(betaald.Betaald, 2);
             Math.Round(terug.Terug, 2);
 
-            TxtBetaling.Text = "Totaal te betalen: " + "\t" + totaal.Totaal.ToString("0,00") + " €" + "\n" 
-                             + "Betaald: " +"\t" + "\t" + betaald.Betaald.ToString("0,00") + " €" + "\n"
-                             + "Terug: " + "\t" + "\t" + terug.Terug.ToString("0,00") + " €" + "\n" +"\n"
+            TxtBetaling.Text = "Totaal te betalen: " + "\t" + totaal.Totaal.ToString("0.00") + " €" + "\n" 
+                             + "Betaald: " +"\t" + "\t" + betaald.Betaald.ToString("0.00") + " €" + "\n"
+                             + "Terug: " + "\t" + "\t" + terug.Terug.ToString("0.00") + " €" + "\n" +"\n"
                              + "Dank u en tot ziens!";
             //5. Print kassaticket
 
