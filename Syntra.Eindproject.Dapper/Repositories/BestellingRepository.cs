@@ -11,6 +11,7 @@ namespace Syntra.Eindproject.Dapper.Repositories
 {
     public class BestellingRepository : ProductRepository
     {
+        //Een lege Bestelling & BestellingId aanmaken
         public void InsertBestelling()
         {
             using (var connection = new SqlConnection(Connection.Instance.ConnectionString))
@@ -20,6 +21,7 @@ namespace Syntra.Eindproject.Dapper.Repositories
             }
         }
 
+        //BestellingLijn toevoegen
         public void InsertBestellingLijn(int productid, float aantal)
         {
             if (string.IsNullOrEmpty(productid.ToString()))
@@ -47,8 +49,7 @@ namespace Syntra.Eindproject.Dapper.Repositories
             }
         }
 
-        //Controle productid --> wordt bij Insertbestellinglijn() opgeroepen.
-        //Deze moet naar ProductRepository!!!!
+        //Controle of ProductId al bestaat 
         public bool IsValidProduct(int productid)
         {
             List<Product> products = GetProducts().ToList();
@@ -70,19 +71,8 @@ namespace Syntra.Eindproject.Dapper.Repositories
             return isValid;
         }
 
-        public IEnumerable<Bestelling> GetBestelling()
-        {
-            using (var connection = new SqlConnection(Connection.Instance.ConnectionString))
-            {
-                return connection.Query<Bestelling>(
-                    @"select prod.Naam, bestl.Aantal, Prod.Eenheid, prod.Prijs, (prod.Prijs * bestl.aantal) as Totaal from Bestelling best
-                                        left join BestellingLijnen bestl on bestl.BestellingId = best.Id
-                                        left join Product prod on prod.id = bestl.ProductId
-                                        where best.Id = (select top 1 Id from Bestelling order by id desc)");
-            }
-        }
-
-        public IEnumerable<Bestelling> GetBestellingLijnen()
+        //BestellingLijnen importeren
+        public IEnumerable<Bestelling> GetBestellingLijnen(int bestellingId)
         {
             using (var connection = new SqlConnection(Connection.Instance.ConnectionString))
             {
@@ -92,11 +82,16 @@ namespace Syntra.Eindproject.Dapper.Repositories
 	                                                    FROM BestellingLijnen 
 	                                                    INNER JOIN Product 
 	                                                    on Product.Id = BestellingLijnen.ProductId
-	                                                    Where BestellingId = (select top 1 Id from Bestelling order by id desc)");
+	                                                    Where BestellingId = @bestellingId",
+                    new
+                    {
+                        BestellingId = bestellingId
+                    });
 
             }
         }
 
+        //De laatste aangemaakte BestellingId importeren
         public Bestelling GetBestellingId()
         {
             using (var connection = new SqlConnection(Connection.Instance.ConnectionString))
@@ -108,7 +103,8 @@ namespace Syntra.Eindproject.Dapper.Repositories
 
         }
 
-        public Bestelling GetTotaalTeBetalen()
+        //Totaal te betalen bedrag importeren
+        public Bestelling GetTotaalTeBetalen(int bestellingId)
         {
             //IEnumerable<Bestelling> getBestellingId = GetBestellingId();
             //IEnumerable<Bestelling> getBestellingLijnenId = GetBestellingLijnenId();
@@ -121,22 +117,18 @@ namespace Syntra.Eindproject.Dapper.Repositories
                 return connection.QueryFirst<Bestelling>(
                     @"select Round(Sum(Bedrag),2)  As Totaal
                         from BestellingLijnen
-                        Where BestellingId = (select top 1 Id from Bestelling order by id desc) ");
+                        Where BestellingId = @bestellingId ",
+
+                    new
+                    {
+                        BestellingId = bestellingId
+                    });
             }
 
 
         }
 
-        public Bestelling GetBestellingLijnenId()
-        {
-            using (var connection = new SqlConnection(Connection.Instance.ConnectionString))
-            {
-                return connection.QueryFirst<Bestelling>(
-                    @"select top 1 BestellingId from BestellingLijnen order by id desc ");
-            }
-
-        }
-
+        //BestellingLijn verwijderen
         public void DeleteBestellingLijn(int bestellingLijnenId, int productId, float aantal)
         {
             using (SqlConnection connection = new SqlConnection(Connection.Instance.ConnectionString))
@@ -153,7 +145,8 @@ namespace Syntra.Eindproject.Dapper.Repositories
             }
         }
 
-        public void InsertBetaling(float totaalTeBetalen, float betaald, float terugBetalen) //ID van bestelling toevoegen als parameter?
+        //Totaal te betalen bedrag, betaald bedrag door de klant en wat de klant moet terugkrijgen bewaren in tabel Betalingen
+        public void InsertBetaling(float totaalTeBetalen, float betaald, float terugBetalen)
         {
             using (var connection = new SqlConnection(Connection.Instance.ConnectionString))
             {
@@ -169,6 +162,7 @@ namespace Syntra.Eindproject.Dapper.Repositories
             }
         }
 
+        //BestellingLijnen voor de kassaticket importeren (CONCAT) 
         public IEnumerable<Bestelling> GetBestellingLijnenKassaTicket(int bestellingid)
         {
             using (var connection = new SqlConnection(Connection.Instance.ConnectionString))
@@ -189,39 +183,57 @@ namespace Syntra.Eindproject.Dapper.Repositories
             }
         }
 
-        public Bestelling GetBetalingenTotaalTeBetalen()
+        //Totaal te betalen bedrag importeren
+        public Bestelling GetBetalingenTotaalTeBetalen(int bestellingId)
         {
             using (var connection = new SqlConnection(Connection.Instance.ConnectionString))
             {
                 return connection.QueryFirst<Bestelling>(
                     @"select Totaal  From Betalingen
-                    Where BestellingId = (select top 1 BestellingId from Betalingen order by BestellingId desc) ");
+                    Where BestellingId = (select top 1 BestellingId from Betalingen order by BestellingId desc) ",
+                    new
+                    {
+                        BestellingId = bestellingId
+                    });
             }
 
         }
 
-        public Bestelling GetBetalingenBetaald()
+        //Betaald bedrag door klant importeren
+        public Bestelling GetBetalingenBetaald(int bestellingId)
         {
             using (var connection = new SqlConnection(Connection.Instance.ConnectionString))
             {
                 return connection.QueryFirst<Bestelling>(
                     @"select Betaald From Betalingen 
-                    Where BestellingId = (select top 1 BestellingId from Betalingen order by BestellingId desc) ");
+                    Where BestellingId = (select top 1 BestellingId from Betalingen order by BestellingId desc) ",
+                    new
+                    {
+                        BestellingId = bestellingId
+                    }
+                    );
             }
 
         }
 
-        public Bestelling GetBetalingenTerug()
+        //Terug bedrag importeren
+        public Bestelling GetBetalingenTerug(int bestellingId)
         {
             using (var connection = new SqlConnection(Connection.Instance.ConnectionString))
             {
                 return connection.QueryFirst<Bestelling>(
                     @"select Terug  From Betalingen
-                    Where BestellingId = (select top 1 BestellingId from Betalingen order by BestellingId desc) ");
+                    Where BestellingId = (select top 1 BestellingId from Betalingen order by BestellingId desc) ",
+                    new
+                    {
+                        BestellingId = bestellingId
+                    }
+                    );
             }
 
         }
 
+        //Berekening van het terug te betalen bedrag
         public float TerugBetalenBedrag(float betaald, float totaalTeBetalen)
         {
             float bedrag = 0;
@@ -239,6 +251,7 @@ namespace Syntra.Eindproject.Dapper.Repositories
 
         }
 
+        //Totaal in tabel Bestelling updaten
         public void UpdateTotaalBestelling(int id, float totaalTeBetalen)
         {
             using (SqlConnection connection = new SqlConnection(Connection.Instance.ConnectionString))
@@ -249,12 +262,13 @@ namespace Syntra.Eindproject.Dapper.Repositories
                                  new
                                  {
                                      TotaalTeBetalen = totaalTeBetalen,
-                                     Id =id
-                                 }    
+                                     Id = id
+                                 }
                                      );
             }
         }
 
+        //Alle onnodige BestellingLijnen verwijderen
         public void DeleteEmptyBestellingLijnen()
         {
             using (SqlConnection connection = new SqlConnection(Connection.Instance.ConnectionString))
@@ -266,6 +280,7 @@ namespace Syntra.Eindproject.Dapper.Repositories
             }
         }
 
+        //Alle onnodige Bestellingen verwijderen
         public void DeleteEmptyBestelling()
         {
             using (SqlConnection connection = new SqlConnection(Connection.Instance.ConnectionString))

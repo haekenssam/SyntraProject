@@ -14,8 +14,7 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Syntra.Eindproject.BL;
 using Syntra.Eindproject.Dapper;
-using iTextSharp.text;
-using iTextSharp.text.pdf;
+
 
 
 namespace Syntra.Eindproject.WPF
@@ -51,18 +50,18 @@ namespace Syntra.Eindproject.WPF
 
             //4. Textbox invullen
             TxtBetaling.Text = string.Empty;
-
-            Bestelling totaal = DatabaseManager.Instance.BestellingRepository.GetBetalingenTotaalTeBetalen();
-            Bestelling betaald = DatabaseManager.Instance.BestellingRepository.GetBetalingenBetaald();
-            Bestelling terug = DatabaseManager.Instance.BestellingRepository.GetBetalingenTerug();
+            int.TryParse(TxtFactuurNummer.Text, out int bestellingId);
+            Bestelling totaal = DatabaseManager.Instance.BestellingRepository.GetBetalingenTotaalTeBetalen(bestellingId);
+            Bestelling betaald = DatabaseManager.Instance.BestellingRepository.GetBetalingenBetaald(bestellingId);
+            Bestelling terug = DatabaseManager.Instance.BestellingRepository.GetBetalingenTerug(bestellingId);
 
             Math.Round(totaal.Totaal, 2);
             Math.Round(betaald.Betaald, 2);
             Math.Round(terug.Terug, 2);
 
-            TxtBetaling.Text = "Totaal te betalen: " + "\t" + totaal.Totaal.ToString("0.00") + " €" + "\n" 
-                             + "Betaald: " +"\t" + "\t" + betaald.Betaald.ToString("0.00") + " €" + "\n"
-                             + "Terug: " + "\t" + "\t" + terug.Terug.ToString("0.00") + " €" + "\n" +"\n"
+            TxtBetaling.Text = "Totaal te betalen: " + "\t" + totaal.Totaal.ToString("0,00") + " €" + "\n" 
+                             + "Betaald: " +"\t" + "\t" + betaald.Betaald.ToString("0,00") + " €" + "\n"
+                             + "Terug: " + "\t" + "\t" + terug.Terug.ToString("0,00") + " €" + "\n" +"\n"
                              + "Dank u en tot ziens!";
             //5. Print kassaticket
 

@@ -39,7 +39,10 @@ namespace Syntra.Eindproject.WPF
             TxtTotaalTeBetalen.Text = "0,00";
             TxtBetaald.Text = "0,00";
             TxtTerugBetalen.Text = "0,00";
+
+            //Reset TxtBestellingNrToevoegen.Text
             TxtBestellingNrToevoegen.Text = string.Empty;
+
 
             //Datagrid resetten + 1 een nieuwe BestellingId aanmaken
             LstBestellingLijnen.Items.Clear();
@@ -50,18 +53,19 @@ namespace Syntra.Eindproject.WPF
             TxtFactuurNummer.Text = factuurNr.Id.ToString();
         }
 
-        //BestellingLijnen importeren en tonen
+        //BestellingLijnen (datagrid) importeren en tonen
         public void Initialize()
         {
             //BestellingLijnen importeren en tonen
-            List<Bestelling> bestellingLijnen = DatabaseManager.Instance.BestellingRepository.GetBestellingLijnen().ToList();
+            int.TryParse(TxtFactuurNummer.Text, out int bestellingId);
+            List<Bestelling> bestellingLijnen = DatabaseManager.Instance.BestellingRepository.GetBestellingLijnen(bestellingId).ToList();
             LstBestellingLijnen.ItemsSource = bestellingLijnen;
         }
 
-        //(Product + hoeveelheid) toevoegen = BestellingLijn toevoegen + Toon "Totaal te betalen bedrag"
-        private void BtnBestellingLijnToevoegen_Click(object sender, RoutedEventArgs e)
+        //(Product + hoeveelheid) toevoegen = BestellingLijn toevoegen + Stock updaten + Toon "Totaal te betalen bedrag"
+        private void BtnInscannen_Click(object sender, RoutedEventArgs e)
         {
-            //BestellingLijn toevoegen
+            //BestellingLijn toevoegen + Stock update
             bool ProductId = int.TryParse(TxtArtikelId.Text, out int productid);
             bool Aantal = float.TryParse(TxtHoeveelheid.Text, out float aantal);
 
@@ -75,16 +79,15 @@ namespace Syntra.Eindproject.WPF
                 }
                 catch (BusinessException excp)
                 {
-
                     MessageBox.Show(excp.Message);
                 }
-                
+
             }
             else
             {
                 MessageBox.Show("Ongeldige invoer");
             }
-            
+
             //TxtArtikelId + TxtHoeveelheid resetten (leegmaken)
             TxtArtikelId.Text = string.Empty;
             TxtHoeveelheid.Text = string.Empty;
@@ -93,7 +96,8 @@ namespace Syntra.Eindproject.WPF
 
 
             //Toon de "Te Betalen totaal"
-            Bestelling totaaltebetalen = DatabaseManager.Instance.BestellingRepository.GetTotaalTeBetalen();
+            int.TryParse(TxtFactuurNummer.Text, out int bestellingId);
+            Bestelling totaaltebetalen = DatabaseManager.Instance.BestellingRepository.GetTotaalTeBetalen(bestellingId);
             Math.Round(totaaltebetalen.Totaal, 2);
             TxtTotaalTeBetalen.Text = totaaltebetalen.Totaal.ToString("0.00");
 
@@ -120,18 +124,14 @@ namespace Syntra.Eindproject.WPF
                     MessageBox.Show(excp.Message);
                 }
             }
-            
+
             //update veld Totaal in de tabel Bestelling
             int.TryParse(TxtFactuurNummer.Text, out int bestellingid);
             DatabaseManager.Instance.BestellingRepository.UpdateTotaalBestelling(bestellingid, totaalTeBetalen);
 
-            //Product Stock aanpassen
-            //DatabaseManager.Instance.ProductRepository.UpdateStockProduct(); //Nakijken!!!!!!!!
-
-
         }
 
-        //Volgende klant
+        //Volgende klant indien de klant geen kassaticket wenst te krijgen
         private void BtnVolgendeKlant_Click(object sender, RoutedEventArgs e)
         {
             //FactuurNr Textbox resetten
@@ -141,7 +141,8 @@ namespace Syntra.Eindproject.WPF
             DatabaseManager.Instance.BestellingRepository.InsertBestelling();
 
             //Datagrid resetten
-            List<Bestelling> bestellingLijnen = DatabaseManager.Instance.BestellingRepository.GetBestellingLijnen().ToList();
+            int.TryParse(TxtFactuurNummer.Text, out int bestellingId);
+            List<Bestelling> bestellingLijnen = DatabaseManager.Instance.BestellingRepository.GetBestellingLijnen(bestellingId).ToList();
             LstBestellingLijnen.ItemsSource = bestellingLijnen;
 
             //FactuurNr = BestellingId opladen           
@@ -157,7 +158,7 @@ namespace Syntra.Eindproject.WPF
         //BestellingLijn verwijderen
         private void BestellingLijnVerwijderen_Click(object sender, RoutedEventArgs e)
         {
-            //De geselecteerde bestellinglijn door de functie GetSelectedBestellingLijn() uit de database verwijderen
+            //De geselecteerde bestellinglijn verwijderen en stock opnieuw updaten
             Bestelling bestellingLijn = GetSelectedBestellingLijn();
             if (bestellingLijn != null)
             {
@@ -166,11 +167,12 @@ namespace Syntra.Eindproject.WPF
             }
 
             //BestellingLijnen importeren en tonen
-            List<Bestelling> bestellingLijnen = DatabaseManager.Instance.BestellingRepository.GetBestellingLijnen().ToList();
+            int.TryParse(TxtFactuurNummer.Text, out int bestellingId);
+            List<Bestelling> bestellingLijnen = DatabaseManager.Instance.BestellingRepository.GetBestellingLijnen(bestellingId).ToList();
             LstBestellingLijnen.ItemsSource = bestellingLijnen;
 
             //Toon de "Te Betalen totaal"
-            Bestelling tebetalen = DatabaseManager.Instance.BestellingRepository.GetTotaalTeBetalen();
+            Bestelling tebetalen = DatabaseManager.Instance.BestellingRepository.GetTotaalTeBetalen(bestellingId);
             TxtTotaalTeBetalen.Text = tebetalen.Totaal.ToString("0.00");
 
         }
@@ -183,28 +185,28 @@ namespace Syntra.Eindproject.WPF
             return selectedBestellingLijn;
         }
 
-        //KassaTicket aanmaken+(printen)
+        //KassaTicket aanmaken + (printen)
         private void BtnKassaTicket_Click(object sender, RoutedEventArgs e)
         {
             NavigationService.Navigate(new KassaTicketPage());
         }
 
         //Terug naar MainMenu
-        private void TerugNaarHoofdMenu_Click(object sender, RoutedEventArgs e)
+        private void TerugNaarMainMenu_Click(object sender, RoutedEventArgs e)
         {
             NavigationService.Navigate(new MainMenu());
         }
 
-        //Bestelling van de klant intypen
+        //BestellingNummer van de klant intypen en kopieren van WinkelwagenLijnen naar BestellingLijnen
         private void BtnBestellingNrToevoegen_Click(object sender, RoutedEventArgs e)
         {
             LstBestellingLijnen.Items.Clear();
-            
+
             int.TryParse(TxtBestellingNrToevoegen.Text, out int winkelwagenNr);
 
             //WinkelwagenLijnen kopieren naar BestellingLijnen
-            List<Winkelwagen> winkelwagenLijnen = DatabaseManager.Instance.WinkelwagenRepository.GetWinkelwagenLijnen2(winkelwagenNr).ToList();                      
-            foreach (Winkelwagen  item in winkelwagenLijnen)
+            List<Winkelwagen> winkelwagenLijnen = DatabaseManager.Instance.WinkelwagenRepository.GetWinkelwagenLijnen2(winkelwagenNr).ToList();
+            foreach (Winkelwagen item in winkelwagenLijnen)
             {
                 try
                 {
@@ -217,11 +219,12 @@ namespace Syntra.Eindproject.WPF
             }
 
             //BestellingLijnen importeren en tonen
-            List<Bestelling> bestellingLijnen = DatabaseManager.Instance.BestellingRepository.GetBestellingLijnen().ToList();
+            int.TryParse(TxtFactuurNummer.Text, out int bestellingId);
+            List<Bestelling> bestellingLijnen = DatabaseManager.Instance.BestellingRepository.GetBestellingLijnen(bestellingId).ToList();
             LstBestellingLijnen.ItemsSource = bestellingLijnen;
 
             //Toon de "Te Betalen totaal"
-            Bestelling totaaltebetalen = DatabaseManager.Instance.BestellingRepository.GetTotaalTeBetalen();
+            Bestelling totaaltebetalen = DatabaseManager.Instance.BestellingRepository.GetTotaalTeBetalen(bestellingId);
             Math.Round(totaaltebetalen.Totaal, 2);
             TxtTotaalTeBetalen.Text = totaaltebetalen.Totaal.ToString("0.00");
 

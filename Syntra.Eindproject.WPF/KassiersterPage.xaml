@@ -173,7 +173,7 @@
                        VerticalAlignment="Center"   FontWeight="Bold" Margin="11,0.6,0,0.8" Height="29" Width="80" />
                 <TextBox Name="TxtArtikelId" Grid.Column="2" Grid.Row="11" Margin="0.2,0.6,19.2,0.8" Grid.ColumnSpan="2"/>
                 <TextBox Name="TxtHoeveelheid"  Grid.Row="12" Grid.Column="2" Margin="0.2,1.2,19.2,1.8" Grid.RowSpan="2" Grid.ColumnSpan="2"/>
-                <Button Name="BtnBestellingLijnToevoegen" Content="Inscannen" Grid.Row="14" Grid.Column="0" FontWeight="Bold" Margin="1,1.2,0.4,0.8" Grid.RowSpan="2" Click="BtnBestellingLijnToevoegen_Click" />
+                <Button Name="BtnInscannen" Content="Inscannen" Grid.Row="14" Grid.Column="0" FontWeight="Bold" Margin="1,1.2,0.4,0.8" Grid.RowSpan="2" Click="BtnInscannen_Click" />
                 <Button Name="BestellingLijnVerwijderen" Content="Verwijderen" Grid.Row="14" Grid.Column="2" FontWeight="Bold" Margin="0.2,1.2,19.2,0.8" Grid.RowSpan="2" Click="BestellingLijnVerwijderen_Click" Grid.ColumnSpan="2" />
 
                 <!--*******************************************************************************************************************-->
@@ -200,7 +200,7 @@
                 <Image x:Name="Syntra_Logo" Grid.Column="12" Margin="0,0.4,0.6,0" Grid.Row="2" Grid.RowSpan="5" Source="Documents/SyntraLogo.gif" HorizontalAlignment="Right" Width="81"/>
                 <!--********************************************************************************************************************-->
                 <!--Terug naar MainMenu + BestellingNummer ingeven-->
-                <Button x:Name="TerugNaarHoofdMenu" Content="Main Menu" Grid.Row="14"  FontWeight="Bold" Margin="0.8,1.2,4.6,0.8" Click="TerugNaarHoofdMenu_Click" Grid.Column="6" Grid.RowSpan="2"/>
+                <Button x:Name="TerugNaarMainMenu" Content="Main Menu" Grid.Row="14"  FontWeight="Bold" Margin="0.8,1.2,4.6,0.8" Click="TerugNaarMainMenu_Click" Grid.Column="6" Grid.RowSpan="2"/>
                 <Label Content="BestellingNr" Grid.Column="4" Margin="0,0.6,1.8,0.8" Grid.Row="11" FontWeight="Bold" HorizontalAlignment="Right" Width="80"/>
                 <TextBox Name="TxtBestellingNrToevoegen" Grid.Column="6" Margin="0.8,1.6,4.6,0.8" Grid.Row="11" TextWrapping="Wrap" Text="TextBox"/>
                 <Button Name="BtnBestellingNrToevoegen" Content="Toevoegen" Grid.Column="6" Margin="0.8,0.6,4.6,1.8" Grid.Row="13" FontWeight="Bold" Click="BtnBestellingNrToevoegen_Click"/>
