@@ -178,13 +178,13 @@ namespace Syntra.Eindproject.Dapper
                 var stock = (from i in products
                              where i.Id == ProductId
                              select i.Stock).Single();
-                if (Aantal > stock)
-                {
-                    Aantal = stock;
-                }
                 if (stock == 0)
                 {
                     throw new BusinessException("Geen stock meer");
+                }
+                if (Aantal > stock)
+                {
+                    Aantal = stock;
                 }
             }
 

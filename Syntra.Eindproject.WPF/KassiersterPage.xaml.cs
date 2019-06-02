@@ -71,13 +71,14 @@ namespace Syntra.Eindproject.WPF
                 {
                     aantal = (float)DatabaseManager.Instance.ProductRepository.ControleStock(productid, aantal);
                     DatabaseManager.Instance.BestellingRepository.InsertBestellingLijn(productid, aantal);
+                    DatabaseManager.Instance.ProductRepository.UpdateStockProduct(aantal);
                 }
                 catch (BusinessException excp)
                 {
 
                     MessageBox.Show(excp.Message);
                 }
-                DatabaseManager.Instance.ProductRepository.UpdateStockProduct(aantal);
+                
             }
             else
             {
